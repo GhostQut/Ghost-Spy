@@ -25,7 +25,7 @@ local test = library.new({
     CheckKey = function(e) -- this can be nil to disable key checking
         return e == "OnePerNiger"
     end;
-    Discord = ""
+    Discord = "https://link-target.net/423094/yammihub"
 })
 
 local Farm = test:CreatePage("Farm")
