@@ -23,7 +23,7 @@ local test = library.new({
     UseLoader = true;
     Bind = "LeftShift";
     CheckKey = function(e) -- this can be nil to disable key checking
-        return e == "password"
+        return e == "OnePerNiger"
     end;
     Discord = ""
 })
@@ -111,13 +111,13 @@ Mob:CreateDropdown({
 				   if V.Name == "AttackHandler" then
 				       for I2,V2 in pairs(V.Parent:GetDescendants()) do
 				           if V2:IsA("BasePart") then
-								local A_1 = Vector3.new(V2.Position)
+								local Pos = Vector3.new(V2.Position)
 								local Event = game:GetService("ReplicatedStorage").RemoteEvents.EnergySphere
 								gr = true
 								if gr == true then
 								while gr == true and wait(0.1) do
 								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = V2.CFrame
-								Event:FireServer(A_1)
+								Event:FireServer(Pos)
 							end
 							if V2.Name == item then
 							gr = false
