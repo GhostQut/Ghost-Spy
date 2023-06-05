@@ -15,7 +15,7 @@ function TPTo(PCFrame)
 
 
 local test = library.new({
-    Name = "Script";
+    Name = "Yammi";
     ConfigFolder = "FreemScript";
     Credit = "Made by me!";
     Color = Color3.fromRGB(164, 53, 90);
@@ -46,9 +46,9 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Callback = function(FSValue) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
           while FSValue == true and wait() do
         	FS:FireServer()
-        	if FSValue == false then
-        	break
-        end
+       	  end
+		if FSValue == false then
+        	break		
         end
     end;
     -- Scroll to the bottom of the page to read more about the following two:
