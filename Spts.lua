@@ -16,7 +16,7 @@ function TPTo(PCFrame)
 
 local test = library.new({
     Name = "Script";
-    ConfigFolder = "AtlasScript";
+    ConfigFolder = "FreemScript";
     Credit = "Made by me!";
     Color = Color3.fromRGB(164, 53, 90);
     FullName = "Example Script";
@@ -25,7 +25,7 @@ local test = library.new({
     CheckKey = function(e) -- this can be nil to disable key checking
         return e == "password"
     end;
-    Discord = "https://discord.gg/yxXX7bxp"
+    Discord = ""
 })
 
 local Farm = test:CreatePage("Farm")
