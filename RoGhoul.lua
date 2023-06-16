@@ -5,6 +5,19 @@ local get = setmetatable({}, {
         return game:GetService(b) or game[b]
     end
 })
+local test = library.new({
+    Name = "Yammi";
+    ConfigFolder = "FreemScript";
+    Credit = "Made by me!";
+    Color = Color3.fromRGB(164, 53, 90);
+    FullName = "YammiHub";
+    UseLoader = true;
+    Bind = "LeftShift";
+    CheckKey = function(e) -- this can be nil to disable key checking
+        return e == "OnePerNiger"
+    end;
+    Discord = "https://link-target.net/423094/yammihub"
+})
 
 local Farm = test:CreatePage("Main")
 local Options = test:CreatePage("Farm Options")
@@ -63,20 +76,6 @@ local array = {
         R = player.PlayerFolder.Special2CD
     }
 }
-
-local test = library.new({
-    Name = "Yammi";
-    ConfigFolder = "FreemScript";
-    Credit = "Made by me!";
-    Color = Color3.fromRGB(164, 53, 90);
-    FullName = "YammiHub";
-    UseLoader = true;
-    Bind = "LeftShift";
-    CheckKey = function(e) -- this can be nil to disable key checking
-        return e == "OnePerNiger"
-    end;
-    Discord = "https://link-target.net/423094/yammihub"
-})
 
 s1:CreateDropdown({
     Name = "Mob Farm"; -- required: name of element
