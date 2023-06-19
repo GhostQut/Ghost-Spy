@@ -1,8 +1,8 @@
-local FS = game:GetService("ReplicatedStorage").RemoteEvents.FistStrength
-local PP = game:GetService("ReplicatedStorage").RemoteEvents.TrainPsychic
-local BT = game:GetService("ReplicatedStorage").RemoteEvents.Pushup
-local RedeemCode = game:GetService("ReplicatedStorage").RemoteEvents.RedeemCode
-local Respawn = game:GetService("ReplicatedStorage").Respawn
+local FS = game:GetService("ReplicatedStorage").RemoteEvents.FistStrength;
+local PP = game:GetService("ReplicatedStorage").RemoteEvents.TrainPsychic;
+local BT = game:GetService("ReplicatedStorage").RemoteEvents.Pushup;
+local RedeemCode = game:GetService("ReplicatedStorage").RemoteEvents.RedeemCode;
+local Respawn = game:GetService("ReplicatedStorage").Respawn;
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/FreemUI/main/Source.lua"))()
 
