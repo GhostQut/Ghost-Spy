@@ -204,19 +204,41 @@ local FistDrop = s3:CreateDropdown({
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 
+game:GetService("RunService").RenderStepped:Connect(function() -- update dropdown every frame with all players  
+	local tbl = {}
+	for _,v in  ipairs(game:GetService("Workspace").["Training Areas"]:GetChildren()) do
+	if string.find(v.Name,"Fs") and not table.find(tbl,v.Name)then
+            table.insert(tbl,v.Name)
+    	end
+    end
+	FistDrop:Update(tbl) -- uses namecalling, ":" instead of "."
+end)
+
+
 local BodyDrop = s3:CreateDropdown({
     Name = "Body Zones"; -- required: name of element
     Callback = function(item) -- required: function to be called an item in the dropdown is activated
         print("Dropdown button pressed:",item)
           TPTo(game:GetService("Workspace")["Training Areas"][item].CFrame)
     end;
-    Options = {"NewbieBodyArea","100BtArea","10KBtArea","100KBtArea","10MBtArea","100MBtArea","1bBtArea","100bBtArea","10Qa_BtArea","1Qi_BtArea","1Sx_BtArea","1Sp_BtArea","1Oc_BtArea","1No_BtArea","1De_BtArea"}; -- required: dropdown options
+    Options = {"NewbieBodyArea"}; -- required: dropdown options
     ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
     DefaultItemSelected = "None"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
     -- Scroll to the bottom of the page to read more about the following two:
     Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
+
+game:GetService("RunService").RenderStepped:Connect(function() -- update dropdown every frame with all players  
+	local tbl = {}
+	for _,v in  ipairs(game:GetService("Workspace").["Training Areas"]:GetChildren()) do
+	if string.find(v.Name,"Bt") and not table.find(tbl,v.Name)then
+            table.insert(tbl,v.Name)
+    	end
+    end
+	BodyDrop:Update(tbl) -- uses namecalling, ":" instead of "."
+end)
+
 
  local PsychicDrop = s3:CreateDropdown({
     Name = "Psychic Zones"; -- required: name of element
@@ -231,6 +253,15 @@ local BodyDrop = s3:CreateDropdown({
     Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
+game:GetService("RunService").RenderStepped:Connect(function() -- update dropdown every frame with all players  
+	local tbl = {}
+	for _,v in  ipairs(game:GetService("Workspace").["Training Areas"]:GetChildren()) do
+	if string.find(v.Name,"Ps") and not table.find(tbl,v.Name)then
+            table.insert(tbl,v.Name)
+    	end
+    end
+	PsychicDrop:Update(tbl) -- uses namecalling, ":" instead of "."
+end)
 
 
 
