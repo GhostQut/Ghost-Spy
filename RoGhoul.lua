@@ -1,13 +1,19 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/FreemUI/main/Source.lua"))()
+repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
+local key = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
 
-local get = setmetatable({}, {
-    __index = function(a, b)
-        return game:GetService(b) or game[b]
-    end
-})
+local dis = 10
+local dis_old = 10
+local sped = 100
+local twen = nil
+local on2 = false
+local old_on2 = false
+local rep_on = false
+local auto_cash = false
+local stag = 'One'
+
 local test = library.new({
     Name = "Yammi";
-    ConfigFolder = "FreemScript";
+    ConfigFolder = "YammiHub";
     Credit = "Made by me!";
     Color = Color3.fromRGB(164, 53, 90);
     FullName = "YammiHub";
@@ -20,566 +26,381 @@ local test = library.new({
 })
 
 local Farm = test:CreatePage("Main")
-local Options = test:CreatePage("Farm Options")
+local Options = test:CreatePage("SetUp")
 local Trainer = test:CreatePage("Trainer")
 local Misc = test:CreatePage("Misc")
+local Focus = test:CreatePage("Focus")
+local Other = test:CreatePage("Other")
 
-local s1 = Farm:CreateSection("MobFarm")
-local s2 = Farm:CreateSection("Farm")
+local s1 = Farm:CreateSection("Farm")
+local s2 = Options:CreateSection("Options")
 local s3 = Trainer:CreateSection("Trainer")
+local s4 = test:CreatePage("Focus")
 local s5 = Misc:CreateSection("Miscellaneous")
-local findobj, findobjofclass, waitforobj, fire, invoke = get.FindFirstChild, get.FindFirstChildOfClass, get.WaitForChild, Instance.new("RemoteEvent").FireServer, Instance.new("RemoteFunction").InvokeServer
-local player = get.Players.LocalPlayer
+local s6 = Other:CreateSection("Other")
 
-repeat wait() until player:FindFirstChild("PlayerFolder")
+game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, stag, "Down", CFrame.new(), CFrame.new())
+spawn(function()
+    while wait() do
+        if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+	        repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("SpawnSelection")--or wait(3)
+            repeat wait() until not game.Players.LocalPlayer.PlayerGui:FindFirstChild("SpawnSelection")--or wait(3)
+            wait(1)
+            repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
+	        game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, stag, "Down", CFrame.new(), CFrame.new())
+        end
+    end
+end)
 
-local team, remotes, stat = player.PlayerFolder.Customization.Team.Value, get.ReplicatedStorage.Remotes, player.PlayerFolder.StatsFunction
-local oldtick, farmtick = 0, 0
-local camera = workspace.CurrentCamera
-local myData = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/Scripts/main/master.lua"))().new("Ro-Ghoul Autofarm", {
-    Skills = {
-        E = false,
-        F = false,
-        C = false,
-        R = false
-    },
-    Boss = {
-        ["Gyakusatsu"] = false,
-        ["Eto Yoshimura"] = false,
-        ["Koutarou Amon"] = false,
-        ["Nishiki Nishio"] = false
-    },
-    DistanceFromNpc = 5,
-    DistanceFromBoss = 8,
-    TeleportSpeed = 150,
-    ReputationFarm = false,
-    ReputationCashout = false,
-    AutoKickWhitelist = ""
+s2:CreateSlider({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
+    Name = "Speed"; -- required: name of element
+    Flag = "Speed"; -- required: unique flag name to use
+    Min = 0; -- required: slider minimum drag
+    Max = 250; -- required: slider maximum drag (Max>Min or else script will error)
+    AllowOutOfRange = true; -- optional: determines whether the player can enter values outside of range Min:Max when typing in the TextBox. If left nil, this is false
+    Digits = 1; -- optional: digits for rounding when dragging or entering values, default is 0 (whole numbers)
+    Default = 120; -- optional: default value for slider, will be used if config saving is disabled and there is no saved data, will be the Min value if left nil
+    Callback = function(newValue) -- optional: function that will be called whenever slider flag is changed
+        sped = tonumber(newValue)
+    end;
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
+s2:CreateSlider({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
+    Name = "Distance From Mob"; -- required: name of element
+    Flag = "DistanceFromMob"; -- required: unique flag name to use
+    Min = 0; -- required: slider minimum drag
+    Max = 20; -- required: slider maximum drag (Max>Min or else script will error)
+    AllowOutOfRange = true; -- optional: determines whether the player can enter values outside of range Min:Max when typing in the TextBox. If left nil, this is false
+    Digits = 1; -- optional: digits for rounding when dragging or entering values, default is 0 (whole numbers)
+    Default = 10; -- optional: default value for slider, will be used if config saving is disabled and there is no saved data, will be the Min value if left nil
+    Callback = function(newValue) -- optional: function that will be called whenever slider flag is changed
+        dis = tonumber(newValue)
+        dis_old = tonumber(newValue)
+    end;
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 
-local array = {
-    boss = {
-        ["Gyakusatsu"] = 1250,
-        ["Eto Yoshimura"] = 1250,
-        ["Koutarou Amon"] = 750,
-        ["Nishiki Nishio"] = 250
-    },
+local ass = true
 
-    npcs = {["Aogiri Members"] = "GhoulSpawns", Investigators = "CCGSpawns", Humans = "HumanSpawns"},
-
-    stages = {"One", "Two", "Three", "Four", "Five", "Six"},
-
-    skills = {
-        E = player.PlayerFolder.Special1CD,
-        F = player.PlayerFolder.Special3CD,
-        C = player.PlayerFolder.SpecialBonusCD,
-        R = player.PlayerFolder.Special2CD
-    }
-}
-
+s1:CreateToggle({
+    Name = "AutoFarm";
+    Flag = "MyToggle";
+    Default = true;
+    Callback = function(on)
+        on2 = on
+        old_on2 = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+local on1 = false
+s1:CreateToggle({
+    Name = "Auto Collect Corpses";
+    Flag = "CollectCorpses";
+    Default = true;
+    Callback = function(on)
+        on1 = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+local whitelist = ''
 s1:CreateDropdown({
-    Name = "Mob Farm"; -- required: name of element
-    Callback = function(opt) -- required: function to be called an item in the dropdown is activated
-        end;
-    Options = array.targ = array.npcs[opt]; -- required: dropdown options
+    Name = "Type"; -- required: name of element
+    Callback = function(item) -- required: function to be called an item in the dropdown is activated
+        whitelist = item
+    end;
+    Options = {"None", "Human" ,"Aogiri" ,"Investigators"}; -- required: dropdown options
     ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
     DefaultItemSelected = "None"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
     -- Scroll to the bottom of the page to read more about the following two:
     Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
-
-
-
-s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
-    Name = "Farm Mob"; -- required: name of element
-    Flag = "FarmMob"; -- required: unique flag name to use
-    Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
-    Callback = function(FSValue) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
-           if not array.autofarm then
-        if key then
-            s1.["Farm Mob"]Text, array.autofarm = "Stop", true
-            local farmtick = tick()
-            while array.autofarm do
-                labels("tfarm", "Time elapsed: "..os.date("!%H:%M:%S", tick() - farmtick))
-                wait(1)
-            end
-        else
-            player:Kick("Failed to get the Remote key, please try to execute the script again")
-        end
-    else
-        s1.["Farm Mob"]Text, array.autofarm, array.died = "Start", false, false
+local drop = tab:AddDropdown('Mob Whitelist', function(a)
+        whitelist = a
     end
 end)
+local crum = 'cummmmmmmmmm'
+local dis1 = 5
+local last = math.huge
+local nearest = nil
+spawn(function()
+    while wait() do
+        for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do 
+            if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelist == "Eto Yoshimura") and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
+                for i2,v2 in pairs(v:GetChildren()) do 
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        local distance = (v2:FindFirstChild("HumanoidRootPart").Position - game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position).magnitude
+                        if distance < last then
+                            last = distance
+                            nearest = v2.HumanoidRootPart
+                        end
+                    end
+                end
+            end
+        end
+        if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:IsA("MeshPart") or v:IsA("Part") then
+                    v.CanCollide = false
+                end
+            end
+        end
+    end
+end)
+local times_fired = 0
+spawn(function()
+    while wait() do
+        if on2 and game.Players.LocalPlayer.PlayerGui:FindFirstChild("HUD") then
+            for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do
+                if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelist == "Eto Yoshimura") and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
+                    for i2,v2 in pairs(v:GetChildren()) do 
+                        if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                            if nearest ~= nil and nearest.Parent ~= nil then
+                                warn(tostring(nearest.Parent.Name))
+                                print("found", "      ", tostring(nearest.Parent.Name))
+                                repeat 
+                                local hum = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                                if on2 and hum and nearest ~= nil then 
+                                    twen = game:GetService("TweenService"):Create(hum,TweenInfo.new((hum.Position - nearest.Position).magnitude/sped,Enum.EasingStyle.Quad),{CFrame = nearest.CFrame * CFrame.new(0,0,dis)})
+                                    times_fired = times_fired + 1
+                                    if ass and twen ~= nil then  
+                                        twen:Play()
+                                    end
+                                if game.Players.LocalPlayer.Character:FindFirstChild("Remotes") and ass and (nearest.Position - hum.Position).magnitude < 23 then
+                                    game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "Mouse1", "Down", CFrame.new(), CFrame.new())
+                                end
+                                end
+                                wait()
+                                until not v:FindFirstChildWhichIsA("Model") or nearest.Parent == nil or on2 == false
+                                print("next mob please")
+                                last, nearest = math.huge, nil
+                                twen:Cancel()
+                            end
+                        end
+                    end
+                end
+            end
+        else
+            last, nearest = math.huge, nil
+        end
+    end
+end)
+spawn(function()
+    while wait() do
+        print(times_fired)
+        times_fired = 0
+        wait(10)
+    end
+end)
+local psy = false
+local kag = false
+local dur = false
+local speeed = false
+local delay = 1
+function focusAdd(a)
+    game.Players.LocalPlayer.PlayerFolder.StatsFunction:InvokeServer("Focus", tostring(a), 1)
+end
+s4:CreateToggle({
+    Name = "Auto Focus Physical";
+    Flag = "FocusPhysical";
+    Default = true;
+    Callback = function(on)
+        psy = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s4:CreateToggle({
+    Name = "Auto Focus Kagune / Quinque";
+    Flag = "FocusKagune/Quinque";
+    Default = true;
+    Callback = function(on)
+        kag = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s4:CreateToggle({
+    Name = "Auto Focus Durability";
+    Flag = "FocusDurability";
+    Default = true;
+    Callback = function(on)
+        dur = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s4:CreateToggle({
+    Name = "Auto Focus Speed";
+    Flag = "FocusSpeed";
+    Default = true;
+    Callback = function(on)
+        speeed = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s4:CreateTextBox({
+    Name = "Focus Delay"; -- required: name of element
+    Flag = "FocusDelay"; -- required: unique flag name to use
+    Callback = function(inputtedText,enterPressed) -- function to be called when the textbox's focus is lost
+        print("TextBox:",inputtedText,enterPressed)
+        delay = tonumber(inputtedText)
+    end;
+    DefaultText = "1"; -- required: text that will be in the textbox when there is no configurations saved or config saving is disabled
+    PlaceholderText = "No Text"; -- optional: placeholder text that will show when no text is written
+    TabComplete = function(inputtedText) -- optional: function to be called when the player presses the tab button while the textbox is in focus. The replaced text will be whatever this function returns, if it returns nil, the text will not change
+        if inputtedText=="Road" then
+            return "RoadToGlory"
+        end
+    end;
+    ClearTextOnFocus = true; -- optional: whether to clear text when the textbox is focused, default is false
     -- Scroll to the bottom of the page to read more about the following two:
     Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 
-
-local function format(number)
-    local i, k, j = tostring(number):match("(%-?%d?)(%d*)(%.?.*)")
-    return i..k:reverse():gsub("(%d%d%d)", "%1,"):reverse()..j
-end
-
-labels = setmetatable({
-    text = {label = s1:AddLabel("")},
-    text = {label = s1:AddLabel("")},
-    tfarm = {label = s1:AddLabel("")},
-    space = {label = s1:AddLabel("")},
-    Quest = {prefix = "Current Quest: ", label = s1:CreateLabel("Current Quest: None")},
-    Yen = {prefix = "Yen: ", label = s1:CreateLabel("Yen: 0"), value = 0, oldval = player.PlayerFolder.Stats.Yen.Value},
-    RC = {prefix = "RC: ", label = s1:CreateLabel("RC: 0"), value = 0, oldval = player.PlayerFolder.Stats.RC.Value},
-    Kills = {prefix = "Kills: ", label = s1:CreateLabel("Kills: 0"), value = 0} 
-}, {
-    __call = function (self, typ, newv, oldv)
-        if typ and newv then
-            local object = self[typ]
-            if type(newv) == "number" then
-                object.value = object.value + newv
-                object.label.Text = object.prefix..format(object.value)
-                if oldv then
-                    object.oldval = oldv
-                end
-            elseif object.prefix then
-                object.label.Text = object.prefix..newv
-            else
-                object.label.Text = newv
-            end
-            return
-        end
-        for i,v in pairs(labels) do
-            v.value = 0
-            v.label.Text = v.prefix.."0"
-        end
-    end
-})
-
-local function getLabel(la)
-    return labels[la].value and labels[la].value or labels[la].label.Text
-end
-
-s1:CreateButton({
-    Name = "Reset"; -- required: name of element
-    Callback = function(item) -- required: function to be called an item in the dropdown is activated
-        for I,V in pairs(game.Workspace.Npc_Mobs:GetDescendants()) do
-				   if V.Name == "AttackHandler" then
-				       for I2,V2 in pairs(V.Parent:GetDescendants()) do
-				           if V2:IsA("BasePart") then
-				               V2.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                  end
-      		   end
-  			end
-		end
-    end;
-})
-
-if team == "CCG" then tab2:AddLabel("Quinque Stage") else tab2:AddLabel("Kagune Stage") end
-
-local drop2 = tab2:AddDropdown("[ 1 ]", function(opt)
-    array.stage = array.stages[tonumber(opt)]
-end)
-
-array.stage = "One"
-
-tab2:AddSwitch("Reputation Farm", function(bool) 
-    myData:Set("ReputationFarm", bool)
-end):Set(myData:Get("ReputationFarm"))
-
-tab2:AddSwitch("Auto Reputation Cashout", function(bool)
-    myData:Set("ReputationCashout", bool)
-end):Set(myData:Get("ReputationCashout"))
-
-for i,v in pairs(array.boss) do
-    tab2:AddSwitch(i.." Boss Farm ".."(".."lvl "..v.."+)", function(bool)
-        local bosstable = myData:Get("Boss")
-        bosstable[i] = bool
-        myData:Set("Boss", bosstable)
-    end):Set(myData:Get("Boss")[i])
-end
-
-tab2:AddSlider("TP Speed", function(x)
-    myData:Set("TeleportSpeed", x)
-end, {min = 90, max = 250}):Set(45)
-
-tab2:AddSlider("Distance from NPC", function(x)
-    myData:Set("DistanceFromNpc", x * -1)
-end, {min = 0, max = 8}):Set(65)
-
-tab2:AddSlider("Distance from Bosses", function(x)
-    myData:Set("DistanceFromBoss", x * -1)
-end, {min = 0, max = 15}):Set(55)
-
-labels.p = {label = tab3:AddLabel("Current trainer: "..player.PlayerFolder.Trainers[team.."Trainer"].Value)}
-
-local progress = tab3:AddSlider("Progress", nil, {min = 0, max = 100, readonly = true})
-
-progress:Set(player.PlayerFolder.Trainers[player.PlayerFolder.Trainers[team.."Trainer"].Value].Progress.Value)
-
-player.PlayerFolder.Trainers[team.."Trainer"].Changed:connect(function()
-    labels("p", "Current trainer: "..player.PlayerFolder.Trainers[team.."Trainer"].Value)
-    progress:Set(player.PlayerFolder.Trainers[player.PlayerFolder.Trainers[team.."Trainer"].Value].Progress.Value)
-end)
-
-btn2 = tab3:AddButton("Start", function()
-    if not array.trainer then
-        array.trainer, btn2.Text = true, "Stop"
-        local connection, time
-
-        while array.trainer do
-            if connection and connection.Connected then
-                connection:Disconnect()
-            end
-            
-            local tkey, result
-
-            connection = player.Backpack.DescendantAdded:Connect(function(obj)
-                if tostring(obj) == "TSCodeVal" and obj:IsA("StringValue") then
-                    tkey = obj.Value
-                end
-            end)
-            
-            result = invoke(remotes.Trainers.RequestTraining)
-
-            if result == "TRAINING" then
-                for i,v in pairs(workspace.TrainingSessions:GetChildren()) do
-                    if waitforobj(v, "Player").Value == player then
-                        fire(waitforobj(v, "Comm"), "Finished", tkey, false)
-                        break
-                    end
-                end
-            elseif result == "TRAINING COMPLETE" then
-                labels("time", "Switching to other trainer...")
-                for i,v in pairs(player.PlayerFolder.Trainers:GetDescendants()) do
-                    if table.find(trainers, v.Name) and findobj(v, "Progress") and tonumber(v.Progress.Value) < 100 and tonumber(player.PlayerFolder.Trainers[player.PlayerFolder.Trainers[team.."Trainer"].Value].Progress.Value) == 100 then
-                        invoke(remotes.Trainers.ChangeTrainer, v.Name)
-                        wait(1.5)
-                    end
-                end
-            else
-                labels("time", "Time until the next training: "..result)
-            end
-            wait(1)
-        end
-        labels("time", "")
-    else
-        array.trainer, btn2.Text = false, "Start"
-    end
-end)
-
-labels.time = {label = tab3:AddLabel("")}
-
-tab4:AddSwitch("Auto add kagune/quinque stats", function(bool) array.weapon = bool end)
-tab4:AddSwitch("Auto add durability stats", function(bool) array.dura = bool end)
-tab4:AddSwitch("Auto kick", function(bool) array.kick = bool end)
-tab4:AddLabel("Auto kick whitelist (type 1 name per line)")
-
-local console = tab4:AddConsole({
-    ["y"] = 50,
-    ["source"] = "Text",
-})
-
-console:Set(myData:Get("AutoKickWhitelist"))
-
-console:OnChange(function(newtext)
-    myData:Set("AutoKickWhitelist", newtext)
-end)
-
-for i,v in pairs(array.skills) do
-    tab4:AddSwitch("Auto use "..i.." skill (on bosses)", function(bool)
-        local skillstable = myData:Get("Skills")
-        skillstable[i] = bool
-        myData:Set("Skills", skillstable)
-    end):Set(myData:Get("Skills")[i])
-end
-
-do
-    local count = 0
-    for i,v in pairs(player.PlayerGui.HUD.StagesFrame.InfoScroll:GetChildren()) do
-        if v.ClassName == "Frame" and v.Name ~= "Example" then
-            count = count + 1
-            drop2:Add(count)
-        end
-    end
-end
-
-for i,v in pairs(array.npcs) do drop:Add(i) end
-
-tab1:Show()
-
-local function tp(pos)
-    if array.died then
-        player.Character.HumanoidRootPart.CFrame = pos
-        array.died = false
-        return
-    end
-
-    local val = Instance.new("CFrameValue")
-    val.Value = player.Character.HumanoidRootPart.CFrame
-
-    local tween = game:GetService("TweenService"):Create(
-        val, 
-        TweenInfo.new((player.Character.HumanoidRootPart.Position - pos.p).magnitude / myData:Get("TeleportSpeed"), Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), 
-        {Value = pos}
-    )
-
-    tween:Play()
-
-    local completed
-    tween.Completed:Connect(function()
-        completed = true
-    end)
-
-    while not completed do
-        if array.found or not array.autofarm or player.Character.Humanoid.Health <= 0 then tween:Cancel() break end
-        player.Character.HumanoidRootPart.CFrame = val.Value
-        task.wait()
-    end
-
-    val:Destroy()
-end
-
-local function getNPC()
-    local nearestnpc, nearest = nil, math.huge
-
-    if myData:Get("Boss")["Gyakusatsu"] and tonumber(player.PlayerFolder.Stats.Level.Value) > array.boss["Gyakusatsu"] and findobj(workspace.NPCSpawns["GyakusatsuSpawn"], "Gyakusatsu") then
-        local lowesthealth, lowestNpcModel = math.huge, nil
-
-        for i,v in pairs(workspace.NPCSpawns["GyakusatsuSpawn"]:GetChildren()) do
-            if v.Name ~= "Mob" and findobj(v, "Humanoid") and v.Humanoid.Health < lowesthealth then
-                lowesthealth = v.Humanoid.Health
-                lowestNpcModel = v
-            end
-        end
-
-        if not lowestNpcModel then
-            return workspace.NPCSpawns.GyakusatsuSpawn.Gyakusatsu
-        end
-        
-        return lowestNpcModel
-    end
-
-    for i,v in pairs(workspace.NPCSpawns:GetChildren()) do
-        local npc = findobjofclass(v, "Model")
-
-        if npc and findobj(npc, "Head") and not findobj(npc, "AC") then
-            if npc.Parent.Name == array.targ then
-                local magnitude = (npc.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).magnitude
-
-                if magnitude < nearest then
-                    nearestnpc, nearest = npc, magnitude
-                end
-            elseif myData:Get("Boss")[npc.Name] and tonumber(player.PlayerFolder.Stats.Level.Value) >= array.boss[npc.Name] then
-                return npc
-            end
-        end
-    end
-    return nearestnpc
-end
-
-local function getQuest(typ)
-    labels("text", "Moving to quest NPC")
-
-    local npc = team == "Ghoul" and workspace.Anteiku.Yoshimura or workspace.CCGBuilding.Yoshitoki
-
-    tp(npc.HumanoidRootPart.CFrame)
-    invoke(game:GetService("ReplicatedStorage").Remotes.Ally.AllyInfo)
-    wait()
-    fireclickdetector(npc.TaskIndicator.ClickDetector)
-
-    if array.autofarm and not array.died and (npc.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude <= 20 then
-        if typ then 
-            labels("text", "Getting quest...")
-            invoke(remotes[npc.Name].Task)
-            invoke(remotes[npc.Name].Task)
-            local quest = waitforobj(player.PlayerFolder.CurrentQuest.Complete, "Aogiri Member")
-            labels("Quest", ("%c/%c"):format("0", quest:WaitForChild("Max").Value))
-            quest.Changed:Connect(function(change) 
-                labels("Quest", ("%c/%c"):format(change, quest.Max.Value)) 
-            end)
-        else
-            labels("text", "Withdrawing reputation")
-            invoke(remotes.ReputationCashOut)
-            oldtick = tick()
-        end
-    end
-end
-
-local function collect(npc)
-    local timer = tick()
-    local model = waitforobj(npc, npc.Name.." Corpse", 2)
-    local clickpart = waitforobj(model, "ClickPart", 2)
-
-    player.Character.HumanoidRootPart.CFrame = clickpart.CFrame * CFrame.new(0,1.7,0)
-
-    waitforobj(clickpart, "")
-    repeat
-        if tick() - timer > 4 then
-            break
-        end
-        player.Character.Humanoid:MoveTo(clickpart.Position)
-        wait()
-        fireclickdetector(clickpart[""], 1)
-    until not model.Parent.Parent or not findobj(model, "ClickPart") or not array.autofarm or player.Character.Humanoid.Health <= 0
-end
-
-local function pressKey(topress)
-    fire(player.Character.Remotes.KeyEvent, key, topress, "Down", player:GetMouse().Hit, nil, workspace.Camera.CFrame)
-end
-
-player.PlayerFolder.Stats.RC.Changed:Connect(function(value)
-    if array.autofarm then
-        labels("RC", value - labels.RC.oldval, value)
-    end
-end)
-
-player.PlayerFolder.Stats.Yen.Changed:Connect(function(value)
-    if array.autofarm then
-        labels("Yen", value - labels.Yen.oldval, value)
-    end
-end)
-
-getconnections(player.Idled)[1]:Disable()
-
-get.Players.PlayerAdded:Connect(function(plr)
-    if array.kick then
-        local splittedarray = console:Get():split("\n")
-
-        if not table.find(splittedarray, plr.Name) then
-            player:Kick("Player joined, name: "..plr.Name) 
-        end
-    end
-end)
-
-player.PlayerFolder.Trainers[player.PlayerFolder.Trainers[team.."Trainer"].Value].Progress.Changed:Connect(function(c)
-    progress:Set(tonumber(c))
-end)
-
-coroutine.wrap(function()
+spawn(function()
     while wait() do
-        if tonumber(player.PlayerFolder.Stats.Focus.Value) > 0 then
-            if array.weapon then
-                invoke(stat, "Focus", "WeaponAddButton", 1)
+        if psy then
+            focusAdd("PhysicalAddButton")
+        elseif kag then
+            focusAdd("WeaponAddButton")
+        elseif dur then
+            focusAdd("DurabilityAddButton")
+        elseif speeed then
+            focusAdd("SpeedAddButton")
+        end
+        wait(delay)
+    end
+end)
+
+tab_focus:AddLabel('Ive heard that ppl got banned using this,\ni dunno if this is true tho.')
+local auto_click = false
+s5:CreateToggle({
+    Name = "Auto Click";
+    Flag = "AutoClick";
+    Default = true;
+    Callback = function(on)
+        auto_click = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+
+local auto_use_e = false
+local auto_use_r = false
+local auto_use_c = false
+local auto_use_f = false
+s5:CreateToggle({
+    Name = "Auto Use E";
+    Flag = "AutoUseE";
+    Default = true;
+    Callback = function(on)
+        auto_use_e = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s5:CreateToggle({
+    Name = "Auto Use R";
+    Flag = "AutoUseR";
+    Default = true;
+    Callback = function(on)
+        auto_use_r = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s5:CreateToggle({
+    Name = "Auto Use C";
+    Flag = "AutoUseC";
+    Default = true;
+    Callback = function(on)
+        auto_use_c = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+s5:CreateToggle({
+    Name = "Auto Use F";
+    Flag = "AutoUseF";
+    Default = true;
+    Callback = function(on)
+        auto_use_f = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+
+local name_on = false
+s5:CreateToggle({
+    Name = "Hide Name";
+    Flag = "HideName";
+    Default = true;
+    Callback = function(on)
+        name_on = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+
+local anti_afk = false
+s5:CreateToggle({
+    Name = "Anti Afk";
+    Flag = "AntiAfk";
+    Default = true;
+    Callback = function(on)
+        anti_afk = on
+    end;
+    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+})
+
+s5:CreateDropdown({
+    Name = "Stage"; -- required: name of element
+    Callback = function(item) -- required: function to be called an item in the dropdown is activated
+        stag = item
+    end;
+    Options = {"One","Two","Three", "Four","Five","Six"}; -- required: dropdown options
+    ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
+    DefaultItemSelected = "One"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
+
+spawn(function()
+    print(anti_afk)
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        if anti_afk then
+            game:GetService("VirtualUser"):Button2Down(Vector2.new())
+        end
+    end)
+end)
+game.Players.PlayerAdded:connect(function(k)
+    if autoKick then
+        game.Players.LocalPlayer:Kick(tostring(k.Name) .. " Joined, auto kicking you b)")
+    end
+end)
+spawn(function()
+    while wait() do
+        if name_on and game.workspace:FindFirstChild(game.Players.LocalPlayer.Name) then
+            for i,v in pairs(game.workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+                if v:FindFirstChild("PlayerStatus") then
+                    v:FindFirstChild("PlayerStatus"):Destroy()
+                end
             end
-            if array.dura then
-                invoke(stat, "Focus", "DurabilityAddButton", 1)
+        end
+        if game.Players.LocalPlayer.Character:FindFirstChild("Remotes") then
+            if auto_click then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "Mouse1", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_e then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "E", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_r then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "R", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_c then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "C", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_f then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "F", "Down", CFrame.new(), CFrame.new())
             end
         end
     end
-end)()
-
--- remote Key grabber + grab updated trainers table
-do
-    fireclickdetector(workspace.TrainerModel.ClickIndicator.ClickDetector)
-    waitforobj(waitforobj(player.PlayerGui, "TrainersGui"), "TrainersGuiScript")
-    player.PlayerGui.TrainersGui:Destroy()
-
-    repeat 
-        for i,v in pairs(getgc(true)) do
-            if not key and type(v) == "function" and getinfo(v).source:find(".ClientControl") then
-                for i2,v2 in pairs(getconstants(v)) do
-                    if v2 == "KeyEvent" then
-                        local keyfound = getconstant(v, i2 + 1)
-                        if #keyfound >= 100 then
-                            key = keyfound
-                            break
-                        end
-                    end
-                end
-            elseif type(v) == "table" and ((table.find(v, "(S1) Kureo Mado") and team == "CCG") or (table.find(v, "(S1) Ken Kaneki"))) then
-                trainers = v
-            end
-        end
-        wait()
-    until key
-end
-
--- auto farm
-while true do
-    if array.autofarm then
-        pcall(function()
-            if player.Character.Humanoid.Health > 0 and player.Character.HumanoidRootPart and player.Character.Remotes.KeyEvent then
-                if not findobj(player.Character, "Kagune") and not findobj(player.Character, "Quinque")  then
-                    pressKey(array.stage)
-                end
-                if myData:Get("ReputationFarm") and (not findobj(player.PlayerFolder.CurrentQuest.Complete, "Aogiri Member") or player.PlayerFolder.CurrentQuest.Complete["Aogiri Member"].Value == player.PlayerFolder.CurrentQuest.Complete["Aogiri Member"].Max.Value) then
-                    getQuest(true)
-                    return
-                elseif myData:Get("ReputationCashout") and tick() - oldtick > 7200 then
-                    getQuest()
-                end
-
-                local npc = getNPC()
-
-                if npc then
-                    array.found = false
-                    local reached = false
-
-                    coroutine.wrap(function()
-                        while not reached do
-                            if npc ~= getNPC() then
-                                array.found = true
-                                break
-                            end
-                            wait()
-                        end
-                    end)()
-
-                    labels("text", "Moving to: "..npc.Name)
-
-                    if myData:Get("Boss")[npc.Name] or npc.Parent.Name == "GyakusatsuSpawn" then
-                        tp(npc.HumanoidRootPart.CFrame * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,myData:Get("DistanceFromBoss"),0))
-                    else
-                        tp(npc.HumanoidRootPart.CFrame + npc.HumanoidRootPart.CFrame.lookVector * myData:Get("DistanceFromNpc"))
-                    end
-
-                    labels("text", "Killing: "..npc.Name)
-                    
-                    reached = true
-
-                    if not array.found then
-                        while findobj(findobj(npc.Parent, npc.Name), "Head") and player.Character.Humanoid.Health > 0 and array.autofarm do
-                            if not findobj(player.Character, "Kagune") and not findobj(player.Character, "Quinque")  then
-                                pressKey(array.stage)
-                            end
-                            if myData:Get("Boss")[npc.Name] or npc.Parent.Name == "GyakusatsuSpawn" then 
-                                for x,y in pairs(myData:Get("Skills")) do
-                                    if player.PlayerFolder.CanAct.Value and y and array.skills[x].Value ~= "DownTime" then
-                                        pressKey(x)
-                                    end
-                                end
-                                player.Character.HumanoidRootPart.CFrame = npc.HumanoidRootPart.CFrame * CFrame.Angles(math.rad(90),0,0) + Vector3.new(0,myData:Get("DistanceFromBoss") ,0)
-                            else
-                                player.Character.HumanoidRootPart.CFrame = npc.HumanoidRootPart.CFrame + npc.HumanoidRootPart.CFrame.lookVector * myData:Get("DistanceFromNpc") 
-                            end
-                            if player.PlayerFolder.CanAct.Value then
-                                pressKey("Mouse1")
-                            end
-                            task.wait()
-                        end
-
-                        if npc.Name == "Gyakusatsu" then
-                            player.Character.Humanoid.Health = 0
-                        end
-
-                        if array.autofarm and player.Character.Humanoid.Health > 0 then
-                            labels("Kills", 1)
-                            if npc.Name ~= "Eto Yoshimura" and not findobj(npc.Parent, "Gyakusatsu") and npc.Name ~= "Gyakusatsu" then  
-                                labels("text", "Collecting corpse...")
-                                collect(npc)
-                            end
-                        end
-                    end
-                else
-                    labels("text", "Target not found, waiting...")
-                end
-            else
-                labels("text", "Waiting for character to respawn")
-                array.died = true
-            end
-        end)
-    else
-        labels("text", "")
-    end
-    wait()
-end
+end)
