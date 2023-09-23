@@ -5,14 +5,14 @@ local key = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌�
 local dis = 10
 local dis_old = 10
 local sped = 100
-local twen = 
+local twen = nil
 local on2 = false
 local old_on2 = false
 local rep_on = false
 local auto_cash = false
 local stag = 'One'
 
-local test = library.new({
+local test = Freem.new({
     Name = "Yammi";
     ConfigFolder = "YammiHub";
     Credit = "Made by me!";
@@ -36,7 +36,7 @@ local Other = test:CreatePage("Other")
 local s1 = Farm:CreateSection("Farm")
 local s2 = Options:CreateSection("Options")
 local s3 = Trainer:CreateSection("Trainer")
-local s4 = test:CreatePage("Focus")
+local s4 = Focus:CreateSection("Focus")
 local s5 = Misc:CreateSection("Miscellaneous")
 local s6 = Other:CreateSection("Other")
 
@@ -271,6 +271,7 @@ spawn(function()
         wait(delay)
     end
 end)
+
 
 local auto_click = false
 s5:CreateToggle({
