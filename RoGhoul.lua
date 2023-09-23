@@ -1,10 +1,11 @@
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
+local Freem = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/FreemUI/main/Source.lua"))()
 local key = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
 
 local dis = 10
 local dis_old = 10
 local sped = 100
-local twen = nil
+local twen = 
 local on2 = false
 local old_on2 = false
 local rep_on = false
@@ -119,10 +120,6 @@ s1:CreateDropdown({
     Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
-local drop = tab:AddDropdown('Mob Whitelist', function(a)
-        whitelist = a
-    end
-end)
 local crum = 'cummmmmmmmmm'
 local dis1 = 5
 local last = math.huge
@@ -275,7 +272,6 @@ spawn(function()
     end
 end)
 
-tab_focus:AddLabel('Ive heard that ppl got banned using this,\ni dunno if this is true tho.')
 local auto_click = false
 s5:CreateToggle({
     Name = "Auto Click";
@@ -370,11 +366,6 @@ spawn(function()
             game:GetService("VirtualUser"):Button2Down(Vector2.new())
         end
     end)
-end)
-game.Players.PlayerAdded:connect(function(k)
-    if autoKick then
-        game.Players.LocalPlayer:Kick(tostring(k.Name) .. " Joined, auto kicking you b)")
-    end
 end)
 spawn(function()
     while wait() do
