@@ -396,3 +396,37 @@ spawn(function()
         end
     end
 end)
+spawn(function()
+    while wait() do
+    if on1 then
+        for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do 
+            if v:FindFirstChildWhichIsA("Model") then 
+                for i3,v3 in pairs(v:FindFirstChildWhichIsA("Model"):GetChildren()) do
+                    if string.find(v3.Name:lower(), "corpse") and v3:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        if v3:FindFirstChild("ClickPart") then
+                            for i4,v4 in pairs(v3:GetChildren()) do
+                                if v4:FindFirstChildWhichIsA("ClickDetector") and (game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position - v3:FindFirstChild("HumanoidRootPart").Position).magnitude < 30 then
+                                warn("start eat")
+                                local hum = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                                twen:Pause()
+                                ass = false
+                                spawn(function()
+                                    repeat
+                                        hum.CFrame = v3.HumanoidRootPart.CFrame
+                                        fireclickdetector(v4:FindFirstChildWhichIsA("ClickDetector"), 1)
+                                    wait()
+                                    until ass == true
+                                end)
+                                wait(0.3)
+                                ass = true
+                                warn("stop eat")
+                                end
+                            end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
