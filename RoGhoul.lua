@@ -113,7 +113,7 @@ s1:CreateDropdown({
     Callback = function(item) -- required: function to be called an item in the dropdown is activated
         whitelist = item
     end;
-    Options = {"None", "Human" ,"Aogiri" ,"Investigators"}; -- required: dropdown options
+    Options = {"None", "Human" ,"Aogiri" ,"Investigator"}; -- required: dropdown options
     ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
     DefaultItemSelected = "None"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
     -- Scroll to the bottom of the page to read more about the following two:
