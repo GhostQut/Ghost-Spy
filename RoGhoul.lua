@@ -95,7 +95,7 @@ s1:CreateToggle({
         on2 = on
         old_on2 = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 local on1 = false
 s1:CreateToggle({
@@ -105,7 +105,7 @@ s1:CreateToggle({
     Callback = function(on)
         on1 = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 local whitelist = ''
 s1:CreateDropdown({
@@ -208,7 +208,7 @@ s4:CreateToggle({
     Callback = function(on)
         psy = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s4:CreateToggle({
     Name = "Auto Focus Kagune / Quinque";
@@ -217,7 +217,7 @@ s4:CreateToggle({
     Callback = function(on)
         kag = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s4:CreateToggle({
     Name = "Auto Focus Durability";
@@ -226,7 +226,7 @@ s4:CreateToggle({
     Callback = function(on)
         dur = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s4:CreateToggle({
     Name = "Auto Focus Speed";
@@ -235,7 +235,7 @@ s4:CreateToggle({
     Callback = function(on)
         speeed = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s4:CreateTextBox({
     Name = "Focus Delay"; -- required: name of element
@@ -281,7 +281,7 @@ s5:CreateToggle({
     Callback = function(on)
         auto_click = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 
 local auto_use_e = false
@@ -295,7 +295,7 @@ s5:CreateToggle({
     Callback = function(on)
         auto_use_e = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s5:CreateToggle({
     Name = "Auto Use R";
@@ -304,7 +304,7 @@ s5:CreateToggle({
     Callback = function(on)
         auto_use_r = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s5:CreateToggle({
     Name = "Auto Use C";
@@ -313,7 +313,7 @@ s5:CreateToggle({
     Callback = function(on)
         auto_use_c = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 s5:CreateToggle({
     Name = "Auto Use F";
@@ -322,7 +322,7 @@ s5:CreateToggle({
     Callback = function(on)
         auto_use_f = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 
 local name_on = false
@@ -333,7 +333,7 @@ s5:CreateToggle({
     Callback = function(on)
         name_on = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 
 local anti_afk = false
@@ -344,7 +344,7 @@ s5:CreateToggle({
     Callback = function(on)
         anti_afk = on
     end;
-    SavingDisabled = true; -- this will prevent loading/saving of configurations for this element
+    
 })
 
 s5:CreateDropdown({
