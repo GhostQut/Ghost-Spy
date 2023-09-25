@@ -73,8 +73,6 @@ for i,v in pairs(game:GetService("ReplicatedStorage").Assets.Mobs:GetChildren())
    end
 end
 
-
-
 local test = library.new({
     Name = "Yammi";
     ConfigFolder = "FreemScript";
@@ -97,8 +95,8 @@ local Group = test:CreatePage("Group")
 local Misc = test:CreatePage("Misc")
 
 local s1 = Train:CreateSection("Farm")
-local s2 = Train:CreateSection("Training Area")
-local s3 = Train:CreateSection("Urgrade")
+local s2 = Train:CreateSection("Urgrade")
+local s3 = Train:CreateSection("Training Area")
 local Mob = Farm:CreateSection("Mob")
 local Chest = Farm:CreateSection("Chest")
 local s4 = Teleports:CreateSection("Teleport")
@@ -113,7 +111,7 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(Value) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
             a = Value
-        while a do task.wait(.1)
+        while a == true do task.wait(.1)
             local args = {
                 [1] = "TrainStat",
                 [2] = "Strength"
@@ -135,7 +133,7 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(Value) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
             b = Value
-        while b do task.wait(.1)
+        while b == true do task.wait(.1)
             local args = {
                 [1] = "TrainStat",
                 [2] = "Durability"
@@ -157,7 +155,7 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(Value) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
              zzzz = Value
-        while zzzz do task.wait(.1)
+        while zzzz == true do task.wait(.1)
             local args = {
                 [1] = "TrainStat",
                 [2] = "Chakra"
@@ -177,7 +175,7 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(Value) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
            zzz = Value
-        while zzz do task.wait(.1)
+        while zzz == true do task.wait(.1)
             local args = {
                 [1] = "TrainStat",
                 [2] = "Sword"
@@ -199,7 +197,7 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(Value) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
            zz = Value
-        while zz do task.wait(.1)
+        while zz == true do task.wait(.1)
             local args = {
                 [1] = "TrainStat",
                 [2] = "Speed"
@@ -215,11 +213,11 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
 })
 s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
     Name = "Auto Grab Fruit"; -- required: name of element
-    Flag = "Fruit"; -- required: unique flag name to use
+    Flag = "GrabFruit"; -- required: unique flag name to use
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(Value) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
            t = Value
-        while t do task.wait(.1)
+        while t == true do task.wait(.1)
             pcall(function()
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getFRUIT().Mesh.CFrame
             vim:SendKeyEvent(true, "E", false, game)
@@ -246,8 +244,8 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 task.spawn(function()
-   while task.wait() do
-       if Auto_Daily then
+if Auto_Daily then
+   while task.wait(.1) do
            pcall(function()
                GetRemote("Rewards/RemoteEvent"):FireServer('ClaimDaily')
            end)
@@ -268,8 +266,8 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 task.spawn(function()
+if Auto_Claim_Achievement then
    while task.wait(1) do
-       if Auto_Claim_Achievement then
            pcall(function()
                for i,v in pairs(Client.PlayerGui.Menu.PagesContainer.Achievements.container.Content:GetChildren()) do
                    if v:IsA("ScrollingFrame") then
@@ -300,8 +298,8 @@ s2:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
 })
 
 task.spawn(function()
-   while task.wait() do
-       if Upgrade_Strength then
+if Upgrade_Strength then
+   while task.wait(.1) do
            pcall(function()
                local MainStr = "Strength"
                GetRemote("Stats/RemoteEvent"):InvokeServer("Upgrade", MainStr)
@@ -325,8 +323,8 @@ s2:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
 })
 
 task.spawn(function()
-   while task.wait() do
-       if Upgrade_Durability then
+ if Upgrade_Durability then
+   while task.wait(.1) do
            pcall(function()
                local MainStr = "Durability"
                GetRemote("Stats/RemoteEvent"):InvokeServer("Upgrade", MainStr)
@@ -349,8 +347,8 @@ s2:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 task.spawn(function()
-   while task.wait() do
-       if Upgrade_Chakra then
+    if Upgrade_Chakra then
+        while task.wait(.1) do
            pcall(function()
                local MainStr = "Chakra"
                GetRemote("Stats/RemoteEvent"):InvokeServer("Upgrade", MainStr)
@@ -372,8 +370,8 @@ s2:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 task.spawn(function()
-   while task.wait() do
-       if Upgrade_Sword then
+   if Upgrade_Sword then
+     while task.wait(.1) do
            pcall(function()
                local MainStr = "Sword"
                GetRemote("Stats/RemoteEvent"):InvokeServer("Upgrade", MainStr)
@@ -395,8 +393,8 @@ s2:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 task.spawn(function()
-   while task.wait() do
-       if Upgrade_Speed then
+    if Upgrade_Speed then
+        while task.wait(.1) do
            pcall(function()
                local MainStr = "Speed"
                GetRemote("Stats/RemoteEvent"):InvokeServer("Upgrade", MainStr)
@@ -407,7 +405,8 @@ end)
 
 local MyDropdown = Mob:CreateDropdown({ 
 	Name = "Select Mob"; -- required: name of element
-	Callback = function(t)  -- required: function to be called an item in the dropdown is activated
+	Flag = "MobSelect";
+    Callback = function(t)  -- required: function to be called an item in the dropdown is activated
 		Selected_Mob = t
 	end;
 	Options = {}; -- required: dropdown options
@@ -463,31 +462,7 @@ task.spawn(function()
        end
    end
 end)
-
-
-local TPVar = {}
-
-for i,v in pairs(game:GetService("Workspace").Scriptable.TrainingsAreas:GetChildren()) do
-   TPVar[v.Name] = Teleport:Toggle(v.Name, function(t)
-       if t then
-           Client.Character.HumanoidRootPart.CFrame = v.CFrame
-           UI:Notify({
-            Title = "Game";
-            Content = "Teleported to: "..v.Name;
-           })
-       end
-       HasTP = t
-   end)
    
-   spawn(function()
-       while task.wait() do
-           if HasTP then
-               TPVar[v.Name]:Set(false)
-           end
-       end
-   end)
-end
-
 Mob:CreateToggle({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
     Name = "Farm Selected Mob"; -- required: name of element
     Flag = "FarmSelectedMob"; -- required: unique flag name to use
@@ -501,19 +476,21 @@ Mob:CreateToggle({ -- IMPORTANT: This function does not return anything, please 
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 task.spawn(function()
-   while task.wait() do
-       if Farm_Selected_Mob then
-           pcall(function()
-               for i,v in pairs(game:GetService("Workspace").Scriptable.Mobs:GetChildren()) do
-                   if string.find(string.lower(v.Name), string.lower(Selected_Mob)) and v:FindFirstChild("HumanoidRootPart") and v then
-                       repeat task.wait()
-                       Client.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, -5, 0) * CFrame.Angles(math.rad(90), 0,0)
-                       until not v:FindFirstChild("HumanoidRootPart") or not v.Parent or not v or Farm_Selected_Mob == false
-                   end
-               end
-           end)
-       end
-   end
+    if Farm_Selected_Mob then
+        while task.wait() do
+            if Farm_Selected_Mob then
+                pcall(function()
+                    for i,v in pairs(game:GetService("Workspace").Scriptable.Mobs:GetChildren()) do
+                        if string.find(string.lower(v.Name), string.lower(Selected_Mob)) and v:FindFirstChild("HumanoidRootPart") and v then
+                            repeat task.wait()
+                            Client.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, -5, 0) * CFrame.Angles(math.rad(90), 0,0)
+                            until not v:FindFirstChild("HumanoidRootPart") or not v.Parent or not v or Farm_Selected_Mob == false
+                        end
+                    end
+                end)
+            end
+        end
+    end
 end)
 
 
@@ -541,27 +518,26 @@ local MyDropdownf = skillm:CreateDropdown({
 	WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
 
-game:GetService("ReplicatedStorage").Events["Quests/RemoteEvent"]:FireServer("ClaimDailyQuestBonus","Bonus_3")
-
-local A_1 = "ActivatePower"
-local A_2 = "Onigiri"
-local Event = game:GetService("ReplicatedStorage").Events["Powers/RemoteFunction"]
-Event:InvokeServer(A_1, A_2)
-
+local anti_afk = false
 s5:CreateToggle({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
     Name = "Anti-Afk"; -- required: name of element
     Flag = "ANAFK"; -- required: unique flag name to use
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
-    Callback = function() -- optional: function that will be called when toggled, it is reccomended to modify flags directly
-            for i,v in pairs(getconnections(game.Players.LocalPlayer.Idled)) do
-                v:Disable()
-             end
+    Callback = function(v) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
+        anti_afk = v
     end,
     Enabled = false,
     -- Scroll to the bottom of the page to read more about the following two:
     Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
     WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
 })
+task.spawn(function()
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        if anti_afk then
+            game:GetService("VirtualUser"):Button2Down(Vector2.new())
+        end
+    end)
+end)
 s5:CreateToggle({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
     Name = "Inf Stamina"; -- required: name of element
     Flag = "InfStamina"; -- required: unique flag name to use
@@ -576,11 +552,32 @@ s5:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
 })
 
 task.spawn(function()
-   while task.wait(.5) do
-       if INF_Stamina then
-           pcall(function()
+    if INF_Stamina then
+        while task.wait(.5) do
+            pcall(function()
                GetRemote("Stamina/RemoteEvent"):FireServer('Use', -9e9)
-           end)
-       end
-   end
+            end)
+        end
+    end
 end)
+
+s5:CreateButton({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
+    Name = "Redeem All Codes"; -- required: name of element
+    Callback = function(t) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
+        local Event = game:GetService("ReplicatedStorage").Events["Codes/RemoteFunction"]
+        Event:InvokeServer("Redeem","THANKSFOR175K")
+        Event:InvokeServer("Redeem","freefightpassticket")
+        Event:InvokeServer("Redeem","FIGHTINGPASSISBACK")
+        Event:InvokeServer("Redeem","QuickShutdown")
+        Event:InvokeServer("Redeem","150K150K")
+        Event:InvokeServer("Redeem","OMGUPDATE3OMG")
+        Event:InvokeServer("Redeem","125KLIKESOMG")
+        Event:InvokeServer("Redeem","bugFixwithYenOMG")
+        Event:InvokeServer("Redeem","UPDATE2OUTNOW")
+        Event:InvokeServer("Redeem","AnotherQuickPatchUpdate")
+        Event:InvokeServer("Redeem","LETSGO100K")
+    end,
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
