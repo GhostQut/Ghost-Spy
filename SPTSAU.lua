@@ -44,11 +44,12 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Flag = "FS"; -- required: unique flag name to use
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(FSValue) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
-          while FSValue == true and wait() do
+        while FSValue == true and wait() do
         	FS:FireServer()
-       	  end
 		if FSValue == false then
-        	break		
+        	break
+
+        end
         end
     end;
     -- Scroll to the bottom of the page to read more about the following two:
@@ -206,7 +207,7 @@ local FistDrop = s3:CreateDropdown({
 
 game:GetService("RunService").RenderStepped:Connect(function() -- update dropdown every frame with all players  
 	local tbl = {}
-	for _,v in  ipairs(game:GetService("Workspace").["Training Areas"]:GetChildren()) do
+	for _,v in  ipairs(game:GetService("Workspace")["Training Areas"]:GetChildren()) do
 	if string.find(v.Name,"Fs") and not table.find(tbl,v.Name)then
             table.insert(tbl,v.Name)
     	end
@@ -231,7 +232,7 @@ local BodyDrop = s3:CreateDropdown({
 
 game:GetService("RunService").RenderStepped:Connect(function() -- update dropdown every frame with all players  
 	local tbl = {}
-	for _,v in  ipairs(game:GetService("Workspace").["Training Areas"]:GetChildren()) do
+	for _,v in  ipairs(game:GetService("Workspace")["Training Areas"]:GetChildren()) do
 	if string.find(v.Name,"Bt") and not table.find(tbl,v.Name)then
             table.insert(tbl,v.Name)
     	end
@@ -255,7 +256,7 @@ end)
 })
 game:GetService("RunService").RenderStepped:Connect(function() -- update dropdown every frame with all players  
 	local tbl = {}
-	for _,v in  ipairs(game:GetService("Workspace").["Training Areas"]:GetChildren()) do
+	for _,v in  ipairs(game:GetService("Workspace")["Training Areas"]:GetChildren()) do
 	if string.find(v.Name,"Ps") and not table.find(tbl,v.Name)then
             table.insert(tbl,v.Name)
     	end
