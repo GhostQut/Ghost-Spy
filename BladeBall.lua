@@ -1,14 +1,14 @@
 local Neverlose = loadstring(game:HttpGet"https://github.com/Mana42138/Neverlose-UI/blob/main/Source.lua")()
+
 local Win = Neverlose:Window({
     Title = "Yammi",
     CFG = "YammiHub",
     Key = Enum.KeyCode.RightShift,
     External = {
         KeySystem = false,
-        Key = {
-        }
     }
 })
+
 local Cloneref = cloneref or function(Object)return Object end;
 
 local StatsService = Cloneref(game:GetService("Stats"));
