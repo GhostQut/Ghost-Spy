@@ -9,8 +9,7 @@ local test = library.new({
     UseLoader = false;
     UseMobile = true;
     Bind = "LeftShift";
-    CheckKey = function(e) -- this can be nil to disable key checking
-        return e == "OnePerNiger"
+    CheckKey = function() -- this can be nil to disable key checking
     end;
     Discord = "https://link-target.net/4r23094/yammihub"
 })
