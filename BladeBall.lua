@@ -7,6 +7,7 @@ local test = library.new({
     Color = Color3.fromRGB(164, 53, 90);
     FullName = "YammiHub";
     UseLoader = false;
+    UseMobile = true;
     Bind = "LeftShift";
     CheckKey = function(e) -- this can be nil to disable key checking
         return e == "OnePerNiger"
