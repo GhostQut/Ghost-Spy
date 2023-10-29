@@ -16,6 +16,7 @@ local UserInputService = Cloneref(game:GetService("UserInputService"));
 local ReplicatedStorage = Cloneref(game:GetService("ReplicatedStorage"));
 local Players = Cloneref(game:GetService("Players"));
 local Player = Players.LocalPlayer;
+local char = Player.Character
 
 local Running = true;
 local Saved = {
@@ -39,7 +40,7 @@ local function AttemptParry(OtherBall)
 	ReplicatedStorage.Remotes.ParryAttempt:FireServer(1.5, OtherBall.CFrame, (function()
 		local Results = {};
 		for Int, Character in pairs(workspace.Alive:GetChildren()) do
-			Results[Character.Name] = Character.HumanoidRootPart.Position;
+			Results[char.Name] = char.HumanoidRootPart.Position;
 		end;
 		return Results;
 	end)(), {math.random(100, 999), math.random(100, 999)});
