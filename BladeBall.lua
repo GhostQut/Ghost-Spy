@@ -62,8 +62,6 @@ local s5 = Misc:Tab("Miscellaneous")
 
 local Autofarm = Autofarm:Section("Main")
 
-
-
 local AutoFarmVar = Autofarm:Toggle("Auto Farm", function(t)
     ValueToggle = t
 end)
