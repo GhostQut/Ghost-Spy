@@ -1,4 +1,4 @@
-local Neverlose = loadstring(game:HttpGet"https://github.com/Mana42138/Neverlose-UI/blob/main/Source.lua")()
+local Neverlose = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mana42138/Neverlose-UI/main/Source.lua")()
 
 local Win = Neverlose:Window({
     Title = "Yammi",
