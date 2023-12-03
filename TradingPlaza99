@@ -1,0 +1,19 @@
+local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+local pet = "ea376d75fc2548feb12296464127a90a"
+local price = 1000
+local count = 100
+local x = 1
+
+for x = 1, 50 do
+local y = tostring(x)
+task.wait(0.5)
+game:GetService("ReplicatedStorage").Network.Booths_ClaimBooth:InvokeServer(y)
+end
+
+while task.wait(0.4) do
+game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
+end
+
+while task.wait(1800) do
+module:Teleport(game.PlaceId)
+end
