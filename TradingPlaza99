@@ -37,7 +37,7 @@ local AutoSellVar = Auto:Toggle("AutoSell", function(t)
 game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
 end
    end
-end)
+end
 AutoSellVar:Set(true)
 
 local ServerHopVar = Auto:Toggle("ServerHop", function(t)
