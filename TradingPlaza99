@@ -1,4 +1,24 @@
+local Neverlose_Main = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mana42138/Neverlose-UI/main/Source.lua")()
+local Win = Neverlose_Main:Window({
+    Title = "TradingPlaza",
+    CFG = "Neverlose",
+    Key = Enum.KeyCode.H,
+    External = {
+        KeySystem = true,
+        Key = {
+            "Test",
+            "Beta"
+        }
+    }
+})
+
+local main = Win:TSection("Main")
+local misc = Win:TSection("Misc")
+
+local Autofarm = TabSection1:Tab("Autofarm")
+
 local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+
 local pet = "ea376d75fc2548feb12296464127a90a"
 local price = 1000
 local count = 100
@@ -14,6 +34,10 @@ while task.wait(0.4) do
 game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
 end
 
-while task.wait(1800) do
-module:Teleport(game.PlaceId)
-end
+local ServerHopVar = FarmSection:Toggle("ServerHop", function(t)
+    ValueToggle = t
+    if ValueToggle == true then
+     while task.wait(1800) do        module:Teleport(game.PlaceId)
+   end
+end)
+ServerHopVar:Set(true)
