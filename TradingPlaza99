@@ -30,7 +30,7 @@ tab1.newInput("Count", "Prints your input.", function(text)
 end)
 
 
-tab1.newToggle("AutoSell", "Toggle! (prints the state)", true, function(toggleState)
+tab1.newToggle("AutoSell", "Selling your pets", false, function(toggleState)
     if toggleState then
         while task.wait(0.4) do
 game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
@@ -38,7 +38,7 @@ end
     end
 end)
 
-tab1.newToggle("ServerHop", "Toggle! (prints the state)", true, function(toggleState)
+tab1.newToggle("ServerHop", "", true, function(toggleState)
     if toggleState then
         while task.wait(1800) do
 module:Teleport(game.PlaceId)
