@@ -15,7 +15,7 @@ local Win = Neverlose_Main:Window({
 local main = Win:TSection("Main")
 local misc = Win:TSection("Misc")
 
-local Autofarm = TabSection1:Tab("Autofarm")
+local Auto = main:Tab("Auto")
 
 local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
 
@@ -30,11 +30,17 @@ task.wait(0.5)
 game:GetService("ReplicatedStorage").Network.Booths_ClaimBooth:InvokeServer(y)
 end
 
-while task.wait(0.4) do
+local AutoSellVar = Auto:Toggle("AutoSell", function(t)
+    ValueToggle = t
+    if ValueToggle == true then
+     while task.wait(0.4) do
 game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
 end
+   end
+end)
+AutoSellVar:Set(true)
 
-local ServerHopVar = FarmSection:Toggle("ServerHop", function(t)
+local ServerHopVar = Auto:Toggle("ServerHop", function(t)
     ValueToggle = t
     if ValueToggle == true then
      while task.wait(1800) do        module:Teleport(game.PlaceId)
