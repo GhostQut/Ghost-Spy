@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Smaller-Rayfield-11762"))()
 local Window = Rayfield:CreateWindow({
    Name = "Pet Simulator 99",
    LoadingTitle = "Rayfield Interface Suite",
