@@ -5,10 +5,16 @@ local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 -- Create the first tab with an image ID
 local tab1 = DrRayLibrary.newTab("Auto", "")
 
-tab1.newToggle("AutoRewards", "Toggle! (prints the state)", true, function(toggleState)
+tab1.newToggle("AutoRewards", "", false, function(toggleState)
     if toggleState then
-        print("On")
+        while task.wait(1) do
+game:GetService("ReplicatedStorage").Network.DailyRewards_Redeem:InvokeServer("SmallDailyDiamonds")
+game:GetService("ReplicatedStorage").Network.DailyRewards_Redeem:InvokeServer("DailyPotions")        
+game:GetService("ReplicatedStorage").Network.DailyRewards_Redeem:InvokeServer("DailyEnchants")
+game:GetService("ReplicatedStorage").Network.DailyRewards_Redeem:InvokeServer("DailyItems")
+game:GetService("ReplicatedStorage").Network.DailyRewards_Redeem:InvokeServer("MediumDailyDiamonds")
+end
     else
-        print("Off")
+        toggleState = false
     end
 end)
