@@ -1,21 +1,5 @@
-local Neverlose_Main = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mana42138/Neverlose-UI/main/Source.lua")()
-local Win = Neverlose_Main:Window({
-    Title = "TradingPlaza",
-    CFG = "Neverlose",
-    Key = Enum.KeyCode.H,
-    External = {
-        KeySystem = true,
-        Key = {
-            "Test",
-            "Beta"
-        }
-    }
-})
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
 
-local main = Win:TSection("Main")
-local misc = Win:TSection("Misc")
-
-local Auto = main:Tab("Auto")
 
 local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
 
@@ -30,18 +14,35 @@ task.wait(0.5)
 game:GetService("ReplicatedStorage").Network.Booths_ClaimBooth:InvokeServer(y)
 end
 
-local AutoSellVar = Auto:Toggle("AutoSell", function(t)
-    ValueToggle = t
-    if ValueToggle == true then
-     while task.wait(0.4) do
+
+
+local window = DrRayLibrary:Load("TradingPlaza99", "Default")
+
+local tab1 = DrRayLibrary.newTab("Main", "")
+local tab2 = DrRayLibrary.newTab("Misc", "")
+
+tab1.newInput("Price", "Prints your input.", function(text)
+    price = tostring(text)
+end)
+
+tab1.newInput("Count", "Prints your input.", function(text)
+    count = tostring(text)
+end)
+
+
+tab1.newToggle("AutoSell", "Toggle! (prints the state)", true, function(toggleState)
+    if toggleState then
+        while task.wait(0.4) do
 game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
 end
-   end
-end
+    end
+end)
 
-local ServerHopVar = Auto:Toggle("ServerHop", function(t)
-    ValueToggle = t
-    if ValueToggle == true then
-     while task.wait(1800) do        module:Teleport(game.PlaceId)
-   end
+tab1.newToggle("ServerHop", "Toggle! (prints the state)", true, function(toggleState)
+    if toggleState then
+        while task.wait(1800) do
+module:Teleport(game.PlaceId)
 end
+    end
+end)
+
