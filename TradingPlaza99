@@ -22,11 +22,11 @@ local tab1 = DrRayLibrary.newTab("Main", "")
 local tab2 = DrRayLibrary.newTab("Misc", "")
 
 tab1.newInput("Price", "Prints your input.", function(text)
-    price = tostring(text)
+    price = tonumber(text)
 end)
 
 tab1.newInput("Count", "Prints your input.", function(text)
-    count = tostring(text)
+    count = tonumber(text)
 end)
 
 
