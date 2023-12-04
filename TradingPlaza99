@@ -38,7 +38,6 @@ game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(p
 end
    end
 end
-AutoSellVar:Set(true)
 
 local ServerHopVar = Auto:Toggle("ServerHop", function(t)
     ValueToggle = t
@@ -46,4 +45,3 @@ local ServerHopVar = Auto:Toggle("ServerHop", function(t)
      while task.wait(1800) do        module:Teleport(game.PlaceId)
    end
 end
-ServerHopVar:Set(true)
