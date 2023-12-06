@@ -2,8 +2,8 @@ local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 
 local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 
--- Create the first tab with an image ID
 local tab1 = DrRayLibrary.newTab("Auto", "")
+local tab2 = DrRayLibrary.newTab("Eggs", "")
 
 local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
 local b = workspace.__THINGS
@@ -40,6 +40,15 @@ tab1.newToggle("AutoLootbags", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
        getLoot()
+   end
+end
+    else
+        toggleState = false
+    end
+end)
+tab2.newToggle("Animation Remove", "", false, function(toggleState)
+   if toggleState == true then
+      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return end
    end
 end
     else
