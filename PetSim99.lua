@@ -41,10 +41,9 @@ tab1.newToggle("AutoLootbags", "", false, function(toggleState)
       while task.wait(0.5) do
        getLoot()
    end
-end
-    else
+   else
         toggleState = false
-    end
+   end
 end)
 tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
