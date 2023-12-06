@@ -49,10 +49,7 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
       local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return end
    end
-end
     else
         toggleState = false
     end
 end)
-
-
