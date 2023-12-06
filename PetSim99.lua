@@ -47,7 +47,7 @@ tab1.newToggle("AutoLootbags", "", false, function(toggleState)
 end)
 tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
-      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return end
+      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
    end
     else
         toggleState = false
