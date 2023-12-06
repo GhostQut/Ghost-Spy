@@ -11,7 +11,7 @@ local s = "Small"
 local d = "Diamond Bag"
 
 
-local function get()
+local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(b.Lootbags:GetChildren()) do
     v:PivotTo(cf)
@@ -39,7 +39,7 @@ end)
 tab1.newToggle("AutoLootbags", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
-       get()
+       getLoot()
    end
 end
     else
