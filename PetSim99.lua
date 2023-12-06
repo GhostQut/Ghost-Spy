@@ -5,6 +5,23 @@ local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 -- Create the first tab with an image ID
 local tab1 = DrRayLibrary.newTab("Auto", "")
 
+local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+local b = workspace.__THINGS
+local s = "Small"
+local d = "Diamond Bag"
+
+
+local function get()
+    local cf = hrp.CFrame
+    for i,v in pairs(b.Lootbags:GetChildren()) do
+    v:PivotTo(cf)
+    end
+    for i,v in pairs(b.Orbs:GetChildren()) do
+    v:PivotTo(cf)
+
+    end
+end
+
 tab1.newToggle("AutoRewards", "", false, function(toggleState)
     if toggleState then
         while task.wait(1) do
@@ -18,3 +35,16 @@ end
         toggleState = false
     end
 end)
+
+tab1.newToggle("AutoLootbags", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+       get()
+   end
+end
+    else
+        toggleState = false
+    end
+end)
+
+
