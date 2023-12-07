@@ -43,7 +43,7 @@ local function teleport(destination)
     repeat task.wait() until hum.FloorMaterial == Enum.Material.Air
     task.wait(0.5)
     repeat task.wait() until hum.FloorMaterial == Enum.Material.Plastic
-    hum:ChangeState(Enum.HumanoidStateType.Ju@mping)
+    hum:ChangeState(Enum.HumanoidStateType.Jumping)
     task.wait(1)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
