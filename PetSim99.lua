@@ -43,7 +43,7 @@ local function teleport(destination)
     repeat task.wait() until hum.FloorMaterial == Enum.Material.Air
     task.wait(0.5)
     repeat task.wait() until hum.FloorMaterial == Enum.Material.Plastic
-    hum:ChangeState(Enum.HumanoidStateType.Jumping)
+    hum:ChangeState(Enum.HumanoidStateType.Ju@mping)
     task.wait(1)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
@@ -101,6 +101,15 @@ tab1.newToggle("AutoLootbags", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
        getLoot()
+   end
+   else
+        toggleState = false
+   end
+end)
+tab1.newToggle("AutoMerchant", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+       
    end
    else
         toggleState = false
