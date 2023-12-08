@@ -45,6 +45,7 @@ local DailyRedeemables = {
     {"Castle"; "SmallDailyDiamonds"};
     {"Jungle";"DailyPotions"};
     {"Red Desert"; "MediumDailyDiamonds"};
+
 }
 
 local Merchants = {
@@ -62,7 +63,7 @@ function  Claimrank()
 			  [1] = i
 		  }
 
-		  game:GetService("ReplicatedStorage").Network.Ranks_ClaimReward:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Network.Ranks_ClaimReward:FireServer(unpack(args))
 		  task.wait(.25)
 	  end
 	  task.wait(.5)
