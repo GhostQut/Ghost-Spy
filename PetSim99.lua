@@ -110,9 +110,9 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
     end
 end)
 tab3.newToggle("AutoMerchant", "", false, function(toggleState)
-   if toggleState == true then
       while task.wait(0.5) do
-       for i,v in ipairs(Merchants) do
+if toggleState == true then
+for i,v in ipairs(Merchants) do
     teleport(v[2])
     task.wait(1)
     local a, b
