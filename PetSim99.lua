@@ -162,7 +162,5 @@ if toggleState == true then
             task.wait(0.1)
         until a == false
     end
-   else
-        toggleState = false
-   end
+ end
 end)
