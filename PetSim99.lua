@@ -137,7 +137,9 @@ tab1.newToggle("AutoRank", "", false, function(toggleState)
     ClaimRank()
    end
    else
-       GetRank() == 8;ClaimRank()
+       if GetRank() == 8 then
+ClaimRank()
+end
    end
 end)
 
