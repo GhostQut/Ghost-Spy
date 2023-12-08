@@ -53,11 +53,11 @@ local Merchants = {
     {"AdvancedMerchant"; "Ice Rink"}
 }
 
-function  Getrank()
+function  GetRank()
       return game.Players.LocalPlayer.Leaderstats["⭐ Rank"].Value	
 end
 
-function  Claimrank()
+function  ClaimRank()
       for i = 1,RankStuff[GetRank()]	 do
 		  local args = {
 			  [1] = i
