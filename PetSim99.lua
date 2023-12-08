@@ -2,11 +2,11 @@ local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 
 local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 
-local tab1 = DrRayLibrary.newTab("Auto", "")
+local tab1 = DrRayLibrary.newTab("Auto", "13075622619")
 local tab2 = DrRayLibrary.newTab("Eggs", "")
 local tab3 = DrRayLibrary.newTab("Merchant", "")
 local tab4 = DrRayLibrary.newTab("Games", "")
-local tab5 = DrRayLibrary.newTab("Misc", "")
+local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
 local remotes = game.ReplicatedStorage.Network
 local teleportr = remotes.Teleports_RequestTeleport
