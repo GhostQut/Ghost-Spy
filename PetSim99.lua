@@ -45,7 +45,6 @@ local DailyRedeemables = {
     {"Castle"; "SmallDailyDiamonds"};
     {"Jungle";"DailyPotions"};
     {"Red Desert"; "MediumDailyDiamonds"};
-
 }
 
 local Merchants = {
@@ -54,7 +53,7 @@ local Merchants = {
 }
 
 function  GetRank()
-      return game.Players.LocalPlayer.Leaderstats["⭐ Rank"].Value	
+      return game.Players.LocalPlayer.leaderstats["⭐ Rank"].Value	
 end
 
 function  ClaimRank()
