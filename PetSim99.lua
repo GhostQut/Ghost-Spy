@@ -19,6 +19,18 @@ local b = workspace.__THINGS
 local s = "Small"
 local d = "Diamond Bag"
 
+local RankStuff = {
+	9,
+	12,
+	14,
+	18,
+	20,
+	24,
+	28
+	32,
+}; local MaxRank = 8
+
+
 local machines = {
     {"PotionVendingMachine1";"Cherry Blossom"};
     {"PotionVendingMachine2";"Safari"};
@@ -38,6 +50,22 @@ local Merchants = {
     {"RegularMerchant";"Oasis"};
     {"AdvancedMerchant"; "Ice Rink"}
 }
+
+function  Getrank()
+      return game.Players.LocalPlayer.Leaderstats["⭐ Rank"].Value	
+end
+
+function  Claimrank()
+      for i = 1,RankStuff[GetRank()]	 do
+		  local args = {
+			  [1] = i
+		  }
+
+		  game:GetService("ReplicatedStorage").Network.Ranks_ClaimReward:FireServer(unpack(args))
+		  task.wait(.25)
+	  end
+	  task.wait(.5)
+end
 
 local function teleport(destination)
     teleportr:InvokeServer(destination)
@@ -101,6 +129,16 @@ end
         toggleState = false
    end
 end)
+tab1.newToggle("AutoRank", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+       repeat task.wait()
+    ClaimRank()
+until GetRank() == 8;ClaimRank()
+   end
+   else
+        toggleState = false
+   end
 tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
       local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
