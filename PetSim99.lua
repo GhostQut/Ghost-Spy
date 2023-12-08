@@ -28,7 +28,8 @@ local RankStuff = {
 	24,
 	28,
 	32
-}; local MaxRank = 8
+};
+local MaxRank = 8
 
 
 local machines = {
