@@ -156,12 +156,12 @@ for i,v in ipairs(Merchants) do
     task.wait(1)
     local a, b
     for i = 1, 6, 1 do
+if toggleState == true then
         repeat
             a,b = merchant_buy:InvokeServer(v[1], i)
             task.wait(0.1)
         until a == false
     end
-
 end
    else
         toggleState = false
