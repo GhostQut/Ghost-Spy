@@ -5,7 +5,8 @@ local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 local tab1 = DrRayLibrary.newTab("Auto", "")
 local tab2 = DrRayLibrary.newTab("Eggs", "")
 local tab3 = DrRayLibrary.newTab("Merchant", "")
-
+local tab4 = DrRayLibrary.newTab("Games", "")
+local tab5 = DrRayLibrary.newTab("Misc", "")
 
 local remotes = game.ReplicatedStorage.Network
 local teleportr = remotes.Teleports_RequestTeleport
