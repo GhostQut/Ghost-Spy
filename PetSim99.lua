@@ -27,7 +27,7 @@ local RankStuff = {
 	20,
 	24,
 	28
-	32,
+	32
 }; local MaxRank = 8
 
 
