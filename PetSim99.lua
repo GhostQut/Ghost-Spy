@@ -48,33 +48,6 @@ local function teleport(destination)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
 
-for i,v in ipairs(machines) do
-    teleport(v[2])
-    local a, b
-    for i2, v2 in pairs(workspace.Map:GetChildren()) do
-        if string.find(v2.Name,v[2], 1, true) then
-           hum.Parent:PivotTo(v2.INTERACT.Machines[v[1]].PrimaryPart.CFrame * CFrame.new(0,9,0)) 
-        end
-    end
-
-    repeat a,b = vending_buy:InvokeServer(v[1], 1)
-        task.wait(0.1) 
-    until a == false
-end
-
-for i,v in ipairs(Merchants) do
-    teleport(v[2])
-    task.wait(1)
-    local a, b
-    for i = 1, 6, 1 do
-        repeat
-            a,b = merchant_buy:InvokeServer(v[1], i)
-            task.wait(0.1)
-        until a == false
-    end
-
-end
-
 local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(b.Lootbags:GetChildren()) do
@@ -106,10 +79,22 @@ tab1.newToggle("AutoLootbags", "", false, function(toggleState)
         toggleState = false
    end
 end)
-tab1.newToggle("AutoMerchant", "", false, function(toggleState)
+tab1.newToggle("AutoMachiens", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
-       
+       for i,v in ipairs(machines) do
+    teleport(v[2])
+    local a, b
+    for i2, v2 in pairs(workspace.Map:GetChildren()) do
+        if string.find(v2.Name,v[2], 1, true) then
+           hum.Parent:PivotTo(v2.INTERACT.Machines[v[1]].PrimaryPart.CFrame * CFrame.new(0,9,0)) 
+        end
+    end
+
+    repeat a,b = vending_buy:InvokeServer(v[1], 1)
+        task.wait(0.1) 
+    until a == false
+end
    end
    else
         toggleState = false
@@ -123,3 +108,23 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
         toggleState = false
     end
 end)
+tab3.newToggle("AutoMerchant", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+       for i,v in ipairs(Merchants) do
+    teleport(v[2])
+    task.wait(1)
+    local a, b
+    for i = 1, 6, 1 do
+        repeat
+            a,b = merchant_buy:InvokeServer(v[1], i)
+            task.wait(0.1)
+        until a == false
+    end
+
+end
+   end
+   else
+        toggleState = false
+   end
+end
