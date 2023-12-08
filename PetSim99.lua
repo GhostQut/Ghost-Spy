@@ -134,12 +134,10 @@ end)
 tab1.newToggle("AutoRank", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
-       repeat task.wait()
     ClaimRank()
-until GetRank() == 8;ClaimRank()
    end
    else
-        toggleState = false
+       GetRank() == 8;ClaimRank()
    end
 end)
 
