@@ -124,7 +124,6 @@ for i,v in ipairs(Merchants) do
     end
 
 end
-   end
    else
         toggleState = false
    end
