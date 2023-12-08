@@ -161,3 +161,20 @@ for i,v in ipairs(Merchants) do
 end
     end
 end)
+tab3.newToggle("AutoMerchant", "", false, function(toggleState)
+   while task.wait(0.5) do
+       if toggleState == true then
+for i,v in ipairs(Merchants) do
+    teleport(v[2])
+    task.wait(1)
+    local a, b
+    for i = 1, 6, 1 do
+            a,b = merchant_buy:InvokeServer(v[1], i)
+            task.wait(0.1)
+end
+end
+   end
+   else
+        toggleState = false
+   end
+end)
