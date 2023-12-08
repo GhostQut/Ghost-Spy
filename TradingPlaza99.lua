@@ -1,12 +1,22 @@
 local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
 
-
 local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
 
 local pet = "ea376d75fc2548feb12296464127a90a"
 local price = 1000
 local count = 100
 local x = 1
+
+
+local function GetMyPets()
+    		local returntable = {}
+    		for i,v in pairs(GameLibrary.Save.Get().Pets) do
+    			if v.e then 
+    				table.insert(returntable, v.uid)
+    			end
+    		end
+    		return returntable
+ end
 
 for x = 1, 50 do
 local y = tostring(x)
