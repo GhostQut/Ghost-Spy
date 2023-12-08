@@ -140,6 +140,8 @@ until GetRank() == 8;ClaimRank()
    else
         toggleState = false
    end
+end)
+
 tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
       local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
@@ -148,19 +150,7 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
         toggleState = false
     end
 end)
-tab3.newToggle("AutoMerchant", "", false, function(toggleState)
-      while task.wait(0.5) do
-if toggleState == true then
-for i,v in ipairs(Merchants) do
-    teleport(v[2])
-    task.wait(1)
-    local a, b
-    for i = 1, 6, 1 do
-            a,b = merchant_buy:InvokeServer(v[1], i)
-            task.wait(0.1)
-end
-    end
-end)
+
 tab3.newToggle("AutoMerchant", "", false, function(toggleState)
    while task.wait(0.5) do
        if toggleState == true then
