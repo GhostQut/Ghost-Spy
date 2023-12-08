@@ -162,7 +162,6 @@ for i,v in ipairs(Merchants) do
             a,b = merchant_buy:InvokeServer(v[1], i)
             task.wait(0.1)
 end
-end
    end
    else
         toggleState = false
