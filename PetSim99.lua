@@ -32,6 +32,37 @@ local RankStuff = {
 };
 local MaxRank = 8
 
+local chestsn = {
+    "Animated",
+    }
+local function contains(table, val)
+   for i=1,#table do
+      if table[i] == val then return true end
+   end
+   return false
+end
+
+local e = Instance.new("BillboardGui",v)
+        e.Name = "ESP"
+        e.Size = UDim2.new(5,0, 5,0)
+        e.AlwaysOnTop = true
+local s = Instance.new("Frame",a)
+        s.Size = UDim2.new(1,0, 1,0)
+        s.BackgroundTransparency = 0.80
+        s.BorderSizePixel = 0
+        s.BackgroundColor3 = tcolor
+local p = Instance.new('TextLabel',b)
+        p.Size = UDim2.new(1,0,1,1)
+        p.BorderSizePixel = 0
+        p.TextSize = 17
+        p.Text = "Chest"
+        p.BackgroundTransparency = 1
+        p.TextColor3 = tcolor
+        p.TextStrokeColor3 = Color3.fromRGB(6, 6, 6)
+        p.TextStrokeTransparency = 0.7
+    end
+end
+end
 
 local machines = {
     {"PotionVendingMachine1";"Cherry Blossom"};
@@ -146,6 +177,22 @@ end)
 tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
       local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
+   end
+    else
+        toggleState = false
+    end
+end)
+
+tab4.newToggle("ESP DigSite", "", false, function(toggleState)
+   if toggleState == true then
+      while true do
+task.wait()
+for __,v in pairs(game.Workspace["__THINGS"].__INSTANCE_CONTAINER.Active.Digsite.Important.ActiveChests:GetChildren()) do
+    if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end
+    if contains(chestsn, v.Name) then
+        if v.Name == "Animated" then
+            tcolor = Color3.fromRGB(222, 184, 135)
+        end
    end
     else
         toggleState = false
