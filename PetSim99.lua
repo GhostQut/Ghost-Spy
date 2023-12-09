@@ -161,6 +161,10 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
     end
 end)
 
+tab5.newDropdown("Dropdown", "", {game.Workspace["__THINGS"].__INSTANCE_CONTAINER.Active:GetChildren()}, function(selectedOption)
+    print(selectedOption)
+end)
+
 tab4.newToggle("ESP DigSite", "", false, function(toggleState)
    if toggleState == true then
 while true do
