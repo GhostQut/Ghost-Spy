@@ -8,15 +8,23 @@ local tab3 = DrRayLibrary.newTab("Merchant", "")
 local tab4 = DrRayLibrary.newTab("Games", "")
 local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
-local remotes = game.ReplicatedStorage.Network
-local teleportr = remotes.Teleports_RequestTeleport
-local vending_buy = remotes.VendingMachines_Purchase
-local daily_redeem = remotes.DailyRewards_Redeem
-local hum = game.Players.LocalPlayer.Character.Humanoid
-local merchant_buy = remotes.Merchant_RequestPurchase
+local InGame = false
+local plr = game:GetService("Players").LocalPlayer
+local things = game:GetService("Workspace"):WaitForChild("__THINGS")
+local Actives = things:WaitForChild("__INSTANCE_CONTAINER"):WaitForChild("Active")
+local Debris = game:GetService("Workspace"):WaitForChild"__DEBRIS")
+local Network = game:GetService("ReplicatedStorage"):WaitForChild("Network")
+local FishingGame = plr:WaitForChild("PlayerGui"):WaitForChild("_INSTANCES").FishingGame.GameBar
+local CurrentFishingModule = require(things.__INSTANCE_CONTAINER.Active:WaitForChild("Fishing").ClientModule.FishingGame)
 
-local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-local b = workspace.__THINGS
+local teleportr = Network.Teleports_RequestTeleport
+local vending_buy = Network.VendingMachines_Purchase
+local daily_redeem = Network.DailyRewards_Redeem
+local hum = plr.Character.Humanoid
+local merchant_buy = Network.Merchant_RequestPurchase
+
+local hrp = plr.Character.HumanoidRootPart
+local things = workspace.__THINGS
 local s = "Small"
 local d = "Diamond Bag"
 
@@ -31,6 +39,8 @@ local RankStuff = {
 	32
 };
 local MaxRank = 8
+
+
 
 local chestsn = {
     "Animated",
@@ -50,6 +60,7 @@ local machines = {
     {"FruitVendingMachine1";"Mushroom Field"};
     {"FruitVendingMachine2";"Pirate Cove"};
 }
+local OldPlayerHooks = {}
 
 local DailyRedeemables = {
     {"Castle"; "SmallDailyDiamonds"};
@@ -88,6 +99,60 @@ local function teleport(destination)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
 
+for i, v in pairs(CurrentFishingModule) do
+    OldPlayerHooks[i] = v
+end
+
+CurrentFishingModule.IsFishInBar = function()
+    return math.random(1, 6) ~= 1
+end
+
+CurrentFishingModule.StartGame = function(...)
+    InGame = true
+    return OldPlayerHooks.StartGame(...)
+end
+
+CurrentFishingModule.StopGame = function(...)
+    InGame = false
+    return OldPlayerHooks.StopGame(...)
+end
+      
+local function waitForGameState(state)
+    repeat
+        game:GetService("RunService").RenderStepped:Wait()
+    until InGame == state
+end
+
+local function getRod()
+    return plr.Character and plr.Character:FindFirstChild("Rod", true)
+end
+
+local function getBubbles(anchor)
+    local myBobber = nil
+    local myBubbles = false
+    local closestBobber = math.huge
+
+    for _, v in pairs(Actives.Fishing.Bobbers:GetChildren()) do
+        local distance = (v.Bobber.CFrame.Position - anchor.CFrame.Position).Magnitude
+
+        if distance <= closestBobber then
+            myBobber = v.Bobber
+            closestBobber = distance
+        end
+    end
+
+    if myBobber then
+        for _, v in pairs(Debris:GetChildren()) do
+            if v.Name == "host" and v:FindFirstChild("Attachment") and (v.Attachment:FindFirstChild("Bubbles") or v.Attachment:FindFirstChild("Rare Bubbles")) and (v.CFrame.Position - myBobber.CFrame.Position).Magnitude <= 1 then
+                myBubbles = true
+                break
+            end
+        end
+    end
+
+    return myBubbles
+end
+      
 local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(b.Lootbags:GetChildren()) do
@@ -160,11 +225,38 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
         toggleState = false
     end
 end)
+  
+tab4.newToggle("AutoFish", "", false, function(toggleState)
+   if toggleState == true then
+     while task.wait(1) do
+    pcall(function()
+        local fishingInstance = things.__INSTANCE_CONTAINER.Active:FindFirstChild("Fishing")
+        if fishingInstance and not InGame then
+            Network.Instancing_FireCustomFromClient:FireServer("Fishing", "RequestCast", Vector3.new(1158 + math.random(-10, 10), 75, -3454 + math.random(-10, 10)))
 
-tab5.newDropdown("Dropdown", "", {game.Workspace["__THINGS"].__INSTANCE_CONTAINER.Active:GetChildren()}, function(selectedOption)
-    print(selectedOption)
+            local myAnchor = getRod():WaitForChild("FishingLine").Attachment0
+            repeat
+                game:GetService("RunService").RenderStepped:Wait()
+            until not Actives:FindFirstChild("Fishing") or (myAnchor and getBubbles(myAnchor)) or InGame
+
+            if Actives:FindFirstChild("Fishing") then
+                Network.Instancing_FireCustomFromClient:FireServer("Fishing", "RequestReel")
+                waitForGameState(true)
+                waitForGameState(false)
+            end
+
+            repeat
+                game:GetService("RunService").RenderStepped:Wait()
+            until not Actives:FindFirstChild("Fishing") or (getRod() and getRod().Parent.Bobber.Transparency <= 0)
+        end
+    end)
+end
+   end
+    else
+        toggleState = false
+    end
 end)
-
+  
 tab4.newToggle("ESP DigSite", "", false, function(toggleState)
    if toggleState == true then
 while true do
