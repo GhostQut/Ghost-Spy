@@ -177,11 +177,11 @@ end)
 
 tab1.newToggle("AutoLootbags", "", false, function(toggleState)
    if toggleState == true then
+local ltt = true
       while task.wait(0.5) do
+if ltt == true do 
        getLoot()
-   end
-   else
-        toggleState = false
+end
    end
 end)
 tab1.newToggle("AutoMachiens", "", false, function(toggleState)
