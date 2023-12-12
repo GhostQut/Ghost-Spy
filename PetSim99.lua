@@ -15,7 +15,6 @@ local Actives = things:WaitForChild("__INSTANCE_CONTAINER"):WaitForChild("Active
 local Debris = game:GetService("Workspace"):WaitForChild("__DEBRIS")
 local Network = game:GetService("ReplicatedStorage"):WaitForChild("Network")
 local FishingGame = plr:WaitForChild("PlayerGui"):WaitForChild("_INSTANCES").FishingGame.GameBar
-local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
 
 local teleportr = Network.Teleports_RequestTeleport
 local vending_buy = Network.VendingMachines_Purchase
@@ -98,6 +97,8 @@ local function teleport(destination)
     task.wait(1)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
+local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
+
 
 for i, v in pairs(CurrentFishingModule) do
     OldPlayerHooks[i] = v
