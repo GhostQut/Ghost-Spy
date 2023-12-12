@@ -23,7 +23,6 @@ local hum = plr.Character.Humanoid
 local merchant_buy = Network.Merchant_RequestPurchase
 
 local hrp = plr.Character.HumanoidRootPart
-local things = workspace.__THINGS
 local s = "Small"
 local d = "Diamond Bag"
 
@@ -38,8 +37,6 @@ local RankStuff = {
 	32
 };
 local MaxRank = 8
-
-
 
 local chestsn = {
     "Animated",
@@ -97,8 +94,8 @@ local function teleport(destination)
     task.wait(1)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
-local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
 
+local CurrentFishingModule = require(Actives:FindFirstChild("Fishing").ClientModule.FishingGame)
 
 for i, v in pairs(CurrentFishingModule) do
     OldPlayerHooks[i] = v
