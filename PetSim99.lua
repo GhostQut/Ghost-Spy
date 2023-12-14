@@ -205,7 +205,7 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
     end
 end)
 
-lcal CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
+local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
 
 
 for i, v in pairs(CurrentFishingModule) do
