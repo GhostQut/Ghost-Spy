@@ -97,26 +97,6 @@ local function teleport(destination)
     task.wait(1)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
-local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
-
-
-for i, v in pairs(CurrentFishingModule) do
-    OldPlayerHooks[i] = v
-end
-
-CurrentFishingModule.IsFishInBar = function()
-    return math.random(1, 6) ~= 1
-end
-
-CurrentFishingModule.StartGame = function(...)
-    InGame = true
-    return OldPlayerHooks.StartGame(...)
-end
-
-CurrentFishingModule.StopGame = function(...)
-    InGame = false
-    return OldPlayerHooks.StopGame(...)
-end
       
 local function waitForGameState(state)
     repeat
@@ -227,6 +207,27 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
         toggleState = false
     end
 end)
+
+local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
+
+
+for i, v in pairs(CurrentFishingModule) do
+    OldPlayerHooks[i] = v
+end
+
+CurrentFishingModule.IsFishInBar = function()
+    return math.random(1, 6) ~= 1
+end
+
+CurrentFishingModule.StartGame = function(...)
+    InGame = true
+    return OldPlayerHooks.StartGame(...)
+end
+
+CurrentFishingModule.StopGame = function(...)
+    InGame = false
+    return OldPlayerHooks.StopGame(...)
+end
   
 tab4.newToggle("AutoFish", "", false, function(toggleState)
    if toggleState == true then
