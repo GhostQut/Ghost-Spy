@@ -231,29 +231,6 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
     end
 end)
 
-tab4.newToggle("AutoHeaven", "", false, function(toggleState)
-   if toggleState == true then
-_G.s = toggleState 
-
-game:GetService("RunService").Heartbeat:Connect(updateCoordinates)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120.79306030273438, -126.99183654785156, -213.44664001464844)
-
-task.wait(5)
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(630.6519165039062, 143.7024383544922, -1891.4598388671875)
-
-task.wait(1)
-
-while _G.s == true do
-    updateYCoordinate()
-    wait(0.1)
-end
-else
-_G.s = false
-end
-end)
-
 lcal CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
 
 
