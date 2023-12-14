@@ -21,29 +21,10 @@ local vending_buy = Network.VendingMachines_Purchase
 local daily_redeem = Network.DailyRewards_Redeem
 local hum = plr.Character.Humanoid
 local merchant_buy = Network.Merchant_RequestPurchase
-local _G.s = false
 
 local hrp = plr.Character.HumanoidRootPart
 local s = "Small"
 local d = "Diamond Bag"
-
-local coordinates
-local notifs = loadstring(game:HttpGet('https://raw.githubusercontent.com/CF-Trail/random/main/FE2Notifs.lua'))()
-
-local lastNotificationTime = 0
-local notificationDelay = 0.5
-
-local function updateCoordinates()
-    local character = plr.Character or player.CharacterAdded:Wait()
-
-    coordinates = hrp.Position.Y
-
-    local currentTime = tick()
-    if currentTime - lastNotificationTime >= notificationDelay then
-        notifs.alert('Studs above the sky: ' .. tostring(math.floor(coordinates)) .. '', nil, 0.5)
-        lastNotificationTime = currentTime
-    end
-end
 
 local RankStuff = {
 	9,
