@@ -8,6 +8,7 @@ local tab3 = DrRayLibrary.newTab("Merchant", "")
 local tab4 = DrRayLibrary.newTab("Games", "")
 local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
+local coordinates
 local InGame = false
 local plr = game:GetService("Players").LocalPlayer
 local things = game:GetService("Workspace"):WaitForChild("__THINGS")
@@ -74,6 +75,20 @@ local Merchants = {
 
 function  GetRank()
       return game.Players.LocalPlayer.leaderstats["⭐ Rank"].Value	
+end
+
+local function updateCoordinates()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    coordinates = humanoidRootPart.Position.Y -- Only the Y axis
+
+    local currentTime = tick()
+    if currentTime - lastNotificationTime >= notificationDelay then
+        notifs.alert('Studs above the sky: ' .. tostring(math.floor(coordinates)) .. '', nil, 0.5) -- Display Y axis without decimals
+        lastNotificationTime = currentTime
+    end
 end
 
 function  ClaimRank()
@@ -208,7 +223,36 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
     end
 end)
 
-local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
+tab1.newToggle("AutoLootbags", "", false, function(toggleState)
+   if toggleState == true then
+_G.s = true game:GetService("RunService").Heartbeat:Connect(updateCoordinates)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120.79306030273438, -126.99183654785156, -213.44664001464844)
+
+task.wait(5)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(630.6519165039062, 143.7024383544922, -1891.4598388671875)
+
+task.wait(1)
+
+local function updateYCoordinate()
+    local currentCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    local currentPosition = currentCFrame.Position
+    currentPosition = Vector3.new(currentPosition.X, currentPosition.Y + 36, currentPosition.Z)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(currentPosition)
+end
+
+while _G.s == true do
+    updateYCoordinate()
+    wait(0.1)
+end
+   end
+else
+_G.s = false
+end
+end)
+
+lcal CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
 
 
 for i, v in pairs(CurrentFishingModule) do
