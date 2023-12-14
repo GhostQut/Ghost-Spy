@@ -41,7 +41,7 @@ local RankStuff = {
 };
 local MaxRank = 8
 
-
+local notifs = loadstring(game:HttpGet('https://raw.githubusercontent.com/CF-Trail/random/main/FE2Notifs.lua'))()
 
 local chestsn = {
     "Animated",
