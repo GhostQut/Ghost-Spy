@@ -228,7 +228,9 @@ end)
 
 tab4.newToggle("AutoHeaven", "", false, function(toggleState)
    if toggleState == true then
-_G.s = toggleState game:GetService("RunService").Heartbeat:Connect(updateCoordinates)
+_G.s = toggleState 
+
+game:GetService("RunService").Heartbeat:Connect(updateCoordinates)
 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120.79306030273438, -126.99183654785156, -213.44664001464844)
 
@@ -238,18 +240,10 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(630.6519
 
 task.wait(1)
 
-local function updateYCoordinate()
-    local currentCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-    local currentPosition = currentCFrame.Position
-    currentPosition = Vector3.new(currentPosition.X, currentPosition.Y + 36, currentPosition.Z)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(currentPosition)
-end
-
 while _G.s == true do
     updateYCoordinate()
     wait(0.1)
 end
-   end
 else
 _G.s = false
 end
