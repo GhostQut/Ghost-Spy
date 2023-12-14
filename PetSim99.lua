@@ -8,7 +8,6 @@ local tab3 = DrRayLibrary.newTab("Merchant", "")
 local tab4 = DrRayLibrary.newTab("Games", "")
 local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
-local coordinates
 local InGame = false
 local plr = game:GetService("Players").LocalPlayer
 local things = game:GetService("Workspace"):WaitForChild("__THINGS")
@@ -25,29 +24,23 @@ local merchant_buy = Network.Merchant_RequestPurchase
 local _G.s = false
 
 local hrp = plr.Character.HumanoidRootPart
-local things = workspace.__THINGS
 local s = "Small"
 local d = "Diamond Bag"
 
 local coordinates
 local notifs = loadstring(game:HttpGet('https://raw.githubusercontent.com/CF-Trail/random/main/FE2Notifs.lua'))()
 
-notifs.alert('Execute "_G.s = false" to stop!\nThis is the fastest it can go due to stairs being generated.', nil, 1000000, 'rainbow')
-task.wait(0.01)
-
 local lastNotificationTime = 0
 local notificationDelay = 0.5
 
 local function updateCoordinates()
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    local character = plr.Character or player.CharacterAdded:Wait()
 
-    coordinates = humanoidRootPart.Position.Y -- Only the Y axis
+    coordinates = hrp.Position.Y
 
     local currentTime = tick()
     if currentTime - lastNotificationTime >= notificationDelay then
-        notifs.alert('Studs above the sky: ' .. tostring(math.floor(coordinates)) .. '', nil, 0.5) -- Display Y axis without decimals
+        notifs.alert('Studs above the sky: ' .. tostring(math.floor(coordinates)) .. '', nil, 0.5)
         lastNotificationTime = currentTime
     end
 end
