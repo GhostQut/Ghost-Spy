@@ -22,6 +22,7 @@ local vending_buy = Network.VendingMachines_Purchase
 local daily_redeem = Network.DailyRewards_Redeem
 local hum = plr.Character.Humanoid
 local merchant_buy = Network.Merchant_RequestPurchase
+local _G.s = false
 
 local hrp = plr.Character.HumanoidRootPart
 local things = workspace.__THINGS
@@ -223,9 +224,9 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
     end
 end)
 
-tab1.newToggle("AutoLootbags", "", false, function(toggleState)
+tab4.newToggle("AutoHeaven", "", false, function(toggleState)
    if toggleState == true then
-_G.s = true game:GetService("RunService").Heartbeat:Connect(updateCoordinates)
+_G.s = toggleState game:GetService("RunService").Heartbeat:Connect(updateCoordinates)
 
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120.79306030273438, -126.99183654785156, -213.44664001464844)
 
