@@ -23,6 +23,8 @@ local daily_redeem = Network.DailyRewards_Redeem
 local hum = plr.Character.Humanoid
 local merchant_buy = Network.Merchant_RequestPurchase
 local _G.s = false
+local lastNotificationTime = 0
+local notificationDelay = 0.5
 
 local hrp = plr.Character.HumanoidRootPart
 local things = workspace.__THINGS
