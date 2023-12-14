@@ -23,13 +23,34 @@ local daily_redeem = Network.DailyRewards_Redeem
 local hum = plr.Character.Humanoid
 local merchant_buy = Network.Merchant_RequestPurchase
 local _G.s = false
-local lastNotificationTime = 0
-local notificationDelay = 0.5
 
 local hrp = plr.Character.HumanoidRootPart
 local things = workspace.__THINGS
 local s = "Small"
 local d = "Diamond Bag"
+
+local coordinates
+local notifs = loadstring(game:HttpGet('https://raw.githubusercontent.com/CF-Trail/random/main/FE2Notifs.lua'))()
+
+notifs.alert('Execute "_G.s = false" to stop!\nThis is the fastest it can go due to stairs being generated.', nil, 1000000, 'rainbow')
+task.wait(0.01)
+
+local lastNotificationTime = 0
+local notificationDelay = 0.5
+
+local function updateCoordinates()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    coordinates = humanoidRootPart.Position.Y -- Only the Y axis
+
+    local currentTime = tick()
+    if currentTime - lastNotificationTime >= notificationDelay then
+        notifs.alert('Studs above the sky: ' .. tostring(math.floor(coordinates)) .. '', nil, 0.5) -- Display Y axis without decimals
+        lastNotificationTime = currentTime
+    end
+end
 
 local RankStuff = {
 	9,
@@ -42,8 +63,6 @@ local RankStuff = {
 	32
 };
 local MaxRank = 8
-
-local notifs = loadstring(game:HttpGet('https://raw.githubusercontent.com/CF-Trail/random/main/FE2Notifs.lua'))()
 
 local chestsn = {
     "Animated",
@@ -78,20 +97,6 @@ local Merchants = {
 
 function  GetRank()
       return game.Players.LocalPlayer.leaderstats["⭐ Rank"].Value	
-end
-
-local function updateCoordinates()
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-    coordinates = humanoidRootPart.Position.Y -- Only the Y axis
-
-    local currentTime = tick()
-    if currentTime - lastNotificationTime >= notificationDelay then
-        notifs.alert('Studs above the sky: ' .. tostring(math.floor(coordinates)) .. '', nil, 0.5) -- Display Y axis without decimals
-        lastNotificationTime = currentTime
-    end
 end
 
 function  ClaimRank()
