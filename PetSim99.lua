@@ -250,7 +250,4 @@ tab4.newToggle("AutoFish", "", false, function(toggleState)
             until not Actives:FindFirstChild("Fishing") or (getRod() and getRod().Parent.Bobber.Transparency <= 0)
         end
     end)
-    else
-        toggleState = false
-    end
 end)
