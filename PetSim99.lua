@@ -70,7 +70,7 @@ local Merchants = {
 }
 
 function  GetRank()
-      return game.Players.LocalPlayer.leaderstats["⭐ Rank"].Value	
+      return game.Players.LocalPlayer.leaderstats[" Rank"].Value	
 end
 
 function  ClaimRank()
@@ -249,5 +249,6 @@ tab4.newToggle("AutoFish", "", false, function(toggleState)
                 game:GetService("RunService").RenderStepped:Wait()
             until not Actives:FindFirstChild("Fishing") or (getRod() and getRod().Parent.Bobber.Transparency <= 0)
         end
-    end)
+end)
+    end
 end)
