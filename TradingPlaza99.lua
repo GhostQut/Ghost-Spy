@@ -7,8 +7,6 @@ local price = 1000
 local count = 100
 local x = 1
 
-print(unpack(tostring(pet)))
-
 local function GetMyPets()
     		local returntable = {}
     		for i,v in pairs(GameLibrary.Save.Get().Pets) do
