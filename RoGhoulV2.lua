@@ -63,3 +63,66 @@ local array = {
         R = player.PlayerFolder.Special2CD
     }
 }
+tab1:newLabel("Target")
+
+local drop = tab1:newDropdown("Select", function(opt)
+    array.targ = array.npcs[opt]
+end)
+
+btn = tab1:newButton("Start", function()
+    if not array.autofarm then
+        if key then
+            btn.Text, array.autofarm = "Stop", true
+            local farmtick = tick()
+            while array.autofarm do
+                labels("tfarm", "Time elapsed: "..os.date("!%H:%M:%S", tick() - farmtick))
+                wait(1)
+            end
+        else
+            player:Kick("Failed to get the Remote key, please try to execute the script again")
+        end
+    else
+        btn.Text, array.autofarm, array.died = "Start", false, false
+    end
+end)
+
+local function format(number)
+    local i, k, j = tostring(number):match("(%-?%d?)(%d*)(%.?.*)")
+    return i..k:reverse():gsub("(%d%d%d)", "%1,"):reverse()..j
+end
+
+labels = setmetatable({
+    text = {label = tab1:newLabel("")},
+    tfarm = {label = tab1:newLabel("")},
+    space = {label = tab1:newLabel("")},
+    Quest = {prefix = "Current Quest: ", label = tab1:newLabel("Current Quest: None")},
+    Yen = {prefix = "Yen: ", label = tab1:newLabel("Yen: 0"), value = 0, oldval = player.PlayerFolder.Stats.Yen.Value},
+    RC = {prefix = "RC: ", label = tab1:newLabel("RC: 0"), value = 0, oldval = player.PlayerFolder.Stats.RC.Value},
+    Kills = {prefix = "Kills: ", label = tab1:newLabel("Kills: 0"), value = 0} 
+}, {
+    __call = function (self, typ, newv, oldv)
+        if typ and newv then
+            local object = self[typ]
+            if type(newv) == "number" then
+                object.value = object.value + newv
+                object.label.Text = object.prefix..format(object.value)
+                if oldv then
+                    object.oldval = oldv
+                end
+            elseif object.prefix then
+                object.label.Text = object.prefix..newv
+            else
+                object.label.Text = newv
+            end
+            return
+        end
+        for i,v in pairs(labels) do
+            v.value = 0
+            v.label.Text = v.prefix.."0"
+        end
+    end
+})
+
+local function getLabel(la)
+    return labels[la].value and labels[la].value or labels[la].label.Text
+end
