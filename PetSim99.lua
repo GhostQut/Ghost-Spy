@@ -130,7 +130,6 @@ local function getLoot()
     end
     for i,v in pairs(b.Orbs:GetChildren()) do
     v:PivotTo(cf)
-
     end
 end
 
