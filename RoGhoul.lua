@@ -62,18 +62,6 @@ tab1.newToggle("Auto Collect Corpses", "", true, function(on)
 end)
 
 local whitelist = ''
-s1:CreateDropdown({
-    Name = "Type"; -- required: name of element
-    Callback = function(item) -- required: function to be called an item in the dropdown is activated
-        whitelist = item
-    end;
-    Options = {"None", "Human" ,"Aogiri" ,"Investigator"}; -- required: dropdown options
-    ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
-    DefaultItemSelected = "None"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
-    -- Scroll to the bottom of the page to read more about the following two:
-    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
-    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
-})
 
 tab2.newDropdown("Type Mob", "", {"Human" ,"Aogiri" ,"Investigator"}, function(item)
     whitelist = item
