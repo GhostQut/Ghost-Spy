@@ -6,12 +6,17 @@ local tab1 = DrRayLibrary.newTab("Auto", "13075622619")
 local tab2 = DrRayLibrary.newTab("Eggs", "")
 local tab3 = DrRayLibrary.newTab("Merchant", "")
 local tab4 = DrRayLibrary.newTab("Games", "")
+local tab6 = DrRayLibrary.newTab("Event", "13075268290")
 local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
 local InGame = false
+local TeleportingEv = false
+
 local plr = game:GetService("Players").LocalPlayer
 local things = game:GetService("Workspace"):WaitForChild("__THINGS")
 local Actives = things:WaitForChild("__INSTANCE_CONTAINER"):WaitForChild("Active")
+local children = things.Presents:GetChildren()
+local lastTeleportedChild = nil
 local Debris = game:GetService("Workspace"):WaitForChild("__DEBRIS")
 local Network = game:GetService("ReplicatedStorage"):WaitForChild("Network")
 local FishingGame = plr:WaitForChild("PlayerGui"):WaitForChild("_INSTANCES").FishingGame.GameBar
@@ -36,11 +41,8 @@ local RankStuff = {
 	28,
 	32
 };
-local MaxRank = 8
+local MaxRank = 11
 
-local chestsn = {
-    "Animated",
-    }
 local function contains(table, val)
    for i=1,#table do
       if table[i] == val then return true end
@@ -70,7 +72,7 @@ local Merchants = {
 }
 
 function  GetRank()
-      return game.Players.LocalPlayer.leaderstats[" Rank"].Value	
+      return game.Players.LocalPlayer.leaderstats["тнР Rank"].Value	
 end
 
 function  ClaimRank()
@@ -93,6 +95,164 @@ local function teleport(destination)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
     task.wait(1)
     hum:ChangeState(Enum.HumanoidStateType.Jumping)
+end
+
+local function findClosestChild(children, player)
+    if not children or #children == 0 then
+        return
+    end
+
+    local closestChild = nil
+    local shortestDistance = math.huge
+
+    for _, v in ipairs(children) do
+        if v.Name == "Highlight" or v.Transparency == 0.75 then
+            continue
+        end
+
+        local distance = (v.Position - hrp.Position).Magnitude
+
+        if distance < shortestDistance then
+            shortestDistance = distance
+            closestChild = v
+        end
+    end
+
+    return closestChild
+end
+      
+local function getLoot()
+    local cf = hrp.CFrame
+    for i,v in pairs(b.Lootbags:GetChildren()) do
+    v:PivotTo(cf)
+    end
+    for i,v in pairs(b.Orbs:GetChildren()) do
+    v:PivotTo(cf)
+
+    end
+end
+
+tab1.newToggle("AutoRewards", "", false, function(toggleState)
+    if toggleState then
+        for i,v in ipairs(DailyRedeemables) do
+    teleport(v[1])
+    daily_redeem:InvokeServer(v[2])
+end
+    else
+        toggleState = false
+    end
+end)
+
+tab1.newToggle("AutoLootbags", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+       getLoot()
+   end
+else
+toggleState = false
+end
+end)
+tab6.newToggle("Auto ChristmasGift", "", false, function(toggleState)
+TeleportingEv = toggleState
+   if toggleState == true then
+      while TeleportingEv == true do
+    local closestChild = findClosestChild(children, player)
+    if not closestChild then
+        print("No closest child found.")
+        break
+    end
+
+    if lastTeleportedChild == closestChild then
+        print("Already teleported to this child.")
+        continue
+    end
+
+    lastTeleportedChild = closestChild
+    local startTime = os.time()
+    while os.difftime(os.time(), startTime) < 5 do
+        if not plr.Character or not hrp then
+            print("Player or HumanoidRootPart not found.")
+            break
+        end
+        hrp.CFrame = CFrame.new(closestChild.Position)
+        task.wait()
+    end
+
+    local childFound = false
+    for i, child in ipairs(children) do
+        if child == closestChild then
+            table.remove(children, i)
+            childFound = true
+            break
+        end
+    end
+end
+    else
+        toggleState = false
+    end
+end)
+
+tab1.newToggle("AutoMachiens", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+       for i,v in ipairs(machines) do
+    teleport(v[2])
+    local a, b
+    for i2, v2 in pairs(workspace.Map:GetChildren()) do
+        if string.find(v2.Name,v[2], 1, true) then
+           hum.Parent:PivotTo(v2.INTERACT.Machines[v[1]].PrimaryPart.CFrame * CFrame.new(0,9,0)) 
+        end
+    end
+
+    repeat a,b = vending_buy:InvokeServer(v[1], 1)
+        task.wait(0.1) 
+    until a == false
+end
+   end
+   else
+        toggleState = false
+   end
+end)
+tab1.newToggle("AutoRank", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+    ClaimRank()
+   end
+   else
+       if GetRank() == 11 then
+ClaimRank()
+end
+   end
+end)
+
+tab2.newToggle("Animation Remove", "", false, function(toggleState)
+   if toggleState == true then
+      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
+      end
+    else
+        toggleState = false
+    end
+end)
+
+local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
+
+
+for i, v in pairs(CurrentFishingModule) do
+    OldPlayerHooks[i] = v
+end
+
+CurrentFishingModule.IsFishInBar = function()
+    return math.random(1, 6) ~= 1
+end
+
+CurrentFishingModule.StartGame = function(...)
+    InGame = true
+    return OldPlayerHooks.StartGame(...)
+end
+
+CurrentFishingModule.StopGame = function(...)
+    InGame = false
+    return OldPlayerHooks.StopGame(...)
 end
       
 local function waitForGameState(state)
@@ -130,101 +290,6 @@ local function getBubbles(anchor)
 
     return myBubbles
 end
-      
-local function getLoot()
-    local cf = hrp.CFrame
-    for i,v in pairs(b.Lootbags:GetChildren()) do
-    v:PivotTo(cf)
-    end
-    for i,v in pairs(b.Orbs:GetChildren()) do
-    v:PivotTo(cf)
-
-    end
-end
-
-tab1.newToggle("AutoRewards", "", false, function(toggleState)
-    if toggleState then
-        for i,v in ipairs(DailyRedeemables) do
-    teleport(v[1])
-    daily_redeem:InvokeServer(v[2])
-end
-    else
-        toggleState = false
-    end
-end)
-
-tab1.newToggle("AutoLootbags", "", false, function(toggleState)
-   if toggleState == true then
-      while task.wait(0.5) do
-       getLoot()
-   end
-else
-toggleState = false
-end
-end)
-
-tab1.newToggle("AutoMachiens", "", false, function(toggleState)
-   if toggleState == true then
-      while task.wait(0.5) do
-       for i,v in ipairs(machines) do
-    teleport(v[2])
-    local a, b
-    for i2, v2 in pairs(workspace.Map:GetChildren()) do
-        if string.find(v2.Name,v[2], 1, true) then
-           hum.Parent:PivotTo(v2.INTERACT.Machines[v[1]].PrimaryPart.CFrame * CFrame.new(0,9,0)) 
-        end
-    end
-
-    repeat a,b = vending_buy:InvokeServer(v[1], 1)
-        task.wait(0.1) 
-    until a == false
-end
-   end
-   else
-        toggleState = false
-   end
-end)
-tab1.newToggle("AutoRank", "", false, function(toggleState)
-   if toggleState == true then
-      while task.wait(0.5) do
-    ClaimRank()
-   end
-   else
-       if GetRank() == 8 then
-ClaimRank()
-end
-   end
-end)
-
-tab2.newToggle("Animation Remove", "", false, function(toggleState)
-   if toggleState == true then
-      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
-      end
-    else
-        toggleState = false
-    end
-end)
-
-local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
-
-
-for i, v in pairs(CurrentFishingModule) do
-    OldPlayerHooks[i] = v
-end
-
-CurrentFishingModule.IsFishInBar = function()
-    return math.random(1, 6) ~= 1
-end
-
-CurrentFishingModule.StartGame = function(...)
-    InGame = true
-    return OldPlayerHooks.StartGame(...)
-end
-
-CurrentFishingModule.StopGame = function(...)
-    InGame = false
-    return OldPlayerHooks.StopGame(...)
-end
   
 tab4.newToggle("AutoFish", "", false, function(toggleState)
    if toggleState == true then
@@ -249,6 +314,9 @@ tab4.newToggle("AutoFish", "", false, function(toggleState)
                 game:GetService("RunService").RenderStepped:Wait()
             until not Actives:FindFirstChild("Fishing") or (getRod() and getRod().Parent.Bobber.Transparency <= 0)
         end
-end)
+    end)
+end
+    else
+        toggleState = false
     end
 end)
