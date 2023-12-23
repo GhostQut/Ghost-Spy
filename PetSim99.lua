@@ -57,7 +57,8 @@ local machines = {
     {"EnchantVendingMachine2";"Fire and Ice"};
     {"FruitVendingMachine1";"Mushroom Field"};
     {"FruitVendingMachine2";"Pirate Cove"};
-    {"RareEnchantsVendingMachine1";""};
+   {"RareEnchantsVendingMachine1";"Samurai Village"};
+{"RarePotionsVendingMachine1";"Underwold Bridge"};
 }
 local OldPlayerHooks = {}
 
