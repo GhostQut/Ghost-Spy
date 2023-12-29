@@ -1,128 +1,275 @@
+repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
 local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
 
-local window = DrRayLibrary:Load("RoGhoul", "Default")
+local window = DrRayLibrary:Load("Ro-Ghoul", "Default")
 
-local tab1 = DrRayLibrary.newTab("Main", "13075622619")
-local tab2 = DrRayLibrary.newTab("Farm Options", "13075622619")
-local tab3 = DrRayLibrary.newTab("Trainer", "13075622619")
-local tab4 = DrRayLibrary.newTab("Misc", "13075622619")
+local key = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
 
+local dis = 10
+local dis_old = 10
+local sped = 100
+local twen = nil
+local on2 = false
+local old_on2 = false
+local rep_on = false
+local auto_cash = false
+local stag = 'One'
 
-local get = setmetatable({}, {
-    __index = function(a, b)
-        return game:GetService(b) or game[b]
+local tab1 = DrRayLibrary.newTab("Main", "")
+local tab2 = DrRayLibrary.newTab("SetUp", "")
+local tab3 = DrRayLibrary.newTab("Trainer", "")
+local tab4 = DrRayLibrary.newTab("Misc", "")
+local tab6 = DrRayLibrary.newTab("Other", "")
+
+game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, stag, "Down", CFrame.new(), CFrame.new())
+spawn(function()
+    while wait() do
+        if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+	        repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("SpawnSelection")--or wait(3)
+            repeat wait() until not game.Players.LocalPlayer.PlayerGui:FindFirstChild("SpawnSelection")--or wait(3)
+            wait(1)
+            repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
+	        game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, stag, "Down", CFrame.new(), CFrame.new())
+        end
     end
-})
-
-local btn, btn2, btn3, key, nmc, trainers, labels
-local findobj, findobjofclass, waitforobj, fire, invoke = get.FindFirstChild, get.FindFirstChildOfClass, get.WaitForChild, Instance.new("RemoteEvent").FireServer, Instance.new("RemoteFunction").InvokeServer
-local player = get.Players.LocalPlayer
-
-repeat wait() until player:FindFirstChild("PlayerFolder")
-
-local team, remotes, stat = player.PlayerFolder.Customization.Team.Value, get.ReplicatedStorage.Remotes, player.PlayerFolder.StatsFunction
-local oldtick, farmtick = 0, 0
-local camera = workspace.CurrentCamera
-local myData = loadstring(game:HttpGet("https://raw.githubusercontent.com/z4gs/scripts/master/Settings.lua"))()("Ro-Ghoul Autofarm", {
-    Skills = {
-        E = false,
-        F = false,
-        C = false,
-        R = false
-    },
-    Boss = {
-        ["Gyakusatsu"] = false,
-        ["Eto Yoshimura"] = false,
-        ["Koutarou Amon"] = false,
-        ["Nishiki Nishio"] = false
-    },
-    DistanceFromNpc = 5,
-    DistanceFromBoss = 8,
-    TeleportSpeed = 150,
-    ReputationFarm = false,
-    ReputationCashout = false,
-    AutoKickWhitelist = ""
-})
-
-local array = {
-    boss = {
-        ["Gyakusatsu"] = 1250,
-        ["Eto Yoshimura"] = 1250,
-        ["Koutarou Amon"] = 750,
-        ["Nishiki Nishio"] = 250
-    },
-
-    npcs = {["Aogiri Members"] = "GhoulSpawns", Investigators = "CCGSpawns", Humans = "HumanSpawns"},
-
-    stages = {"One", "Two", "Three", "Four", "Five", "Six"},
-
-    skills = {
-        E = player.PlayerFolder.Special1CD,
-        F = player.PlayerFolder.Special3CD,
-        C = player.PlayerFolder.SpecialBonusCD,
-        R = player.PlayerFolder.Special2CD
-    }
-}
-tab1:newLabel("Target")
-
-local drop = tab1:newDropdown("Select", function(opt)
-    array.targ = array.npcs[opt]
 end)
 
-btn = tab1:newButton("Start", function()
-    if not array.autofarm then
-        if key then
-            btn.Text, array.autofarm = "Stop", true
-            local farmtick = tick()
-            while array.autofarm do
-                labels("tfarm", "Time elapsed: "..os.date("!%H:%M:%S", tick() - farmtick))
-                wait(1)
+tab2.newSlider("Speed", "", 250, false, function(newValue)
+    sped = tonumber(newValue)
+end)
+
+tab2.newSlider("Distance From Mob", "", 20, false, function(newValue)
+	dis = tonumber(newValue)
+	dis_old = tonumber(newValue)
+end)
+
+local ass = true
+
+tab1.newToggle("AutoFarm", "", true, function(on)
+    if on then
+        on2 = on
+        old_on2 = on
+    end
+end)
+
+local on1 = false
+
+tab1.newToggle("Auto Collect Corpses", "", true, function(on)
+    if on then
+        on1 = on
+    end
+end)
+
+local whitelist = ''
+
+tab2.newDropdown("Type Mob", "", {"Human" ,"Aogiri" ,"Investigator"}, function(item)
+    whitelist = item
+end)
+
+local crum = 'cummmmmmmmmm'
+local dis1 = 5
+local last = math.huge
+local nearest = nil
+spawn(function()
+    while wait() do
+        for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do 
+            if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelist == "Eto Yoshimura") and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
+                for i2,v2 in pairs(v:GetChildren()) do 
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        local distance = (v2:FindFirstChild("HumanoidRootPart").Position - game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position).magnitude
+                        if distance < last then
+                            last = distance
+                            nearest = v2.HumanoidRootPart
+                        end
+                    end
+                end
+            end
+        end
+        if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:IsA("MeshPart") or v:IsA("Part") then
+                    v.CanCollide = false
+                end
+            end
+        end
+    end
+end)
+local times_fired = 0
+spawn(function()
+    while wait() do
+        if on2 and game.Players.LocalPlayer.PlayerGui:FindFirstChild("HUD") then
+            for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do
+                if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelist == "Eto Yoshimura") and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
+                    for i2,v2 in pairs(v:GetChildren()) do 
+                        if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                            if nearest ~= nil and nearest.Parent ~= nil then
+                                warn(tostring(nearest.Parent.Name))
+                                print("found", "      ", tostring(nearest.Parent.Name))
+                                repeat 
+                                local hum = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                                if on2 and hum and nearest ~= nil then 
+                                    twen = game:GetService("TweenService"):Create(hum,TweenInfo.new((hum.Position - nearest.Position).magnitude/sped,Enum.EasingStyle.Quad),{CFrame = nearest.CFrame * CFrame.new(0,0,dis)})
+                                    times_fired = times_fired + 1
+                                    if ass and twen ~= nil then  
+                                        twen:Play()
+                                    end
+                                if game.Players.LocalPlayer.Character:FindFirstChild("Remotes") and ass and (nearest.Position - hum.Position).magnitude < 23 then
+                                    game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "Mouse1", "Down", CFrame.new(), CFrame.new())
+                                end
+                                end
+                                wait()
+                                until not v:FindFirstChildWhichIsA("Model") or nearest.Parent == nil or on2 == false
+                                print("next mob please")
+                                last, nearest = math.huge, nil
+                                twen:Cancel()
+                            end
+                        end
+                    end
+                end
             end
         else
-            player:Kick("Failed to get the Remote key, please try to execute the script again")
+            last, nearest = math.huge, nil
         end
-    else
-        btn.Text, array.autofarm, array.died = "Start", false, false
+    end
+end)
+spawn(function()
+    while wait() do
+        print(times_fired)
+        times_fired = 0
+        wait(10)
+    end
+end)
+local psy = false
+local kag = false
+local dur = false
+local speeed = false
+local delay = 1
+
+local auto_click = false
+tab4.newToggle("AutoClick", "", false, function(on)
+    if on then
+	auto_click = on
     end
 end)
 
-local function format(number)
-    local i, k, j = tostring(number):match("(%-?%d?)(%d*)(%.?.*)")
-    return i..k:reverse():gsub("(%d%d%d)", "%1,"):reverse()..j
-end
+local auto_use_e = false
+local auto_use_r = false
+local auto_use_c = false
+local auto_use_f = false
 
-labels = setmetatable({
-    text = {label = tab1:newLabel("")},
-    tfarm = {label = tab1:newLabel("")},
-    space = {label = tab1:newLabel("")},
-    Quest = {prefix = "Current Quest: ", label = tab1:newLabel("Current Quest: None")},
-    Yen = {prefix = "Yen: ", label = tab1:newLabel("Yen: 0"), value = 0, oldval = player.PlayerFolder.Stats.Yen.Value},
-    RC = {prefix = "RC: ", label = tab1:newLabel("RC: 0"), value = 0, oldval = player.PlayerFolder.Stats.RC.Value},
-    Kills = {prefix = "Kills: ", label = tab1:newLabel("Kills: 0"), value = 0} 
-}, {
-    __call = function (self, typ, newv, oldv)
-        if typ and newv then
-            local object = self[typ]
-            if type(newv) == "number" then
-                object.value = object.value + newv
-                object.label.Text = object.prefix..format(object.value)
-                if oldv then
-                    object.oldval = oldv
-                end
-            elseif object.prefix then
-                object.label.Text = object.prefix..newv
-            else
-                object.label.Text = newv
-            end
-            return
+tab4.newToggle("Auto Use E", "", true, function(on)
+    if on then
+	auto_use_e = on
+    end
+end)
+tab4.newToggle("Auto Use R", "", true, function(on)
+    if on then
+	auto_use_r = on
+    end
+end)
+tab4.newToggle("Auto Use C", "", true, function(on)
+    if on then
+	auto_use_c = on
+    end
+end)
+tab4.newToggle("Auto Use F", "", true, function(on)
+    if on then
+	auto_use_f = on
+    end
+end)
+
+local name_off = false
+tab4.newButton("Hide Name", "", function()
+	name_off = true
+end)
+
+local anti_afk = false
+tab4.newToggle("AntiAFK", "", true, function(on)
+    if on then
+	anti_afk = on
+    end
+end)
+
+tab2.newDropdown("Stage", "", {"One","Two","Three", "Four","Five","Six"}, function(item)
+    stag = item
+end)
+
+local ReputationFarm = false,
+local ReputationCashout = false,
+
+tab6:newToggle("Reputation Farm","", function(bool) 
+    ReputationFarm = bool
+end)
+
+tab6:newToggle("Auto Reputation Cashout","", function(bool)
+    ReputationCashout = bool
+end)
+
+spawn(function()
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        if anti_afk then game:GetService("VirtualUser"):Button2Down(Vector2.new())
         end
-        for i,v in pairs(labels) do
-            v.value = 0
-            v.label.Text = v.prefix.."0"
+    end)
+end)
+spawn(function()
+    while wait() do
+        if name_off and game.workspace:FindFirstChild(game.Players.LocalPlayer.Name) then
+            for i,v in pairs(game.workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+                if v:FindFirstChild("PlayerStatus") then
+                    v:FindFirstChild("PlayerStatus"):Destroy()
+                end
+            end
+        end
+        if game.Players.LocalPlayer.Character:FindFirstChild("Remotes") then
+            if auto_click then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "Mouse1", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_e then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "E", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_r then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "R", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_c then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "C", "Down", CFrame.new(), CFrame.new())
+            end
+            if auto_use_f then
+                game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "F", "Down", CFrame.new(), CFrame.new())
+            end
         end
     end
-})
-
-local function getLabel(la)
-    return labels[la].value and labels[la].value or labels[la].label.Text
-end
+end)
+spawn(function()
+    while wait() do
+    if on1 then
+        for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do 
+            if v:FindFirstChildWhichIsA("Model") then 
+                for i3,v3 in pairs(v:FindFirstChildWhichIsA("Model"):GetChildren()) do
+                    if string.find(v3.Name:lower(), "corpse") and v3:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        if v3:FindFirstChild("ClickPart") then
+                            for i4,v4 in pairs(v3:GetChildren()) do
+                                if v4:FindFirstChildWhichIsA("ClickDetector") and (game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position - v3:FindFirstChild("HumanoidRootPart").Position).magnitude < 30 then
+                                warn("start eat")
+                                local hum = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                                twen:Pause()
+                                ass = false
+                                spawn(function()
+                                    repeat
+                                        hum.CFrame = v3.HumanoidRootPart.CFrame
+                                        fireclickdetector(v4:FindFirstChildWhichIsA("ClickDetector"), 1)
+                                    wait()
+                                    until ass == true
+                                end)
+                                wait(0.3)
+                                ass = true
+                                warn("stop eat")
+                                end
+                            end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
