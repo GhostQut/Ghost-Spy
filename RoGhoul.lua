@@ -1,8 +1,5 @@
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
-local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
-
-local window = DrRayLibrary:Load("Ro-Ghoul", "Default")
-
+local Freem = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/FreemUI/main/Source.lua"))()
 local key = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
 
 local dis = 10
@@ -15,11 +12,33 @@ local rep_on = false
 local auto_cash = false
 local stag = 'One'
 
-local tab1 = DrRayLibrary.newTab("Main", "")
-local tab2 = DrRayLibrary.newTab("SetUp", "")
-local tab3 = DrRayLibrary.newTab("Trainer", "")
-local tab4 = DrRayLibrary.newTab("Misc", "")
-local tab6 = DrRayLibrary.newTab("Other", "")
+local test = Freem.new({
+    Name = "Yammi";
+    ConfigFolder = "YammiHub";
+    Credit = "Made by me!";
+    Color = Color3.fromRGB(164, 53, 90);
+    FullName = "YammiHub";
+    UseLoader = true;
+    Bind = "LeftShift";
+    CheckKey = function(e) -- this can be nil to disable key checking
+        return e == "OnePerNiger"
+    end;
+    Discord = "https://link-target.net/423094/yammihub"
+})
+
+local Farm = test:CreatePage("Main")
+local Options = test:CreatePage("SetUp")
+local Trainer = test:CreatePage("Trainer")
+local Misc = test:CreatePage("Misc")
+local Focus = test:CreatePage("Focus")
+local Other = test:CreatePage("Other")
+
+local s1 = Farm:CreateSection("Farm")
+local s2 = Options:CreateSection("Options")
+local s3 = Trainer:CreateSection("Trainer")
+local s4 = Focus:CreateSection("Focus")
+local s5 = Misc:CreateSection("Miscellaneous")
+local s6 = Other:CreateSection("Other")
 
 game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, stag, "Down", CFrame.new(), CFrame.new())
 spawn(function()
@@ -34,42 +53,73 @@ spawn(function()
     end
 end)
 
-tab2.newSlider("Speed", "", 250, false, function(newValue)
-    sped = tonumber(newValue)
-end)
-
-tab2.newSlider("Distance From Mob", "", 20, false, function(newValue)
-	dis = tonumber(newValue)
-	dis_old = tonumber(newValue)
-end)
+s2:CreateSlider({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
+    Name = "Speed"; -- required: name of element
+    Flag = "Speed"; -- required: unique flag name to use
+    Min = 0; -- required: slider minimum drag
+    Max = 250; -- required: slider maximum drag (Max>Min or else script will error)
+    AllowOutOfRange = true; -- optional: determines whether the player can enter values outside of range Min:Max when typing in the TextBox. If left nil, this is false
+    Digits = 1; -- optional: digits for rounding when dragging or entering values, default is 0 (whole numbers)
+    Default = 120; -- optional: default value for slider, will be used if config saving is disabled and there is no saved data, will be the Min value if left nil
+    Callback = function(newValue) -- optional: function that will be called whenever slider flag is changed
+        sped = tonumber(newValue)
+    end;
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
+s2:CreateSlider({ -- IMPORTANT: This function does not return anything, please modify flags directly in order to read or update toggle values. SCROLL TO BOTTOM OF PAGE TO SEE HOW TO MODIFY FLAGS
+    Name = "Distance From Mob"; -- required: name of element
+    Flag = "DistanceFromMob"; -- required: unique flag name to use
+    Min = 0; -- required: slider minimum drag
+    Max = 20; -- required: slider maximum drag (Max>Min or else script will error)
+    AllowOutOfRange = true; -- optional: determines whether the player can enter values outside of range Min:Max when typing in the TextBox. If left nil, this is false
+    Digits = 1; -- optional: digits for rounding when dragging or entering values, default is 0 (whole numbers)
+    Default = 10; -- optional: default value for slider, will be used if config saving is disabled and there is no saved data, will be the Min value if left nil
+    Callback = function(newValue) -- optional: function that will be called whenever slider flag is changed
+        dis = tonumber(newValue)
+        dis_old = tonumber(newValue)
+    end;
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
 
 local ass = true
 
-tab1.newToggle("AutoFarm", "", false, function(on)
-    if on then
+s1:CreateToggle({
+    Name = "AutoFarm";
+    Flag = "MyToggle";
+    Default = true;
+    Callback = function(on)
         on2 = on
         old_on2 = on
-    end
-end)
-
+    end;
+    
+})
 local on1 = false
-
-tab1.newToggle("Auto Collect Corpses", "", false, function(on)
-    if on then
+s1:CreateToggle({
+    Name = "Auto Collect Corpses";
+    Flag = "CollectCorpses";
+    Default = true;
+    Callback = function(on)
         on1 = on
-    end
-end)
-
+    end;
+    
+})
 local whitelist = ''
-local whitelistBoss = ''
-
-tab2.newDropdown("Type Mob", "", {"Human" ,"Aogiri" ,"Investigator"}, function(item)
-    whitelist = item
-end)
-tab2.newDropdown("Type Boss", "", {"Touka Kirishima" ,"Nishiki Nishio" ,"Koutarou Amon" ,"Eto Yoshimura" ,"Gyakusatsu"}, function(item)
-    whitelistBoss = item
-end)
-
+s1:CreateDropdown({
+    Name = "Type"; -- required: name of element
+    Callback = function(item) -- required: function to be called an item in the dropdown is activated
+        whitelist = item
+    end;
+    Options = {"None", "Human" ,"Aogiri" ,"Investigator"}; -- required: dropdown options
+    ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
+    DefaultItemSelected = "None"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
 local crum = 'cummmmmmmmmm'
 local dis1 = 5
 local last = math.huge
@@ -103,7 +153,7 @@ spawn(function()
     while wait() do
         if on2 and game.Players.LocalPlayer.PlayerGui:FindFirstChild("HUD") then
             for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do
-                if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelistBoss) and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
+                if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelist == "Eto Yoshimura") and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
                     for i2,v2 in pairs(v:GetChildren()) do 
                         if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                             if nearest ~= nil and nearest.Parent ~= nil then
@@ -148,76 +198,179 @@ local kag = false
 local dur = false
 local speeed = false
 local delay = 1
+function focusAdd(a)
+    game.Players.LocalPlayer.PlayerFolder.StatsFunction:InvokeServer("Focus", tostring(a), 1)
+end
+s4:CreateToggle({
+    Name = "Auto Focus Physical";
+    Flag = "FocusPhysical";
+    Default = true;
+    Callback = function(on)
+        psy = on
+    end;
+    
+})
+s4:CreateToggle({
+    Name = "Auto Focus Kagune / Quinque";
+    Flag = "FocusKagune/Quinque";
+    Default = true;
+    Callback = function(on)
+        kag = on
+    end;
+    
+})
+s4:CreateToggle({
+    Name = "Auto Focus Durability";
+    Flag = "FocusDurability";
+    Default = true;
+    Callback = function(on)
+        dur = on
+    end;
+    
+})
+s4:CreateToggle({
+    Name = "Auto Focus Speed";
+    Flag = "FocusSpeed";
+    Default = true;
+    Callback = function(on)
+        speeed = on
+    end;
+    
+})
+s4:CreateTextBox({
+    Name = "Focus Delay"; -- required: name of element
+    Flag = "FocusDelay"; -- required: unique flag name to use
+    Callback = function(inputtedText,enterPressed) -- function to be called when the textbox's focus is lost
+        print("TextBox:",inputtedText,enterPressed)
+        delay = tonumber(inputtedText)
+    end;
+    DefaultText = "1"; -- required: text that will be in the textbox when there is no configurations saved or config saving is disabled
+    PlaceholderText = "No Text"; -- optional: placeholder text that will show when no text is written
+    TabComplete = function(inputtedText) -- optional: function to be called when the player presses the tab button while the textbox is in focus. The replaced text will be whatever this function returns, if it returns nil, the text will not change
+        if inputtedText=="Road" then
+            return "RoadToGlory"
+        end
+    end;
+    ClearTextOnFocus = true; -- optional: whether to clear text when the textbox is focused, default is false
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
 
-local auto_click = false
-tab4.newToggle("AutoClick", "", false, function(on)
-    if on then
-	auto_click = on
+spawn(function()
+    while wait() do
+        if psy then
+            focusAdd("PhysicalAddButton")
+        elseif kag then
+            focusAdd("WeaponAddButton")
+        elseif dur then
+            focusAdd("DurabilityAddButton")
+        elseif speeed then
+            focusAdd("SpeedAddButton")
+        end
+        wait(delay)
     end
 end)
+
+
+local auto_click = false
+s5:CreateToggle({
+    Name = "Auto Click";
+    Flag = "AutoClick";
+    Default = true;
+    Callback = function(on)
+        auto_click = on
+    end;
+    
+})
 
 local auto_use_e = false
 local auto_use_r = false
 local auto_use_c = false
 local auto_use_f = false
+s5:CreateToggle({
+    Name = "Auto Use E";
+    Flag = "AutoUseE";
+    Default = true;
+    Callback = function(on)
+        auto_use_e = on
+    end;
+    
+})
+s5:CreateToggle({
+    Name = "Auto Use R";
+    Flag = "AutoUseR";
+    Default = true;
+    Callback = function(on)
+        auto_use_r = on
+    end;
+    
+})
+s5:CreateToggle({
+    Name = "Auto Use C";
+    Flag = "AutoUseC";
+    Default = true;
+    Callback = function(on)
+        auto_use_c = on
+    end;
+    
+})
+s5:CreateToggle({
+    Name = "Auto Use F";
+    Flag = "AutoUseF";
+    Default = true;
+    Callback = function(on)
+        auto_use_f = on
+    end;
+    
+})
 
-tab4.newToggle("Auto Use E", "", true, function(on)
-    if on then
-	auto_use_e = on
-    end
-end)
-tab4.newToggle("Auto Use R", "", true, function(on)
-    if on then
-	auto_use_r = on
-    end
-end)
-tab4.newToggle("Auto Use C", "", true, function(on)
-    if on then
-	auto_use_c = on
-    end
-end)
-tab4.newToggle("Auto Use F", "", true, function(on)
-    if on then
-	auto_use_f = on
-    end
-end)
-
-local name_off = false
-tab4.newButton("Hide Name", "", function()
-	name_off = true
-end)
+local name_on = false
+s5:CreateToggle({
+    Name = "Hide Name";
+    Flag = "HideName";
+    Default = true;
+    Callback = function(on)
+        name_on = on
+    end;
+    
+})
 
 local anti_afk = false
-tab4.newToggle("AntiAFK", "", true, function(on)
-    if on then
-	anti_afk = on
-    end
-end)
+s5:CreateToggle({
+    Name = "Anti Afk";
+    Flag = "AntiAfk";
+    Default = true;
+    Callback = function(on)
+        anti_afk = on
+    end;
+    
+})
 
-tab2.newDropdown("Stage", "", {"One","Two","Three", "Four","Five","Six"}, function(item)
-    stag = item
-end)
-
-local ReputationFarm = false
-local ReputationCashout = false
-
-tab6:newToggle("Reputation Farm","", function(bool) 
-    ReputationFarm = bool
-end)
-
-tab6:newToggle("Auto Reputation Cashout","", function(bool)
-    ReputationCashout = bool
-end)
+s5:CreateDropdown({
+    Name = "Stage"; -- required: name of element
+    Callback = function(item) -- required: function to be called an item in the dropdown is activated
+        stag = item
+    end;
+    Options = {"One","Two","Three", "Four","Five","Six"}; -- required: dropdown options
+    ItemSelecting = true; -- optional: whether to control item selecting behavior in dropdowns (see showcase video), is false by default
+    DefaultItemSelected = "One"; -- optional: default item selected, will not run the callback and does not need to be from options table. This will be ignored if ItemSelecting is not true.
+    -- Scroll to the bottom of the page to read more about the following two:
+    Warning = "This has a warning"; -- optional: this argument is used in all elements (except for Body) and will indicate text that will appear when the player hovers over the warning icon
+    WarningIcon = 12345; -- optional: ImageAssetId for warning icon, will only be used if Warning is not nil, default is yellow warning icon.
+})
 
 spawn(function()
+    print(anti_afk)
     game:GetService("Players").LocalPlayer.Idled:connect(function()
-        if anti_afk then game:GetService("VirtualUser"):Button2Down(Vector2.new())
+        if anti_afk then
+            game:GetService("VirtualUser"):Button2Down(Vector2.new())
         end
     end)
 end)
 spawn(function()
     while wait() do
-        if name_off and game.workspace:FindFirstChild(game.Players.LocalPlayer.Name) then
+        if name_on and game.workspace:FindFirstChild(game.Players.LocalPlayer.Name) then
             for i,v in pairs(game.workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
                 if v:FindFirstChild("PlayerStatus") then
                     v:FindFirstChild("PlayerStatus"):Destroy()
