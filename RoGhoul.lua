@@ -1,7 +1,7 @@
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
 local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
 
-local window = DrRayLibrary:Load("DrRay", "Default")
+local window = DrRayLibrary:Load("Ro-Ghoul", "Default")
 
 local key = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
 
@@ -19,7 +19,6 @@ local tab1 = DrRayLibrary.newTab("Main", "")
 local tab2 = DrRayLibrary.newTab("SetUp", "")
 local tab3 = DrRayLibrary.newTab("Trainer", "")
 local tab4 = DrRayLibrary.newTab("Misc", "")
-local tab5 = DrRayLibrary.newTab("Focus", "")
 local tab6 = DrRayLibrary.newTab("Other", "")
 
 game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, stag, "Down", CFrame.new(), CFrame.new())
@@ -35,7 +34,7 @@ spawn(function()
     end
 end)
 
-tab2.newSlider("Speed", "Epic slider", 250, false, function(newValue)
+tab2.newSlider("Speed", "", 250, false, function(newValue)
     sped = tonumber(newValue)
 end)
 
@@ -46,7 +45,7 @@ end)
 
 local ass = true
 
-tab1.newToggle("AutoFarm", "Toggle! (prints the state)", true, function(on)
+tab1.newToggle("AutoFarm", "", false, function(on)
     if on then
         on2 = on
         old_on2 = on
@@ -55,16 +54,20 @@ end)
 
 local on1 = false
 
-tab1.newToggle("Auto Collect Corpses", "", true, function(on)
+tab1.newToggle("Auto Collect Corpses", "", false, function(on)
     if on then
         on1 = on
     end
 end)
 
 local whitelist = ''
+local whitelistBoss = ''
 
 tab2.newDropdown("Type Mob", "", {"Human" ,"Aogiri" ,"Investigator"}, function(item)
     whitelist = item
+end)
+tab2.newDropdown("Type Boss", "", {"Touka Kirishima" ,"Nishiki Nishio" ,"Koutarou Amon" ,"Eto Yoshimura" ,"Gyakusatsu"}, function(item)
+    whitelistBoss = item
 end)
 
 local crum = 'cummmmmmmmmm'
@@ -100,7 +103,7 @@ spawn(function()
     while wait() do
         if on2 and game.Players.LocalPlayer.PlayerGui:FindFirstChild("HUD") then
             for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetChildren()) do
-                if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelist == "Eto Yoshimura") and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
+                if v:IsA("MeshPart") and v:FindFirstChildWhichIsA("Model") and not string.find(v.Name, "Human") and (not string.find(v.Name, "Boss") or whitelistBoss) and string.find(v:FindFirstChildWhichIsA("Model").Name, whitelist) then
                     for i2,v2 in pairs(v:GetChildren()) do 
                         if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                             if nearest ~= nil and nearest.Parent ~= nil then
@@ -145,112 +148,70 @@ local kag = false
 local dur = false
 local speeed = false
 local delay = 1
-function focusAdd(a)
-    game.Players.LocalPlayer.PlayerFolder.StatsFunction:InvokeServer("Focus", tostring(a), 1)
-end
-
-tab4.newToggle("Auto Focus Physical", "", true, function(on)
-    if on then
-	psy = on
-    end
-end)
-
-tab4.newToggle("cus Auto FoKagune / Quinque", "", true, function(on)
-    if on then
-	kag = on
-    end
-end)
-
-tab4.newToggle("Auto Focus Durability", "", true, function(on)
-    if on then
-	dur = on
-    end
-end)
-
-tab4.newToggle("Auto Focus Speed", "", true, function(on)
-    if on then
-	speeed = on
-    end
-end)
-
-tab4.newInput("Focus Delay", "", function(text)
-    delay = tonumber(text)
-end)
-
-spawn(function()
-    while wait() do
-        if psy then
-            focusAdd("PhysicalAddButton")
-        elseif kag then
-            focusAdd("WeaponAddButton")
-        elseif dur then
-            focusAdd("DurabilityAddButton")
-        elseif speeed then
-            focusAdd("SpeedAddButton")
-        end
-        wait(delay)
-    end
-end)
-
 
 local auto_click = false
-s5:CreateToggle({
-    Name = "Auto Click";
-    Flag = "AutoClick";
-    Default = true;
-    Callback = function(on)
-        auto_click = on
-    end;
-    
-})
+tab4.newToggle("AutoClick", "", false, function(on)
+    if on then
+	auto_click = on
+    end
+end)
 
 local auto_use_e = false
 local auto_use_r = false
 local auto_use_c = false
 local auto_use_f = false
 
-tab5.newToggle("Auto Use E", "", true, function(on)
+tab4.newToggle("Auto Use E", "", true, function(on)
     if on then
 	auto_use_e = on
     end
 end)
-tab5.newToggle("Auto Use R", "", true, function(on)
+tab4.newToggle("Auto Use R", "", true, function(on)
     if on then
 	auto_use_r = on
     end
 end)
-tab5.newToggle("Auto Use C", "", true, function(on)
+tab4.newToggle("Auto Use C", "", true, function(on)
     if on then
 	auto_use_c = on
     end
 end)
-tab5.newToggle("Auto Use F", "", true, function(on)
+tab4.newToggle("Auto Use F", "", true, function(on)
     if on then
 	auto_use_f = on
     end
 end)
 
 local name_off = false
-tab5.newToggle("Hide Name", "", true, function(on)
-    if on then
-	name_off = on
-    end
+tab4.newButton("Hide Name", "", function()
+	name_off = true
 end)
 
 local anti_afk = false
-tab5.newToggle("AntiAFK", "", true, function(on)
+tab4.newToggle("AntiAFK", "", true, function(on)
     if on then
 	anti_afk = on
     end
 end)
-tab5.newDropdown("Stage", "", {"One","Two","Three", "Four","Five","Six"}, function(item)
+
+tab2.newDropdown("Stage", "", {"One","Two","Three", "Four","Five","Six"}, function(item)
     stag = item
+end)
+
+local ReputationFarm = false
+local ReputationCashout = false
+
+tab6:newToggle("Reputation Farm","", function(bool) 
+    ReputationFarm = bool
+end)
+
+tab6:newToggle("Auto Reputation Cashout","", function(bool)
+    ReputationCashout = bool
 end)
 
 spawn(function()
     game:GetService("Players").LocalPlayer.Idled:connect(function()
-        if anti_afk then
-            game:GetService("VirtualUser"):Button2Down(Vector2.new())
+        if anti_afk then game:GetService("VirtualUser"):Button2Down(Vector2.new())
         end
     end)
 end)
