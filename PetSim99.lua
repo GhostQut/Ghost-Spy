@@ -15,7 +15,6 @@ local TeleportingEv = false
 local plr = game:GetService("Players").LocalPlayer
 local things = game:GetService("Workspace"):WaitForChild("__THINGS")
 local Actives = things:WaitForChild("__INSTANCE_CONTAINER"):WaitForChild("Active")
-local children = things.Presents:GetChildren()
 local lastTeleportedChild = nil
 local Debris = game:GetService("Workspace"):WaitForChild("__DEBRIS")
 local Network = game:GetService("ReplicatedStorage"):WaitForChild("Network")
