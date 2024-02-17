@@ -153,45 +153,6 @@ else
 toggleState = false
 end
 end)
-tab6.newToggle("Auto ChristmasGift", "", false, function(toggleState)
-TeleportingEv = toggleState
-   if toggleState == true then
-      while TeleportingEv == true do
-    local closestChild = findClosestChild(children, player)
-    if not closestChild then
-        print("No closest child found.")
-        break
-    end
-
-    if lastTeleportedChild == closestChild then
-        print("Already teleported to this child.")
-        continue
-    end
-
-    lastTeleportedChild = closestChild
-    local startTime = os.time()
-    while os.difftime(os.time(), startTime) < 5 do
-        if not plr.Character or not hrp then
-            print("Player or HumanoidRootPart not found.")
-            break
-        end
-        hrp.CFrame = CFrame.new(closestChild.Position)
-        task.wait()
-    end
-
-    local childFound = false
-    for i, child in ipairs(children) do
-        if child == closestChild then
-            table.remove(children, i)
-            childFound = true
-            break
-        end
-    end
-end
-    else
-        toggleState = false
-    end
-end)
 
 tab1.newToggle("AutoMachiens", "", false, function(toggleState)
    if toggleState == true then
