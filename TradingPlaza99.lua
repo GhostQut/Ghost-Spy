@@ -1,4 +1,4 @@
-local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
 
 local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
 
