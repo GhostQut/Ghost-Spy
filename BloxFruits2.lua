@@ -786,9 +786,9 @@ if QuestC.Visible == true then
 						end)
 						local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
 
-						local window  = DrRayLibrary:Load("Blox Fruits", "Default")
+						local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 
-						local Tab1 = DrRayLibrary.newTab("", "")
+						local Tab1 = DrRayLibrary.newTab("Main", "")
 						
 						local Tab2 = DrRayLibrary.newTab("ผู้เล่น/สเเตก", "")
 						
