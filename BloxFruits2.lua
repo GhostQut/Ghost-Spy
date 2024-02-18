@@ -786,7 +786,7 @@ if QuestC.Visible == true then
 						end)
 						local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua'))()
 
-						local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
+						local window = DrRayLibrary:Load("Blox Fruits", "Default")
 
 						local Tab1 = DrRayLibrary.newTab("Main", "")
 						
@@ -811,11 +811,11 @@ Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Au
 	SaveSettings()
 end)
 Tab1.newToggle("Fast Attack", "", _G.Settings.Configs["Fast Attack"], function(value)
-	G.Settings.Configs["Fast Attack"] = value
+	_G.Settings.Configs["Fast Attack"] = value
 	SaveSettings()
 end)
 Tab1.newDropdown("Fast Attack Type", "", {"Fast","Normal","Slow"}, function(value)
-	G.Settings.Configs["Fast Attack Type"] = value
+	_G.Settings.Configs["Fast Attack Type"] = value
 	SaveSettings()
 end)
 
