@@ -805,29 +805,6 @@ if QuestC.Visible == true then
 						local Tab5 = DrRayLibrary.newTab("อื่น ๆ", "")
 						
 						
-						-------------[Tab2]-------------
-						
-						local Page9 = Tab2.xovapage(1)
-						
-						local Page15 = Tab2.xovapage(2)
-						
-						-------------[Tab3]-------------
-						
-						local Page10 = Tab3.xovapage(1)
-						
-						local Page11 = Tab3.xovapage(2)
-						
-						-------------[Tab4]-------------
-						
-						local Page12 = Tab4.xovapage(1)
-						
-						local Page13 = Tab4.xovapage(2)
-						
-						-------------[Tab5]-------------
-						
-						local Page14 = Tab5.xovapage(1)
-						
-						local Page16 = Tab5.xovapage(2)
 						
 						tab1.newLabel("Main")
 
