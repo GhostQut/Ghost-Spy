@@ -1,8 +1,3 @@
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-print("https://discord.gg/aUd8umqUKu")
-toclipboard("https://discord.gg/aUd8umqUKu")
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
 	game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
 end
@@ -795,37 +790,20 @@ if QuestC.Visible == true then
 							end
 						end
 						end)
-						local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/minhhau207/SilverHub/main/obfuscated-3788.lua"))()
+						local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
 
-						local Main = Library.xova()
+						local Main = DrRayLibrary:Load("Blox Fruits", "Default")
 
-						local Tab1 = Main.create("เมนูหลัก")
+						local Tab1 = DrRayLibrary.newTab("เมนูหลัก", "")
 						
-						local Tab2 = Main.create("ผู้เล่น/สเเตก")
+						local Tab2 = DrRayLibrary.newTab("ผู้เล่น/สเเตก", "")
 						
-						local Tab3 = Main.create("วาป/ดันเจี้ยน")
+						local Tab3 = DrRayLibrary.newTab("วาป/ดันเจี้ยน", "")
 						
-						local Tab4 = Main.create("ร้านค้า")
+						local Tab4 = DrRayLibrary.newTab("ร้านค้า", "")
 						
-						local Tab5 = Main.create("อื่น ๆ")
+						local Tab5 = DrRayLibrary.newTab("อื่น ๆ", "")
 						
-						-------------[Tab1]-------------
-						
-						local Page1 = Tab1.xovapage(1)
-						
-						local Page2 = Tab1.xovapage(1)
-						
-						local Page3 = Tab1.xovapage(2)
-						
-						local Page8 = Tab1.xovapage(2)
-						
-						local Page4 = Tab1.xovapage(2)
-						
-						local Page5 = Tab1.xovapage(2)
-						
-						local Page6 = Tab1.xovapage(1)
-						
-						local Page7 = Tab1.xovapage(2)
 						
 						-------------[Tab2]-------------
 						
@@ -851,41 +829,24 @@ if QuestC.Visible == true then
 						
 						local Page16 = Tab5.xovapage(2)
 						
-						Page1.Label({
-							Title = "Main",
-						})
-						
-Page1.Toggle({
-	Title = "Auto Farm Level",
-	Mode = 2,
-	Default = _G.Settings.Main["Auto Farm Level"],
-	Desc = "Select Farm Type First",
-	callback = function(value)
-		_G.AutoFarmLevelReal = value
+						tab1.newLabel("Main")
+
+Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Auto Farm Level"], function(value)
+	_G.AutoFarmLevelReal = value
 		Auto_Farm_Level = value
 		if value == false then
 			toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
 		end
 		SaveSettings()
-	end,
-})
-Page3.Toggle({
-	Title = "Fast Attack",
-	Default = _G.Settings.Configs["Fast Attack"],
-	callback = function(value)
-		_G.Settings.Configs["Fast Attack"] = value
+end)
+Tab1.newToggle("Fast Attack", "", _G.Settings.Configs["Fast Attack"], function(value)
+	G.Settings.Configs["Fast Attack"] = value
 		SaveSettings()
-	end,
-})
-
-Page3.Dropdown({
-	Title = "Fast Attack Type",
-	Item = {"Fast","Normal","Slow"},
-	callback = function(value)
-		_G.Settings.Configs["Fast Attack Type"] = value
+end)
+Tab1.newDropdown("Fast Attack Type", "", {"Fast","Normal","Slow"}, function(value)
+    G.Settings.Configs["Fast Attack Type"] = value
 		SaveSettings()
-	end,
-})
+end)
 
 coroutine.wrap(function()
 	while task.wait(.1) do
@@ -910,15 +871,11 @@ coroutine.wrap(function()
 	end
 end)()
 
-Page3.Line()
-Page3.Toggle({
-	Title = "Auto Haki",
-	Default = _G.Settings.Configs["Auto Haki"],
-	callback = function(value)
-		_G.Settings.Configs["Auto Haki"] = value
+Tab1.newToggle("Auto Haki", "", _G.Settings.Configs["Auto Haki"], function(value)
+	_G.Settings.Configs["Auto Haki"] = value
 		SaveSettings()
-	end,
-})
+end)
+
 spawn(function()
 	while wait() do
 if _G.Settings.Configs["Auto Haki"] then
@@ -934,14 +891,10 @@ Weapon = {
 	"Sword",
 	"Fruit"
 }
-Page3.Line()
-Page3.Dropdown({
-	Title = "Select Weapon",
-	Item = Weapon,
-	callback = function(value)
-		SelectWeapon = value
-	end,
-})
+
+Tab1.newDropdown("Select Weapon", "", Weapon, function(value)
+    SelectWeapon = value
+end)
 
 task.spawn(function()
 	while wait() do
