@@ -790,11 +790,11 @@ if QuestC.Visible == true then
 							end
 						end
 						end)
-						local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
+						local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua'))()
 
-						local Main = DrRayLibrary:Load("Blox Fruits", "Default")
+						local window = DrRayLibrary:Load("Blox Fruits", "Default")
 
-						local Tab1 = DrRayLibrary.newTab("เมนูหลัก", "")
+						local Tab1 = DrRayLibrary.newTab("Main", "")
 						
 						local Tab2 = DrRayLibrary.newTab("ผู้เล่น/สเเตก", "")
 						
@@ -805,47 +805,24 @@ if QuestC.Visible == true then
 						local Tab5 = DrRayLibrary.newTab("อื่น ๆ", "")
 						
 						
-						-------------[Tab2]-------------
 						
-						local Page9 = Tab2.xovapage(1)
-						
-						local Page15 = Tab2.xovapage(2)
-						
-						-------------[Tab3]-------------
-						
-						local Page10 = Tab3.xovapage(1)
-						
-						local Page11 = Tab3.xovapage(2)
-						
-						-------------[Tab4]-------------
-						
-						local Page12 = Tab4.xovapage(1)
-						
-						local Page13 = Tab4.xovapage(2)
-						
-						-------------[Tab5]-------------
-						
-						local Page14 = Tab5.xovapage(1)
-						
-						local Page16 = Tab5.xovapage(2)
-						
-						tab1.newLabel("Main")
+						Tab1.newLabel("Main")
 
 Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Auto Farm Level"], function(value)
 	_G.AutoFarmLevelReal = value
-		Auto_Farm_Level = value
-		if value == false then
-			toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-		end
-		SaveSettings()
+	Auto_Farm_Level = value
+	if value == false then
+		toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+	end
+	SaveSettings()
 end)
 Tab1.newToggle("Fast Attack", "", _G.Settings.Configs["Fast Attack"], function(value)
-	G.Settings.Configs["Fast Attack"] = value
-		SaveSettings()
+	_G.Settings.Configs["Fast Attack"] = value
+	SaveSettings()
 end)
 Tab1.newDropdown("Fast Attack Type", "", {"Fast","Normal","Slow"}, function(value)
-    G.Settings.Configs["Fast Attack Type"] = value
-		SaveSettings()
+	_G.Settings.Configs["Fast Attack Type"] = value
+	SaveSettings()
 end)
 
 coroutine.wrap(function()
@@ -873,7 +850,7 @@ end)()
 
 Tab1.newToggle("Auto Haki", "", _G.Settings.Configs["Auto Haki"], function(value)
 	_G.Settings.Configs["Auto Haki"] = value
-		SaveSettings()
+	SaveSettings()
 end)
 
 spawn(function()
