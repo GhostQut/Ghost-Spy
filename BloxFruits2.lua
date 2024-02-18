@@ -784,11 +784,11 @@ if QuestC.Visible == true then
 							end
 						end
 						end)
-						local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
+						local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
 
-						local Main = DrRayLibrary:Load("Blox Fruits", "Default")
+						local window  = DrRayLibrary:Load("Blox Fruits", "Default")
 
-						local Tab1 = DrRayLibrary.newTab("เมนูหลัก", "")
+						local Tab1 = DrRayLibrary.newTab("", "")
 						
 						local Tab2 = DrRayLibrary.newTab("ผู้เล่น/สเเตก", "")
 						
