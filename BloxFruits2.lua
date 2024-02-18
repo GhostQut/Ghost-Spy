@@ -784,7 +784,7 @@ if QuestC.Visible == true then
 							end
 						end
 						end)
-						local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
+						local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua'))()
 
 						local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 
