@@ -800,23 +800,23 @@ if QuestC.Visible == true then
 						
 						
 						
-						tab1.newLabel("Main")
+						Tab1.newLabel("Main")
 
 Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Auto Farm Level"], function(value)
 	_G.AutoFarmLevelReal = value
-		Auto_Farm_Level = value
-		if value == false then
-			toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-		end
-		SaveSettings()
+	Auto_Farm_Level = value
+	if value == false then
+		toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+	end
+	SaveSettings()
 end)
 Tab1.newToggle("Fast Attack", "", _G.Settings.Configs["Fast Attack"], function(value)
 	G.Settings.Configs["Fast Attack"] = value
-		SaveSettings()
+	SaveSettings()
 end)
 Tab1.newDropdown("Fast Attack Type", "", {"Fast","Normal","Slow"}, function(value)
-    G.Settings.Configs["Fast Attack Type"] = value
-		SaveSettings()
+	G.Settings.Configs["Fast Attack Type"] = value
+	SaveSettings()
 end)
 
 coroutine.wrap(function()
@@ -844,7 +844,7 @@ end)()
 
 Tab1.newToggle("Auto Haki", "", _G.Settings.Configs["Auto Haki"], function(value)
 	_G.Settings.Configs["Auto Haki"] = value
-		SaveSettings()
+	SaveSettings()
 end)
 
 spawn(function()
