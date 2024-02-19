@@ -941,13 +941,13 @@ while wait() do
 		end
 	end
 end
-Tab4:newLabel("Auto Farm Level Lock")
+Tab4.newLabel("Auto Farm Level Lock")
 local LockLevelValue = 2450
 local OldLevel = game.Players.localPlayer.Data.Level.Value
-Tab4:newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
+Tab4.newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
 	LockLevelValue = value
 end)
-Tab4:newToggle("Lock Level","" ,LockLevel ,function(value)
+Tab4.newToggle("Lock Level","" ,LockLevel ,function(value)
 	LockLevel = value
 end)
 spawn(function()
