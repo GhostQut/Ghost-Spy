@@ -957,8 +957,6 @@ end
 while wait(.1) do
 	if FarmTimer then
 		FarmTime=FarmTime+1
-		local txt=math.floor(FarmTime)/10
-		local int,dec=math.modf(txt)
 	end
 end
 
