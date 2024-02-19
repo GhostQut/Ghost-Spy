@@ -806,7 +806,6 @@ Tab1.newLabel("Main")
 Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Auto Farm Level"], function(value)
 	_G.AutoFarmLevelReal = value
 	Auto_Farm_Level = value
-	FarmTimer = value
 	if value == false then
 		toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
 	end
@@ -949,4 +948,31 @@ end)
 -- ConfigTab
 
 -- MiscTab
+Tab4.newLabel("Farm Level Lock")
 
+local LockLevelValue = 2450
+local OldLevel = game.Players.localPlayer.Data.Level.Value
+local LockLevel = false
+
+Tab4.newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
+	LockLevelValue = value
+end)
+
+Tab4.newInput("Level Lock Input", "", function(txt)
+    LockLevelValue = tonumber(txt)
+end)
+
+Tab4.newToggle("Lock Level", "", LockLevel,function(value)
+	LockLevel = value
+end)
+
+spawn(function()
+	while wait(.1) do
+		if LockLevel then
+			if game.Players.localPlayer.Data.Level.Value >= LockLevelValue then
+				game.Players.localPlayer:Kick("\n Auto Farm Completed Level : "..game.Players.localPlayer.Data.Level.Value.."\n Old Level : "..OldLevel.."\nUsername : "..game.Players.LocalPlayer.Name)
+			end
+		end
+	end
+end)
+-- SettingsTab
