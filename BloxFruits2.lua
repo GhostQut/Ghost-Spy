@@ -291,16 +291,16 @@ end
 end
 function LoadSettings()
 	if readfile and writefile and isfile and isfolder then
-		if not isfolder("Silver Hub Premium Scripts") then
-			makefolder("Silver Hub Premium Scripts")
+		if not isfolder("YammiHub") then
+			makefolder("YammiHub")
 		end
-		if not isfolder("Silver Hub Premium Scripts/Blox Fruits/") then
-			makefolder("Silver Hub Premium Scripts/Blox Fruits/")
+		if not isfolder("YammiHub/Blox Fruits/") then
+			makefolder("YammiHub/Blox Fruits/")
 		end
-		if not isfile("Silver Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
-			writefile("Silver Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(_G.Settings))
+		if not isfile("YammiHub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
+			writefile("YammiHub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(_G.Settings))
 		else
-			local Decode = game:GetService("HttpService"):JSONDecode(readfile("Silver Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json"))
+			local Decode = game:GetService("HttpService"):JSONDecode(readfile("YammiHub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json"))
 			for i,v in pairs(Decode) do
 				_G.Settings[i] = v
 			end
@@ -312,15 +312,15 @@ end
 
 function SaveSettings()
 	if readfile and writefile and isfile and isfolder then
-		if not isfile("Silver Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
+		if not isfile("YammiHub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
 			LoadSettings()
 		else
-			local Decode = game:GetService("HttpService"):JSONDecode(readfile("Silver Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json"))
+			local Decode = game:GetService("HttpService"):JSONDecode(readfile("YammiHub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json"))
 			local Array = {}
 			for i,v in pairs(_G.Settings) do
 				Array[i] = v
 			end
-			writefile("Silver Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(Array))
+			writefile("YammiHub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(Array))
 		end
 	else
 		return warn("Status : Undetected Executor")
