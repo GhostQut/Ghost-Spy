@@ -181,6 +181,8 @@ _G.Settings = {
 		ColorUI = Color3.fromRGB(255, 0, 127), --{Color UI}
 	}
 }
+local FarmTimer=false
+local FarmTime = 0
 -- [require module]
 
 local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework"))
@@ -336,6 +338,7 @@ spawn(function()
 while wait() do
 	if _G.AutoFarmLevelReal then
 		FastAttack = true
+		for
 	else
 		FastAttack = false
 	end
@@ -718,7 +721,7 @@ spawn(function()
 		local MyLevel = game.Players.LocalPlayer.Data.Level.Value
 		local QuestC = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest
 		if _G.AutoFarmLevelReal then
-if QuestC.Visible == true then
+			if QuestC.Visible == true then
 									if (QuestCheck()[2].Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 3000 then
 										Bypass(QuestCheck()[2])
 									end
@@ -739,6 +742,12 @@ if QuestC.Visible == true then
 															EquipWeapon(_G.Settings.Configs["Select Weapon"])
 															v.HumanoidRootPart.Transparency = 1
 															toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 5))
+															while wait(.1) do
+																if FarmTimer then
+																	FarmTime=FarmTime+1
+																	task.wait(1)
+																end
+															end
 														end
 													until not _G.AutoFarmLevelReal or not v.Parent or v.Humanoid.Health <= 0 or QuestC.Visible == false or not v:FindFirstChild("HumanoidRootPart")
 												end
@@ -947,21 +956,33 @@ end)
 -- ConfigTab
 
 -- MiscTab
+local function FormatTime(seconds)
+	return string.format("%d:%.02d.%.03d", seconds/60, seconds%60, seconds*1000%1000)
+end
+
 Tab4.newLabel("Farm Level Lock")
+
 local LockLevelValue = 2450
 local OldLevel = game.Players.localPlayer.Data.Level.Value
 local LockLevel = false
+
 Tab4.newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
 	LockLevelValue = value
 end)
+
+Tab4.newInput("Level Lock Input", "", function(value)
+    LockLevel = tonumber(value)
+end)
+
 Tab4.newToggle("Lock Level", "", LockLevel,function(value)
 	LockLevel = value
 end)
+
 spawn(function()
 	while wait(.1) do
 		if LockLevel then
 			if game.Players.localPlayer.Data.Level.Value >= LockLevelValue then
-				game.Players.localPlayer:Kick("\n Auto Farm Completed Level : "..game.Players.localPlayer.Data.Level.Value.."\n Old Level : "..OldLevel.."\nUsername : "..game.Players.LocalPlayer.Name)
+				game.Players.localPlayer:Kick("\n Auto Farm Completed Level : "..game.Players.localPlayer.Data.Level.Value.."\n Old Level : "..OldLevel.."\nTime : "..FormatTime(FarmTime).."\nUsername : "..game.Players.LocalPlayer.Name)
 			end
 		end
 	end
