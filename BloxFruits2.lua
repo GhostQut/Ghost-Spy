@@ -907,49 +907,49 @@ task.spawn(function()
 	end
 end)
 spawn(function()
-while wait() do 
-	if _G.AutoFarmLevelReal then
-		if syn then
-			setfflag("HumanoidParallelRemoveNoPhysics", "False")
-			setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
-			game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-			if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
-				game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
+	while wait() do 
+		if _G.AutoFarmLevelReal then
+			if syn then
+				setfflag("HumanoidParallelRemoveNoPhysics", "False")
+				setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+				game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+				if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
+					game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
+				end
+			else
+				if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+					if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
+						if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
+							game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
+						end
+						local BodyVelocity = Instance.new("BodyVelocity")
+						BodyVelocity.Name = "BodyVelocity1"
+						BodyVelocity.Parent =  game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+						BodyVelocity.MaxForce = Vector3.new(10000, 10000, 10000)
+						BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+					end
+				end
+				for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+					if v:IsA("BasePart") then
+						v.CanCollide = false    
+					end
+				end
 			end
 		else
-			if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-				if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
-					if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
-						game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
-					end
-					local BodyVelocity = Instance.new("BodyVelocity")
-					BodyVelocity.Name = "BodyVelocity1"
-					BodyVelocity.Parent =  game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-					BodyVelocity.MaxForce = Vector3.new(10000, 10000, 10000)
-					BodyVelocity.Velocity = Vector3.new(0, 0, 0)
-				end
+			if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
+				game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1"):Destroy();
 			end
-			for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-				if v:IsA("BasePart") then
-					v.CanCollide = false    
-				end
-			end
-		end
-	else
-		if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
-			game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1"):Destroy();
 		end
 	end
-end
-
-Tab2.newLabel("Farm Level Lock")
+end)
+Tab4.newLabel("Farm Level Lock")
 local LockLevelValue = 2450
 local OldLevel = game.Players.localPlayer.Data.Level.Value
 local LockLevel = false
-Tab2.newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
+Tab4.newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
 	LockLevelValue = value
 end)
-Tab2.newToggle("Lock Level", "", LockLevel,function(value)
+Tab4.newToggle("Lock Level", "", LockLevel,function(value)
 	LockLevel = value
 end)
 spawn(function()
@@ -960,5 +960,4 @@ spawn(function()
 			end
 		end
 	end
-end)
 end)
