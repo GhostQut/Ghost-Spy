@@ -972,8 +972,8 @@ Tab4.newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
 	LockLevelValue = value
 end)
 
-Tab4.newInput("Level Lock Input", "", function(value)
-    LockLevel = tonumber(value)
+Tab4.newInput("Level Lock Input", "", function(txt)
+    LockLevel = tonumber(txt)
 end)
 
 Tab4.newToggle("Lock Level", "", LockLevel,function(value)
