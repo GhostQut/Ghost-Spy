@@ -725,6 +725,10 @@ spawn(function()
 									if (QuestCheck()[2].Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 3000 then
 										Bypass(QuestCheck()[2])
 									end
+									if FarmTimer then
+										FarmTime=FarmTime+1
+										task.wait(1)
+									end
 									if game:GetService("Workspace").Enemies:FindFirstChild(QuestCheck()[3]) then
 										for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 											if v.Name == QuestCheck()[3] then
@@ -742,12 +746,6 @@ spawn(function()
 															EquipWeapon(_G.Settings.Configs["Select Weapon"])
 															v.HumanoidRootPart.Transparency = 1
 															toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 5))
-															while wait(.1) do
-																if FarmTimer then
-																	FarmTime=FarmTime+1
-																	task.wait(1)
-																end
-															end
 														end
 													until not _G.AutoFarmLevelReal or not v.Parent or v.Humanoid.Health <= 0 or QuestC.Visible == false or not v:FindFirstChild("HumanoidRootPart")
 												end
