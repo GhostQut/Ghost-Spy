@@ -725,10 +725,6 @@ spawn(function()
 									if (QuestCheck()[2].Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 3000 then
 										Bypass(QuestCheck()[2])
 									end
-									if FarmTimer then
-										FarmTime=FarmTime+1
-										task.wait(1)
-									end
 									if game:GetService("Workspace").Enemies:FindFirstChild(QuestCheck()[3]) then
 										for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 											if v.Name == QuestCheck()[3] then
@@ -812,6 +808,7 @@ Tab1.newLabel("Main")
 Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Auto Farm Level"], function(value)
 	_G.AutoFarmLevelReal = value
 	Auto_Farm_Level = value
+	FarmTimer = value
 	if value == false then
 		toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
 	end
@@ -956,6 +953,14 @@ end)
 -- MiscTab
 function FormatTime(seconds)
 	return string.format("%d:%.02d.%.03d", seconds/60, seconds%60, seconds*1000%1000)
+end
+while wait(.1) do
+	if FarmTimer then
+		FarmTime=FarmTime+1
+		local txt=math.floor(Farm)/10
+		local int,dec=math.modf(txt)
+		if dec<.09 then txt=(txt..'.0')end
+	end
 end
 
 Tab4.newLabel("Farm Level Lock")
