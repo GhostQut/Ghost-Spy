@@ -799,7 +799,7 @@ if QuestC.Visible == true then
 						local Tab5 = DrRayLibrary.newTab("Settings", "")
 						
 						
-						
+-- AutoFarmTab				
 Tab1.newLabel("Main")
 
 Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Auto Farm Level"], function(value)
@@ -942,6 +942,11 @@ spawn(function()
 		end
 	end
 end)
+-- FruitsTab
+
+-- ConfigTab
+
+-- MiscTab
 Tab4.newLabel("Farm Level Lock")
 local LockLevelValue = 2450
 local OldLevel = game.Players.localPlayer.Data.Level.Value
@@ -961,3 +966,4 @@ spawn(function()
 		end
 	end
 end)
+-- SettingsTab
