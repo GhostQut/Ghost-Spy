@@ -954,7 +954,7 @@ end)
 -- ConfigTab
 
 -- MiscTab
-local function FormatTime(seconds)
+function FormatTime(seconds)
 	return string.format("%d:%.02d.%.03d", seconds/60, seconds%60, seconds*1000%1000)
 end
 
