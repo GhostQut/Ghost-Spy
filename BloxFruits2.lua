@@ -790,13 +790,13 @@ if QuestC.Visible == true then
 
 						local Tab1 = DrRayLibrary.newTab("Main", "")
 						
-						local Tab2 = DrRayLibrary.newTab("ผู้เล่น/สเเตก", "")
+						local Tab2 = DrRayLibrary.newTab("Fruits", "")
 						
-						local Tab3 = DrRayLibrary.newTab("วาป/ดันเจี้ยน", "")
+						local Tab3 = DrRayLibrary.newTab("Config", "")
 						
-						local Tab4 = DrRayLibrary.newTab("ร้านค้า", "")
+						local Tab4 = DrRayLibrary.newTab("Misc", "")
 						
-						local Tab5 = DrRayLibrary.newTab("อื่น ๆ", "")
+						local Tab5 = DrRayLibrary.newTab("Settins", "")
 						
 						
 						
@@ -849,12 +849,12 @@ end)
 
 spawn(function()
 	while wait() do
-if _G.Settings.Configs["Auto Haki"] then
-	if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+		if _G.Settings.Configs["Auto Haki"] then
+			if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+				game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+			end
+		end
 	end
-end
-end
 end)
 -- [Table Weapon]
 Weapon = {
@@ -941,4 +941,22 @@ while wait() do
 		end
 	end
 end
+Tab4:newLabel("Auto Farm Level Lock")
+local LockLevelValue = 2450
+local OldLevel = game.Players.localPlayer.Data.Level.Value
+Tab4:newSlider("Select Level Lock", "",LockLevelValue ,false,function(value)
+	LockLevelValue = value
+end)
+Tab4:newToggle("Lock Level","" ,LockLevel ,function(value)
+	LockLevel = value
+end)
+spawn(function()
+	while wait(.1) do
+		if LockLevel then
+			if game.Players.localPlayer.Data.Level.Value >= LockLevelValue then
+				game.Players.localPlayer:Kick("\n Auto Farm Completed Level : "..game.Players.localPlayer.Data.Level.Value.."\n Old Level : "..OldLevel.."\nUsername : "..game.Players.LocalPlayer.Name)
+			end
+		end
+	end
+end)
 end)
