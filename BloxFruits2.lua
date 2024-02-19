@@ -954,11 +954,6 @@ end)
 function FormatTime(seconds)
 	return string.format("%d:%.02d.%.03d", seconds/60, seconds%60, seconds*1000%1000)
 end
-while wait(.1) do
-	if FarmTimer then
-		FarmTime=FarmTime+1
-	end
-end
 
 Tab4.newLabel("Farm Level Lock")
 
