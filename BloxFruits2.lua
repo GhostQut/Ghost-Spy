@@ -181,8 +181,6 @@ _G.Settings = {
 		ColorUI = Color3.fromRGB(255, 0, 127), --{Color UI}
 	}
 }
-local FarmTimer=false
-local FarmTime = 0
 -- [require module]
 
 local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework"))
@@ -951,10 +949,6 @@ end)
 -- ConfigTab
 
 -- MiscTab
-function FormatTime(seconds)
-	return string.format("%d:%.02d.%.03d", seconds/60, seconds%60, seconds*1000%1000)
-end
-
 Tab4.newLabel("Farm Level Lock")
 
 local LockLevelValue = 2450
@@ -977,7 +971,7 @@ spawn(function()
 	while wait(.1) do
 		if LockLevel then
 			if game.Players.localPlayer.Data.Level.Value >= LockLevelValue then
-				game.Players.localPlayer:Kick("\n Auto Farm Completed Level : "..game.Players.localPlayer.Data.Level.Value.."\n Old Level : "..OldLevel.."\nTime : "..FormatTime(FarmTime).."\nUsername : "..game.Players.LocalPlayer.Name)
+				game.Players.localPlayer:Kick("\n Auto Farm Completed Level : "..game.Players.localPlayer.Data.Level.Value.."\n Old Level : "..OldLevel.."\nUsername : "..game.Players.LocalPlayer.Name)
 			end
 		end
 	end
