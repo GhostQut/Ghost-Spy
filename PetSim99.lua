@@ -38,9 +38,20 @@ local RankStuff = {
 	20,
 	24,
 	28,
-	32
+	32,
+	36,
+	40,
+	44,
+	48,
+	52,
+	56,
+	60,
+	64,
+	68,
+	72,
+	76
 };
-local MaxRank = 11
+local MaxRank = 18
 
 local function contains(table, val)
    for i=1,#table do
@@ -56,8 +67,8 @@ local machines = {
     {"EnchantVendingMachine2";"Fire and Ice"};
     {"FruitVendingMachine1";"Mushroom Field"};
     {"FruitVendingMachine2";"Pirate Cove"};
-   {"RareEnchantsVendingMachine1";"Samurai Village"};
-{"RarePotionsVendingMachine1";"Underwold Bridge"};
+    {"RareEnchantsVendingMachine1";"Samurai Village"};
+    {"RarePotionsVendingMachine1";"Underwold Bridge"};
 }
 local OldPlayerHooks = {}
 
@@ -131,6 +142,44 @@ local function getLoot()
     v:PivotTo(cf)
     end
 end
+local function Quests()
+    local Questlv
+    local ue = {
+		{1;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Easy.Title.Value};
+		{2;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Medium.Title.Value};
+		{3;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Hard.Title.Value};
+		{4;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Extreme.Title.Value};
+    }
+    for i,v in pairs(game.Players.LocalPlayer.leaderstats:GetChildren()) do
+	if string.find(v.Name, "Rank") then 
+        	if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Easy.Title.Locked.Req.Value then
+			Questlv = 1
+		end
+		if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Medium.Title.Locked.Req.Value then
+			Questlv = 2
+		end
+		if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Hard.Title.Locked.Req.Value then
+			Questlv = 3
+		end
+		if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Extreme.Title.Locked.Req.Value then
+			Questlv = 4
+		end
+	end
+    end
+    for i,v in ipairs(ue) do
+	if v[1] == Questlv then
+		if string.find(v[2], "fish") string.find(v[2], %d) then
+			teleport("Pirate Tavern")
+			for i2, v2 in pairs(workspace.Map:GetChildren()) do
+		        if string.find(v2.Name, "Pirate Tavern") then
+		           hum.Parent:PivotTo(v2.INTERACT.Instances["Gate"].PrimaryPart.CFrame * CFrame.new(0,9,0)) 
+		        end
+					
+		    end
+		end
+	end
+    end
+end
 
 tab1.newToggle("AutoRewards", "", false, function(toggleState)
     if toggleState then
@@ -146,11 +195,20 @@ end)
 tab1.newToggle("AutoLootbags", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
-       getLoot()
+	getLoot()			
    end
-else
-toggleState = false
-end
+   else
+      toggleState = false
+   end
+end)
+tab1.newToggle("AutoQuests", "", false, function(toggleState)
+   if toggleState == true then
+      while task.wait(0.5) do
+	Quests()
+   end
+   else
+      toggleState = false
+   end
 end)
 
 tab1.newToggle("AutoMachiens", "", false, function(toggleState)
@@ -281,3 +339,4 @@ end
         toggleState = false
     end
 end)
+
