@@ -73,7 +73,7 @@ local Merchants = {
 }
 
 function  GetRank()
-      return game.Players.LocalPlayer.leaderstats["тнР Rank"].Value	
+      return game.Players.LocalPlayer.leaderstats["⭐ Rank"].Value	
 end
 
 function  ClaimRank()
