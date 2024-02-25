@@ -133,7 +133,7 @@ end)
 
 teleporttab.newButton("Teleport Waystones", "", function()
     if waystones then
-        getchar().HumanoidRootPart.CFrame = waystones.Main.CFrame * CFrame.new(0,0,5)
+        lplr.Character.HumanoidRootPart.CFrame = waystones.Main.CFrame * CFrame.new(0,0,5)
     end
 end)
 
@@ -231,11 +231,11 @@ task.spawn(function()
             if getchar() and getchar():FindFirstChild("HumanoidRootPart") and boss then
                 local enemy = getclosestmobs(boss)
                 if enemy and enemy:FindFirstChild("HumanoidRootPart") then
-                    getchar().HumanoidRootPart.CFrame = enemy:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 0, 25)
+                    lplr.Character.HumanoidRootPart.CFrame = enemy:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 0, 25)
                 else
                     for i,v in next, workspace.BossArenas:GetChildren() do
                         if string.find(v.Name, boss) then
-                            getchar().HumanoidRootPart.CFrame = v:FindFirstChild("Spawn").CFrame 
+                            lplr.Character.HumanoidRootPart.CFrame = v:FindFirstChild("Spawn").CFrame 
                         end
                     end
                 end
