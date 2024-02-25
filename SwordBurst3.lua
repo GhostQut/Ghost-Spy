@@ -3,8 +3,8 @@ local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/
 local window = DrRayLibrary:Load("SwordBurst 3", "Default")
 
 local tab = DrRayLibrary.newTab("Main", "2174510075")
-local funtab = DrRayLibrary.newTab("Teleport", "8569322835")
-local teleporttab = DrRayLibrary.newTab("Misc", "8569322835")
+local funtab = DrRayLibrary.newTab("Misc", "8569322835")
+local teleporttab = DrRayLibrary.newTab("Teleport", "8569322835")
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -39,7 +39,7 @@ for i,v in next, workspace.MobSpawns:GetChildren() do
 end
 
 for i,v in next, workspace.Waystones:GetChildren() do
-    table.insert(waystone, v)
+    table.insert(waystone, v.Name)
 end
 
 for i,v in next, workspace.Ores:GetChildren() do
