@@ -1,6 +1,6 @@
 local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
 
-local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
+local window = DrRayLibrary:Load("SwordBurst 3", "Default")
 
 local tab = DrRayLibrary.newTab("Main", "2174510075")
 local funtab = DrRayLibrary.newTab("Teleport", "8569322835")
