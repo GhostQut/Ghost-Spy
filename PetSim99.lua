@@ -5,7 +5,7 @@ local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 local tab1 = DrRayLibrary.newTab("Auto", "13075622619")
 local tab2 = DrRayLibrary.newTab("Eggs", "")
 local tab3 = DrRayLibrary.newTab("Merchant", "")
-local tab4 = DrRayLibrary.newTab("Games", "")
+local tab4 = DrRayLibrary.newTab("Games", "") 
 local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
 local InGame = false
@@ -134,9 +134,13 @@ local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(things.Lootbags:GetChildren()) do
     v:PivotTo(cf)
+    wait(2.1)
+    v:Destroy()
     end
     for i,v in pairs(things.Orbs:GetChildren()) do
     v:PivotTo(cf)
+    wait(2.1)
+    v:Destroy()
     end
 end
 
@@ -182,17 +186,51 @@ end
         toggleState = false
    end
 end)
+
 tab1.newToggle("AutoRank", "", false, function(toggleState)
-   if toggleState == true then
-      while task.wait(0.5) do
-    ClaimRank()
-   end
-   else
-       if GetRank() == 11 then
-ClaimRank()
-end
-   end
+    if toggleState == true then
+        while task.wait(0.5) do
+            ClaimRank()
+        end
+    else
+        if GetRank() == 18 then
+            ClaimRank()
+        end
+    end
 end)
+
+local Flags = {"Strength",
+ "Magnet", 
+ "Coins", 
+ "Diamonds", 
+ "Hasty", 
+ "Fortune", 
+ "Rainbow", 
+ "Exotic Treasure", 
+ "Shiny"}
+
+local Flag
+local FlagId
+local Pi
+
+tab1.newDropdown("Flag Type", "", Flags, function(item)
+    Flag = item + " Flag"
+    if Flag == "Magnet" then
+        FlagId = "d2f5aa2985a74dffba21473cc4156d1e"
+    end
+end)
+
+tab1.newSlider("FlagNumber", "", 24, false, function(newValue)
+	Pi = tonumber(newValue)
+end)
+
+tab1.newToggle("AutoFlag", "", false, function(toggleState)
+    if toggleState == true then
+        while task.wait(0.5) do
+            game:GetService("ReplicatedStorage").Network["Flags: Consume"]:InvokeServer(Flag, FlagId, Pi)
+        end
+    end
+ end)
 
 tab2.newToggle("Animation Remove", "", false, function(toggleState)
    if toggleState == true then
@@ -204,7 +242,6 @@ tab2.newToggle("Animation Remove", "", false, function(toggleState)
 end)
 
 local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
-
 
 for i, v in pairs(CurrentFishingModule) do
     OldPlayerHooks[i] = v
