@@ -216,7 +216,7 @@ end
 
 task.spawn(function()
     while task.wait() do
-        if swordburst["automobs"] and choosemob then
+        if swordburst["automobs"] == true and choosemob then
             local enemy = getclosestmobs(choosemob)
             if getchar() and getchar():FindFirstChild("HumanoidRootPart") and enemy and enemy:FindFirstChild("HumanoidRootPart") then
                 getchar().HumanoidRootPart.CFrame = enemy:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 0, 25)
@@ -227,7 +227,7 @@ end)
 
 task.spawn(function()
     while task.wait() do
-        if swordburst["autoboss"] then
+        if swordburst["autoboss"] == true then
             if getchar() and getchar():FindFirstChild("HumanoidRootPart") and boss then
                 local enemy = getclosestmobs(boss)
                 if enemy and enemy:FindFirstChild("HumanoidRootPart") then
@@ -246,10 +246,10 @@ end)
 
 task.spawn(function()
     while task.wait(.3) do
-        if swordburst["killauraplr"] and #getplr() >= 1 then
+        if swordburst["killauraplr"] == true and #getplr() >= 1 then
             ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Combat"):WaitForChild("PlayerAttack"):FireServer(getplr())
         end
-        if swordburst["killaura"] then
+        if swordburst["killaura"] == true then
             local enemy,multienemy = getclosestmobs()
             if #multienemy >= 1 then
                 ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Combat"):WaitForChild("PlayerAttack"):FireServer(multienemy)
@@ -262,13 +262,13 @@ task.spawn(function()
     while task.wait(.5) do
         for i,v in next, lplr.PlayerGui.SkillBar.Frame:GetChildren() do
             if v:FindFirstChild("Hotkey") then
-                if swordburst["killauraplr"] and #getplr() >= 1 then
+                if swordburst["killauraplr"] == true and #getplr() >= 1 then
                     ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Skills"):WaitForChild("UseSkill"):FireServer(v.Name)
                     for i = 1, 8 do
                         ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Combat"):WaitForChild("PlayerSkillAttack"):FireServer(getplr(), v.Name, i)
                     end
                 end
-                if swordburst["killaura"] then
+                if swordburst["killaura"] == true then
                     local e = choosemob or boss
                     local enemy,multienemy = getclosestmobs(e)
                     if #multienemy >= 1 then
@@ -285,7 +285,7 @@ end)
 
 task.spawn(function()
     while task.wait(.1) do
-        if swordburst["autocollect"] then
+        if swordburst["autocollect"] == true then
             for i,v in next, ReplicatedStorage.Drops:GetChildren() do
                 if v:GetAttributes("Owner").Owner == lplr.Name then
                     ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Drops"):WaitForChild("Pickup"):FireServer(v)
@@ -297,7 +297,7 @@ end)
 
 task.spawn(function()
     while task.wait(.1) do
-        if swordburst["autoquest"] and choosequest then
+        if swordburst["autoquest"] == true and choosequest then
             ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Quests"):WaitForChild("AcceptQuest"):FireServer(getquest(choosequest))
             ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Quests"):WaitForChild("CompleteQuest"):FireServer(getquest(choosequest))
         end
@@ -306,7 +306,7 @@ end)
 
 task.spawn(function()
     while task.wait(.3) do
-        if swordburst["automine"] and mine then
+        if swordburst["automine"] == true and mine then
             if getores() and getores():FindFirstChildWhichIsA("MeshPart") and getchar() and getchar():FindFirstChild("HumanoidRootPart") then
                 getchar():FindFirstChild("HumanoidRootPart").CFrame =  getores():FindFirstChildWhichIsA("MeshPart").CFrame * CFrame.new(0,3,0)
                 ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Equipment"):WaitForChild("EquipTool"):FireServer("Pickaxe", true) 
