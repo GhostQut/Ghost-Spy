@@ -3,8 +3,9 @@ local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/
 local window = DrRayLibrary:Load("SwordBurst 3", "Default")
 
 local tab = DrRayLibrary.newTab("Main", "2174510075")
-local funtab = DrRayLibrary.newTab("Misc", "8569322835")
 local teleporttab = DrRayLibrary.newTab("Teleport", "8569322835")
+local minetab = DrRayLibrary.newTab("Mine", "8569322835")
+local funtab = DrRayLibrary.newTab("Misc", "8569322835")
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -126,18 +127,6 @@ tab.newToggle("Auto Quest", "", false, function(toggleState)
    end
 end)
 
-tab.newDropdown("Select Ores", "", mines, function(item)
-    mine = item
-end)
-
-tab.newToggle("AutoMine Ores", "", false, function(toggleState)
-   if toggleState == true then
-	    swordburst["automine"] = toggleState
-   else
-      toggleState = false
-   end
-end)
-
 teleporttab.newDropdown("Select Waystones", "", waystone, function(item)
     waystones = item
 end)
@@ -146,6 +135,18 @@ teleporttab.newButton("Teleport Waystones", "", function()
     if waystones then
         getchar().HumanoidRootPart.CFrame = waystones.Main.CFrame * CFrame.new(0,0,5)
     end
+end)
+
+minetab.newDropdown("Select Ores", "", mines, function(item)
+    mine = item
+end)
+
+minetab.newToggle("AutoMine Ores", "", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["automine"] = toggleState
+   else
+      toggleState = false
+   end
 end)
 
 funtab.newButton("Infinite Stamina", "", function()
