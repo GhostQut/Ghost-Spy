@@ -6,7 +6,6 @@ local tab1 = DrRayLibrary.newTab("Auto", "13075622619")
 local tab2 = DrRayLibrary.newTab("Eggs", "")
 local tab3 = DrRayLibrary.newTab("Merchant", "")
 local tab4 = DrRayLibrary.newTab("Games", "")
-local tab6 = DrRayLibrary.newTab("Event", "13075268290")
 local tab5 = DrRayLibrary.newTab("Misc", "13075268290")
 
 local InGame = false
@@ -27,8 +26,6 @@ local hum = plr.Character.Humanoid
 local merchant_buy = Network.Merchant_RequestPurchase
 
 local hrp = plr.Character.HumanoidRootPart
-local s = "Small"
-local d = "Diamond Bag"
 
 local RankStuff = {
 	9,
@@ -142,44 +139,6 @@ local function getLoot()
     v:PivotTo(cf)
     end
 end
-local function Quests()
-    local Questlv
-    local ue = {
-		{1;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Easy.Title.Value};
-		{2;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Medium.Title.Value};
-		{3;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Hard.Title.Value};
-		{4;plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Extreme.Title.Value};
-    }
-    for i,v in pairs(game.Players.LocalPlayer.leaderstats:GetChildren()) do
-	if string.find(v.Name, "Rank") then 
-        	if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Easy.Title.Locked.Req.Value then
-			Questlv = 1
-		end
-		if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Medium.Title.Locked.Req.Value then
-			Questlv = 2
-		end
-		if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Hard.Title.Locked.Req.Value then
-			Questlv = 3
-		end
-		if v.Value >= plr.PlayerGui.Rank.Frame.Side.Middle.Goals.Extreme.Title.Locked.Req.Value then
-			Questlv = 4
-		end
-	end
-    end
-    for i,v in ipairs(ue) do
-	if v[1] == Questlv then
-		if string.find(v[2], "fish") string.find(v[2], %d) then
-			teleport("Pirate Tavern")
-			for i2, v2 in pairs(workspace.Map:GetChildren()) do
-		        if string.find(v2.Name, "Pirate Tavern") then
-		           hum.Parent:PivotTo(v2.INTERACT.Instances["Gate"].PrimaryPart.CFrame * CFrame.new(0,9,0)) 
-		        end
-					
-		    end
-		end
-	end
-    end
-end
 
 tab1.newToggle("AutoRewards", "", false, function(toggleState)
     if toggleState then
@@ -196,15 +155,6 @@ tab1.newToggle("AutoLootbags", "", false, function(toggleState)
    if toggleState == true then
       while task.wait(0.5) do
 	getLoot()			
-   end
-   else
-      toggleState = false
-   end
-end)
-tab1.newToggle("AutoQuests", "", false, function(toggleState)
-   if toggleState == true then
-      while task.wait(0.5) do
-	Quests()
    end
    else
       toggleState = false
