@@ -143,7 +143,7 @@ local function getLoot()
     v:Destroy()
     end
 end
-
+-- Auto
 tab1.newToggle("AutoRewards", "", false, function(toggleState)
     if toggleState then
         for i,v in ipairs(DailyRedeemables) do
@@ -199,6 +199,19 @@ tab1.newToggle("AutoRank", "", false, function(toggleState)
     end
 end)
 
+-- Eggs
+
+tab2.newToggle("Animation Remove", "", false, function(toggleState)
+   if toggleState == true then
+      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
+      end
+    else
+        toggleState = false
+    end
+end)
+
+-- Misc
+
 local Flags = {"Strength",
  "Magnet", 
  "Coins", 
@@ -213,18 +226,18 @@ local Flag
 local FlagId
 local Pi
 
-tab1.newDropdown("Flag Type", "", Flags, function(item)
+tab5.newDropdown("Flag Type", "", Flags, function(item)
     Flag = item + " Flag"
     if Flag == "Magnet" then
         FlagId = "d2f5aa2985a74dffba21473cc4156d1e"
     end
 end)
 
-tab1.newSlider("FlagNumber", "", 24, false, function(newValue)
-	Pi = tonumber(newValue)
+tab5.newSlider("FlagNumber", "", 24, false, function(newValue)
+	Pi = tostring(newValue)
 end)
 
-tab1.newToggle("AutoFlag", "", false, function(toggleState)
+tab5.newToggle("AutoFlag", "", false, function(toggleState)
     if toggleState == true then
         while task.wait(0.5) do
             game:GetService("ReplicatedStorage").Network["Flags: Consume"]:InvokeServer(Flag, FlagId, Pi)
@@ -232,14 +245,7 @@ tab1.newToggle("AutoFlag", "", false, function(toggleState)
     end
  end)
 
-tab2.newToggle("Animation Remove", "", false, function(toggleState)
-   if toggleState == true then
-      local Eggs = game.Players.LocalPlayer.PlayerScripts.Scripts.Game['Egg Opening Frontend']getsenv(Eggs).PlayEggAnimation = function() return
-      end
-    else
-        toggleState = false
-    end
-end)
+-- Games
 
 local CurrentFishingModule = require(Actives:WaitForChild("Fishing").ClientModule.FishingGame)
 
