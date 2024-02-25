@@ -213,22 +213,22 @@ end)
 -- Misc
 
 local Flags = {"Strength",
- "Magnet", 
- "Coins", 
- "Diamonds", 
- "Hasty", 
- "Fortune", 
- "Rainbow", 
- "Exotic Treasure", 
- "Shiny"}
+ "Magnet Flag", 
+ "Coins Flag", 
+ "Diamonds Flag", 
+ "Hasty Flag", 
+ "Fortune Flag", 
+ "Rainbow Flag", 
+ "Exotic Treasure Flag", 
+ "Shiny Flag"}
 
 local Flag
 local FlagId
 local Pi
 
 tab5.newDropdown("Flag Type", "", Flags, function(item)
-    Flag = item + " Flag"
-    if Flag == "Magnet" then
+    Flag = item
+    if Flag == "Magnet Flag" then
         FlagId = "d2f5aa2985a74dffba21473cc4156d1e"
     end
 end)
@@ -243,7 +243,7 @@ tab5.newToggle("AutoFlag", "", false, function(toggleState)
             game:GetService("ReplicatedStorage").Network["Flags: Consume"]:InvokeServer(Flag, FlagId, Pi)
         end
     end
- end)
+end)
 
 -- Games
 
