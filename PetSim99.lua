@@ -85,7 +85,7 @@ function  GetRank()
 end
 
 function  ClaimRank()
-      for i = 1,RankStuff[GetRank()]	 do
+      for i = 1,RankStuff[GetRank()] do
 		  local args = {
 			  [1] = i
 		  }
@@ -134,12 +134,12 @@ local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(things.Lootbags:GetChildren()) do
     v:PivotTo(cf)
-    wait(2.1)
+    task.wait(10)
     v:Destroy()
     end
     for i,v in pairs(things.Orbs:GetChildren()) do
     v:PivotTo(cf)
-    wait(2.1)
+    task.wait(10)
     v:Destroy()
     end
 end
