@@ -138,16 +138,6 @@ tab.newToggle("AutoMine Ores", "", false, function(toggleState)
    end
 end)
 
-teleporttab:Dropdown{
-    Name = "Select Waystones",
-    StartingText = "Select...",
-    Description = nil,
-    Items = waystone,
-    Callback = function(item)
-        waystones = item
-    end
-}
-
 teleporttab.newDropdown("Select Waystones", "", waystone, function(item)
     waystones = item
 end)
