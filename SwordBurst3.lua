@@ -78,7 +78,7 @@ tab.newToggle("Auto Farm Mobs", "", false, function(toggleState)
    end
 end)
 
-tab.newDropdown("Select Mobs", "", bosses, function(item)
+tab.newDropdown("Select Boss", "", bosses, function(item)
     choosemob = item
 end)
 
