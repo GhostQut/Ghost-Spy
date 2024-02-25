@@ -1,26 +1,10 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/x3fall3nangel/mercury-lib-edit/master/src.lua"))()
+local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua', true))()
 
-local GUI = Library:Create{
-    Name = "SwordBurst 3",
-    Size = UDim2.fromOffset(600, 400),
-    Theme = Library.Themes.Serika,
-    Link = "https://github.com/deeeity/mercury-lib"
-}
+local window = DrRayLibrary:Load("Pet Simulator 99", "Default")
 
-local tab = GUI:tab{
-    Name = "Main",
-    Icon = "rbxassetid://2174510075" -- rbxassetid://2174510075 home icon
-}
-
-local funtab = GUI:tab{
-    Name = "Misc",
-    Icon = "rbxassetid://8569322835" -- rbxassetid://2174510075 home icon
-}
-
-local teleporttab = GUI:tab{
-    Name = "Teleport",
-    Icon = "rbxassetid://8569322835" -- rbxassetid://2174510075 home icon
-}
+local tab = DrRayLibrary.newTab("Main", "2174510075")
+local funtab = DrRayLibrary.newTab("Teleport", "8569322835")
+local teleporttab = DrRayLibrary.newTab("Misc", "8569322835")
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -82,110 +66,77 @@ for i, v in next, getconnections(lplr.Idled) do
         v["Disconnect"](v)
     end
 end
+tab.newDropdown("Select Mobs", "", mobs, function(item)
+    choosemob = item
+end)
 
-tab:Dropdown{
-    Name = "Select Mobs",
-    StartingText = "Select...",
-    Description = nil,
-    Items = mobs,
-    Callback = function(item)
-        choosemob = item
-    end
-}
+tab.newToggle("Auto Farm Mobs", "", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["automobs"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
-tab:Toggle{
-    Name = "Auto Farm Mobs",
-    StartingState = false,
-    Description = nil,
-    Callback = function(state)
-        swordburst["automobs"] = state
-    end
-}
+tab.newDropdown("Select Mobs", "", bosses, function(item)
+    choosemob = item
+end)
 
-tab:Dropdown{
-    Name = "Select Boss",
-    StartingText = "Select...",
-    Description = nil,
-    Items = bosses,
-    Callback = function(item)
-        boss = item
-    end
-}
+tab.newToggle("Auto Farm Boss", "", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["autoboss"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
-tab:Toggle{
-    Name = "Auto Farm Boss",
-    StartingState = false,
-    Description = nil,
-    Callback = function(state)
-        swordburst["autoboss"] = state
-    end
-}
+tab.newToggle("KillAura", "Doesnt work with killaura for players", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["killaura"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
-tab:Toggle{
-    Name = "Kill Aura",
-    StartingState = false,
-    Description = "doesnt work with killaura for players",
-    Callback = function(state)
-        swordburst["killaura"] = state
-    end
-}
+tab.newToggle("KillAura Players", "Turn on pvp and doesnt work with killaura", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["killauraplr"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
-tab:Toggle{
-    Name = "Kill Aura for Players",
-    StartingState = false,
-    Description = "turn on pvp and doesnt work with killaura ",
-    Callback = function(state)
-        swordburst["killauraplr"] = state
-    end
-}
+tab.newToggle("Auto Collect", "", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["autocollect"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
-tab:Toggle{
-    Name = "Auto Collect",
-    StartingState = false,
-    Description = nil,
-    Callback = function(state)
-        swordburst["autocollect"] = state
-    end
-}
+tab.newDropdown("Select Quest", "", quests, function(item)
+    choosequest = item
+end)
 
-tab:Dropdown{
-    Name = "Select Quest",
-    StartingText = "Select...",
-    Description = nil,
-    Items = quests,
-    Callback = function(item)
-        choosequest = item
-    end
-}
+tab.newToggle("Auto Quest", "", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["autoquest"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
-tab:Toggle{
-    Name = "Auto Quest",
-    StartingState = false,
-    Description = nil,
-    Callback = function(state)
-        swordburst["autoquest"] = state
-    end
-}
+tab.newDropdown("Select Ores", "", mines, function(item)
+    mine = item
+end)
 
-tab:Dropdown{
-    Name = "Select Ores",
-    StartingText = "Select...",
-    Description = nil,
-    Items = mines,
-    Callback = function(item)
-        mine = item
-    end
-}
-
-
-tab:Toggle{
-    Name = "Auto Mine Ores" ,
-    StartingState = false,
-    Description = nil,
-    Callback = function(state)
-        swordburst["automine"] = state
-    end
-}
+tab.newToggle("AutoMine Ores", "", false, function(toggleState)
+   if toggleState == true then
+	    swordburst["automine"] = toggleState
+   else
+      toggleState = false
+   end
+end)
 
 teleporttab:Dropdown{
     Name = "Select Waystones",
@@ -197,31 +148,20 @@ teleporttab:Dropdown{
     end
 }
 
-teleporttab:Button{
-    Name = "Teleport Waystones",
-    Description = nil,
-    Callback = function()
-        if waystones then
-            getchar().HumanoidRootPart.CFrame = waystones.Main.CFrame * CFrame.new(0,0,5)
-        end
-    end
-}
+teleporttab.newDropdown("Select Waystones", "", waystone, function(item)
+    waystones = item
+end)
 
-funtab:Button{
-    Name = "Infinite Stamina",
-    Description = nil,
-    Callback = function()
-        debug.setupvalue(Stamina.SetMaxStamina,1,99999999)
-        debug.setupvalue(Stamina.CanUseStamina,1, 99999999)
+teleporttab.newButton("Teleport Waystones", "", function()
+    if waystones then
+        getchar().HumanoidRootPart.CFrame = waystones.Main.CFrame * CFrame.new(0,0,5)
     end
-}
+end)
 
-GUI:Credit{
-    Name = "x3Fall3nAngel",
-    Description = "Made the script",
-    V3rm = "",
-    Discord = "https://discord.gg/b9QX5rnkT5"
-}
+funtab.newButton("Infinite Stamina", "", function()
+    debug.setupvalue(Stamina.SetMaxStamina,1,99999999)
+    debug.setupvalue(Stamina.CanUseStamina,1, 99999999)
+end)
 
 local function getclosestmobs(mob)
     local distance = math.huge
