@@ -134,13 +134,9 @@ local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(things.Lootbags:GetChildren()) do
     v:PivotTo(cf)
-    task.wait(10)
-    v:Destroy()
     end
     for i,v in pairs(things.Orbs:GetChildren()) do
     v:PivotTo(cf)
-    task.wait(10)
-    v:Destroy()
     end
 end
 -- Auto
