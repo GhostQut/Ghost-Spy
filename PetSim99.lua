@@ -173,7 +173,7 @@ tab1.newToggle("AutoMachiens", "", false, function(toggleState)
         end
     end
 
-    repeat a,b = vending_buy:InvokeServer(v[1], 1)
+    repeat a,b = vending_buy:InvokeServer(v[1], math.random(1,6))
         task.wait(0.1) 
     until a == false
 end
@@ -220,7 +220,7 @@ tab3.newToggle("Merchant Buy", "", false, function(toggleState)
         end
     end
 
-    repeat a,b = merchant_buy:InvokeServer(v[1], 1 or 2 or 3 or 4 or 5 or 6)
+    repeat a,b = merchant_buy:InvokeServer(v[1], math.random(1,6))
         task.wait(0.1) 
     until a == false
 end
