@@ -314,6 +314,7 @@ tab4.newToggle("AutoFish", "", false, function(toggleState)
 
             if Actives:FindFirstChild("Fishing") then
                 Network.Instancing_FireCustomFromClient:FireServer("Fishing", "RequestReel")
+Network.Instancing_InvokeCustomFromClient:InvokeServer("Fishing", "Clicked")
                 waitForGameState(true)
                 waitForGameState(false)
             end
