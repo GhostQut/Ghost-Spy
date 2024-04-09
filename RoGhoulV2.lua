@@ -194,8 +194,8 @@ tab2.newDropdown("Stage", "", {"One","Two","Three", "Four","Five","Six"}, functi
     stag = item
 end)
 
-local ReputationFarm = false,
-local ReputationCashout = false,
+local ReputationFarm = false
+local ReputationCashout = false
 
 tab6:newToggle("Reputation Farm","", function(bool) 
     ReputationFarm = bool
