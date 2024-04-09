@@ -1,13 +1,6 @@
-local Neverlose = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mana42138/Neverlose-UI/main/Source.lua")()
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
 
-local Win = Neverlose:Window({
-    Title = "Yammi",
-    CFG = "YammiHub",
-    Key = Enum.KeyCode.RightShift,
-    External = {
-        KeySystem = false,
-    }
-})
+local window = DrRayLibrary:Load("BladeBall", "Default")
 
 local Cloneref = cloneref or function(Object)return Object end;
 
@@ -61,51 +54,55 @@ local s1 = Main:Tab("Combat")
 local s2 = Main:Tab("AI")
 local s5 = Misc:Tab("Miscellaneous")
 
-local Autofarm = Autofarm:Section("Main")
 
-local AutoFarmVar = Autofarm:Toggle("Auto Farm", function(t)
-    ValueToggle = t
+local tab1 = DrRayLibrary.newTab("Main", "")
+local tab2 = DrRayLibrary.newTab("AI", "")
+local tab4 = DrRayLibrary.newTab("Misc", "")
+local tab6 = DrRayLibrary.newTab("Other", "")
+
+tab1.newToggle("AutoFarm", "", false, function(on)
+    if on then
+	    while task.wait() do
+	    	if Running == true then
+	    		local RealBall, OtherBall = GetBall();
+	    		if RealBall ~= nil and OtherBall ~= nil then
+	    			if Saved.LastBallPosition ~= nil then
+	    				if RealBall:GetAttribute("target") == Player.Name then
+	    					local DeltaT = os.clock()-Saved.LastTick;
+	    					local VelocityX = (OtherBall.Position.X-Saved.LastBallPosition.X)/DeltaT;
+	    					local VelocityY = (OtherBall.Position.Y-Saved.LastBallPosition.Y)/DeltaT;
+	    					local VelocityZ = (OtherBall.Position.Z-Saved.LastBallPosition.Z)/DeltaT;
+	    					local VelocityMagnitude = math.sqrt(VelocityX^2+VelocityY^2+VelocityZ^2);
+	    
+	    					local ServerPing = StatsService.Network.ServerStatsItem["Data Ping"]:GetValue();
+	    					local DistanceToPlayer = (Player.Character.HumanoidRootPart.Position-OtherBall.Position).Magnitude;
+	    					local EstimatedTimeToReachPlayer = (ServerPing/VelocityMagnitude)/(ServerPing/DistanceToPlayer);
+	    					local TimeToParry = 0.2*(VelocityMagnitude/DistanceToPlayer);
+	    
+	    					print(EstimatedTimeToReachPlayer, "<=", TimeToParry);
+	    
+	    					if tostring(EstimatedTimeToReachPlayer) ~= "inf" and TimeToParry < 10 then
+	    						if EstimatedTimeToReachPlayer <= TimeToParry then
+	    							if Saved.AttemptedParry == false then
+	    								warn("--firing");
+	    								AttemptParry(OtherBall);
+	    								Saved.AttemptedParry = true;
+	    							else
+	    								warn("--attempted");
+	    							end;
+	    						else
+	    							Saved.AttemptedParry = false;
+	    						end;
+	    					end;
+	    				else
+	    					Saved.AttemptedParry = false;
+	    				end;
+	    			end;
+	    			Saved.LastBallPosition = OtherBall.Position;
+	    		end;
+	    	end;
+	    	Saved.LastTick = os.clock();
+	    end;
+    end
 end)
-if ValueToggle == true then
-    while task.wait() do
-    	if Running == true then
-    		local RealBall, OtherBall = GetBall();
-    		if RealBall ~= nil and OtherBall ~= nil then
-    			if Saved.LastBallPosition ~= nil then
-    				if RealBall:GetAttribute("target") == Player.Name then
-    					local DeltaT = os.clock()-Saved.LastTick;
-    					local VelocityX = (OtherBall.Position.X-Saved.LastBallPosition.X)/DeltaT;
-    					local VelocityY = (OtherBall.Position.Y-Saved.LastBallPosition.Y)/DeltaT;
-    					local VelocityZ = (OtherBall.Position.Z-Saved.LastBallPosition.Z)/DeltaT;
-    					local VelocityMagnitude = math.sqrt(VelocityX^2+VelocityY^2+VelocityZ^2);
-    
-    					local ServerPing = StatsService.Network.ServerStatsItem["Data Ping"]:GetValue();
-    					local DistanceToPlayer = (Player.Character.HumanoidRootPart.Position-OtherBall.Position).Magnitude;
-    					local EstimatedTimeToReachPlayer = (ServerPing/VelocityMagnitude)/(ServerPing/DistanceToPlayer);
-    					local TimeToParry = 0.2*(VelocityMagnitude/DistanceToPlayer);
-    
-    					print(EstimatedTimeToReachPlayer, "<=", TimeToParry);
-    
-    					if tostring(EstimatedTimeToReachPlayer) ~= "inf" and TimeToParry < 10 then
-    						if EstimatedTimeToReachPlayer <= TimeToParry then
-    							if Saved.AttemptedParry == false then
-    								warn("--firing");
-    								AttemptParry(OtherBall);
-    								Saved.AttemptedParry = true;
-    							else
-    								warn("--attempted");
-    							end;
-    						else
-    							Saved.AttemptedParry = false;
-    						end;
-    					end;
-    				else
-    					Saved.AttemptedParry = false;
-    				end;
-    			end;
-    			Saved.LastBallPosition = OtherBall.Position;
-    		end;
-    	end;
-    	Saved.LastTick = os.clock();
-    end;
-end
+
