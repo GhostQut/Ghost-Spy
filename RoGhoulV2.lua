@@ -1,5 +1,5 @@
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
-local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/FreemUI-V2/main/Source.lua"))()
 
 local window = DrRayLibrary:Load("Ro-Ghoul", "Default")
 
@@ -66,7 +66,6 @@ tab2.newDropdown("Type Mob", "", {"Human" ,"Aogiri" ,"Investigator"}, function(i
     whitelist = item
 end)
 
-local crum = 'cummmmmmmmmm'
 local dis1 = 5
 local last = math.huge
 local nearest = nil
@@ -95,6 +94,7 @@ spawn(function()
     end
 end)
 local times_fired = 0
+local auto_click = false
 spawn(function()
     while wait() do
         if on2 and game.Players.LocalPlayer.PlayerGui:FindFirstChild("HUD") then
@@ -113,7 +113,7 @@ spawn(function()
                                     if ass and twen ~= nil then  
                                         twen:Play()
                                     end
-                                if game.Players.LocalPlayer.Character:FindFirstChild("Remotes") and ass and (nearest.Position - hum.Position).magnitude < 23 then
+                                if game.Players.LocalPlayer.Character:FindFirstChild("Remotes")and auto_click and ass and (nearest.Position - hum.Position).magnitude < 23 then
                                     game.Players.LocalPlayer.Character.Remotes.KeyEvent:FireServer(key, "Mouse1", "Down", CFrame.new(), CFrame.new())
                                 end
                                 end
@@ -145,7 +145,6 @@ local dur = false
 local speeed = false
 local delay = 1
 
-local auto_click = false
 tab4.newToggle("AutoClick", "", false, function(on)
     if on then
 	auto_click = on
@@ -197,11 +196,11 @@ end)
 local ReputationFarm = false
 local ReputationCashout = false
 
-tab6:newToggle("Reputation Farm","", function(bool) 
+tab6.newToggle("Reputation Farm","", function(bool) 
     ReputationFarm = bool
 end)
 
-tab6:newToggle("Auto Reputation Cashout","", function(bool)
+tab6.newToggle("Auto Reputation Cashout","", function(bool)
     ReputationCashout = bool
 end)
 
