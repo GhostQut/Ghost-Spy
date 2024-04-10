@@ -4,6 +4,9 @@ end
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
 	game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
 end
+if game:GetService("CoreGui"):FindFirstChild("DrRay") then
+	game:GetService("CoreGui").DrRay:Destroy()
+end
 _G.Settings = {
 
 	Main = {
