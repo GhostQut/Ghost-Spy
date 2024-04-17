@@ -1,7 +1,7 @@
 local gui = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/z4gs/scripts/master/testtttt.lua"))():AddWindow("Ro-Ghoul", {
-	main_color = Color3.fromRGB(0,0,0),
-	min_size = Vector2.new(373, 340),
-	can_resize = false
+    main_color = Color3.fromRGB(0,0,0),
+    min_size = Vector2.new(373, 340),
+    can_resize = false
 })
 
 local get = setmetatable({}, {
@@ -20,7 +20,6 @@ repeat wait() until player:FindFirstChild("PlayerFolder")
 local team, remotes, stat = player.PlayerFolder.Customization.Team.Value, get.ReplicatedStorage.Remotes, player.PlayerFolder.StatsFunction
 local oldtick, farmtick = 0, 0
 local camera = workspace.CurrentCamera
-repeat wait() until game.CoreGui:FindFirstChild("imgui")
 local myData = loadstring(game:HttpGet("https://raw.githubusercontent.com/z4gs/scripts/master/Settings.lua"))()("Ro-Ghoul Autofarm", {
 	Skills = {
 		E = false,
