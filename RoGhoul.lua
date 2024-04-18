@@ -222,9 +222,20 @@ end)
 
 labels.time = {label = tab3:AddLabel("")}
 
+local vu = game:GetService("VirtualUser")
+
 tab4:AddSwitch("Auto add kagune/quinque stats", function(bool) array.weapon = bool end)
 tab4:AddSwitch("Auto add durability stats", function(bool) array.dura = bool end)
 tab4:AddSwitch("Auto kick", function(bool) array.kick = bool end)
+tab4:AddSwitch("Anti AFK", function(bool) 
+	if bool then
+		game:GetService("Players").LocalPlayer.Idled:connect(function()
+			vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+			wait(1)
+			vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+		end)
+	end
+end)
 tab4:AddLabel("Auto kick whitelist (type 1 name per line)")
 
 local console = tab4:AddConsole({
