@@ -11,7 +11,7 @@ local tab6 = DrRayLibrary.newTab("Other", "")
 local codes = {"idk", "thanks500k", "MEMBEREREBREWRERES", "raidsarecool", "sorry4delay", "dayum100m", "wsindach4ht", "200kholymoly", "adontop", "subcool", "sub2toadboigaming", "sub2jonaslyz", "sub2riktime", "sub2mozking", "sub2karizmaqt", "sub2nagblox"}
 
 tab3.newButton("Redeem ALL Codes", "", function()
-    for code, _ ipairs(codes) do
+    for i, code in pairs(codes) do
         task.wait(.1)
         game:GetService("ReplicatedStorage").Remotes.UseCode:InvokeServer(code)
     end
