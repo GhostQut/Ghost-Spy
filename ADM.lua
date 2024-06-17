@@ -13,6 +13,6 @@ local codes = {"update2", "idk", "thanks500k", "MEMBEREREBREWRERES", "raidsareco
 tab5.newButton("Redeem ALL Codes", "", function()
     for i, code in pairs(codes) do
         task.wait(.1)
-        game:GetService("ReplicatedStorage").Remotes.UseCode:InvokeServer(code)
+        game:GetService("ReplicatedStorage").Actions.Invokables:FindFirstChild("0DIHrsyS"):InvokeServer(pack(code))
     end
 end)
