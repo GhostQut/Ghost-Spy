@@ -7,3 +7,6 @@ local tab2 = DrRayLibrary.newTab("Macro", "")
 local tab3 = DrRayLibrary.newTab("AutoPlay+", "")
 local tab4 = DrRayLibrary.newTab("Misc", "")
 
+local plr = game:GetService('Players').LocalPlayer
+
+plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton
