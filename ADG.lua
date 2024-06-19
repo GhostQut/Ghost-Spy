@@ -8,5 +8,17 @@ local tab3 = DrRayLibrary.newTab("AutoPlay+", "")
 local tab4 = DrRayLibrary.newTab("Misc", "")
 
 local plr = game:GetService('Players').LocalPlayer
+local VirtualUser = game:GetService('VirtualUser')
+local CurrentCamera = game:GetService('Workspace').CurrentCamera
 
-plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton
+tab1.newToggle("AutoStart ", "", false, function(on)
+    on = not on
+    while on do
+        local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
+        VirtualUser:Button1Down(pos, CurrentCamera.CFrame)
+                
+        task.wait(.1)
+                
+        VirtualUser:Button1Up(pos, CurrentCamera.CFrame)
+    end
+end)

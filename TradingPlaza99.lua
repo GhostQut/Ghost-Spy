@@ -18,9 +18,9 @@ local function GetMyPets()
  end
 
 for x = 1, 50 do
-local y = tostring(x)
-task.wait(0.5)
-game:GetService("ReplicatedStorage").Network.Booths_ClaimBooth:InvokeServer(y)
+    local y = tostring(x)
+    task.wait(0.5)
+    game:GetService("ReplicatedStorage").Network.Booths_ClaimBooth:InvokeServer(y)
 end
 
 
@@ -42,16 +42,16 @@ end)
 tab1.newToggle("AutoSell", "Selling your pets", false, function(toggleState)
     if toggleState then
         while task.wait(0.4) do
-game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
-end
+            game:GetService("ReplicatedStorage").Network.Booths_CreateListing:InvokeServer(pet, price, count)
+        end
     end
 end)
 
 tab1.newToggle("ServerHop", "", true, function(toggleState)
     if toggleState then
         while task.wait(1800) do
-module:Teleport(game.PlaceId)
-end
+            module:Teleport(game.PlaceId)
+        end
     end
 end)
 
