@@ -8,10 +8,10 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ghost
 
 function TPTo(PCFrame)
     local plr = game.Players.LocalPlayer;
-           if plr.Character then
-            plr.Character.HumanoidRootPart.CFrame = PCFrame
-        end
+    if plr.Character then
+        plr.Character.HumanoidRootPart.CFrame = PCFrame
     end
+end
 
 
 local test = library.new({
@@ -44,12 +44,11 @@ s1:CreateToggle({ -- IMPORTANT: This function does not return anything, please m
     Flag = "FS"; -- required: unique flag name to use
     Default = false; -- optional: default value for toggle, will be used if config saving is disabled and there is no saved data, will be false if left nil
     Callback = function(FSValue) -- optional: function that will be called when toggled, it is reccomended to modify flags directly
-        while FSValue == true and wait() do
+        while FSValue == true do
         	FS:FireServer()
-		if FSValue == false then
-        	break
-
-        end
+            if FSValue == false then
+                break
+            end
         end
     end;
     -- Scroll to the bottom of the page to read more about the following two:
