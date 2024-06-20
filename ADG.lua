@@ -4,21 +4,40 @@ local window = DrRayLibrary:Load("Anime Defenders", "Default")
 
 local tab1 = DrRayLibrary.newTab("Main", "")
 local tab2 = DrRayLibrary.newTab("Macro", "")
-local tab3 = DrRayLibrary.newTab("AutoPlay+", "")
-local tab4 = DrRayLibrary.newTab("Misc", "")
+local tab3 = DrRayLibrary.newTab("Tower", "")
+local tab4 = DrRayLibrary.newTab("AutoPlay+", "")
+local tab5 = DrRayLibrary.newTab("Misc", "")
 
 local plr = game:GetService('Players').LocalPlayer
 local VirtualUser = game:GetService('VirtualUser')
 local CurrentCamera = game:GetService('Workspace').CurrentCamera
 
-tab1.newToggle("AutoStart ", "", false, function(on)
-    on = not on
-    while on do
-        local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
-        VirtualUser:Button1Down(pos, CurrentCamera.CFrame)
-                
-        task.wait(.1)
-                
-        VirtualUser:Button1Up(pos, CurrentCamera.CFrame)
+-- TOWER
+
+local maps = {
+    {"Map1";"Cherry Blossom"};
+    {"Map2";"Safari"};
+    {"Map3";"Misty Falls"};
+    {"Map4";"Fire and Ice"};
+}
+
+local function getMap()
+    for i,v in ipairs(maps) do
+
     end
+end
+
+
+local function getLoot()
+    local cf = hrp.CFrame
+    for i,v in pairs(things.Lootbags:GetChildren()) do
+    v:PivotTo(cf)
+    end
+    for i,v in pairs(things.Orbs:GetChildren()) do
+    v:PivotTo(cf)
+    end
+end
+
+tab3.newToggle("AutoStart ", "", false, function(on)
+    
 end)
