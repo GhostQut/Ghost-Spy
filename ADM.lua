@@ -10,6 +10,22 @@ local tab5 = DrRayLibrary.newTab("Other", "")
 
 local codes = {"update2", "idk", "thanks500k", "MEMBEREREBREWRERES", "raidsarecool", "sorry4delay", "dayum100m", "wsindach4ht", "200kholymoly", "adontop", "subcool", "sub2toadboigaming", "sub2jonaslyz", "sub2riktime", "sub2mozking", "sub2karizmaqt", "sub2nagblox"}
 
+local plr = game:GetService('Players').LocalPlayer
+local VirtualUser = game:GetService('VirtualUser')
+local CurrentCamera = game:GetService('Workspace').CurrentCamera
+
+tab1.newToggle("AutoStart ", "", false, function(on)
+    on = not on
+    while on do
+        local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
+        
+        if on == true then
+            VirtualUser:ClickButton1(pos, CurrentCamera.CFrame)
+        end
+        
+        task.wait(.1)
+    end
+end)
 
 tab5.newButton("Redeem ALL Codes", "", function()
     for i, code in pairs(codes) do
