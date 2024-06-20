@@ -28,6 +28,8 @@ local function getMap()
 end
 
 
+
+
 local function getLoot()
     local cf = hrp.CFrame
     for i,v in pairs(things.Lootbags:GetChildren()) do
