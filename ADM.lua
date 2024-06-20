@@ -25,9 +25,7 @@ tab1.newToggle("AutoStart ", "", false, function(on)
     while on do
         local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
         
-        if on == true then
-            VirtualUser:ClickButton1(v2(pos), CurrentCamera.CFrame)
-        end
+        VirtualUser:ClickButton1(v2(pos), CurrentCamera.CFrame)
         
         task.wait(.1)
     end
