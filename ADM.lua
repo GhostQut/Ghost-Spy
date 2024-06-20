@@ -14,13 +14,19 @@ local plr = game:GetService('Players').LocalPlayer
 local VirtualUser = game:GetService('VirtualUser')
 local CurrentCamera = game:GetService('Workspace').CurrentCamera
 
+function v2(v)
+    local x = v.X
+    local y = v.Y
+    return Vector2.new(x,y)
+end
+
 tab1.newToggle("AutoStart ", "", false, function(on)
     on = not on
     while on do
         local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
         
         if on == true then
-            VirtualUser:ClickButton1(pos, CurrentCamera.CFrame)
+            VirtualUser:ClickButton1(v2(pos), CurrentCamera.CFrame)
         end
         
         task.wait(.1)
