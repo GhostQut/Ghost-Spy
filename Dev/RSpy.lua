@@ -222,7 +222,9 @@ function BFunctionMain(Func)
 end
 local a, b, c, d = GetEvents(), GetFunctions(), GetBEvents(), GetBFunctions()
 for _, v in pairs(a) do
- EventMain(v)
+    if v.Name == 'Action' then
+        EventMain(v)
+    end
 end
 for _, v in pairs(b) do
  FunctionMain(v)
