@@ -39,6 +39,20 @@ local function getLoot()
     end
 end
 
-tab3.newToggle("AutoStart ", "", false, function(on)
-    vim:SendMouseButtonEvent(x: int, y: int, mouseButton: int, isDown: bool, layerCollector: Instance, repeatCount: int)
+function v2(v)
+    local x = v.X
+    local y = v.Y
+    return Vector2.new(x,y)
+end
+
+tab3.newToggle("AutoNext ", "", false, function(on)
+    on = not on
+    while on do
+        local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
+        
+        if plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.Visible == true then
+            vim:SendMouseButtonEvent(pos.X, pos.Y, 0, true, game, 5)
+            task.wait(.1)
+        end
+    end
 end)

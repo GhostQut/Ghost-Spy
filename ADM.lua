@@ -8,7 +8,25 @@ local tab3 = DrRayLibrary.newTab("Summon", "")
 local tab4 = DrRayLibrary.newTab("Misc", "")
 local tab5 = DrRayLibrary.newTab("Other", "")
 
-local codes = {"update2", "idk", "thanks500k", "MEMBEREREBREWRERES", "raidsarecool", "sorry4delay", "dayum100m", "wsindach4ht", "200kholymoly", "adontop", "subcool", "sub2toadboigaming", "sub2jonaslyz", "sub2riktime", "sub2mozking", "sub2karizmaqt", "sub2nagblox"}
+local codes = {
+    'subcool',
+    'sub2toadboigaming',
+    'sub2mozking',
+    'sub2karizmaqt',
+    'sub2jonaslyz',
+    'sub2riktime',
+    'sub2nagblox',
+    'release2024',
+    'adontop',
+    '200kholymoly',
+    'raidsarecool',
+    'sorry4delay',
+    'thanks400k',
+    'dayum100m',
+    'wsidach4ht',
+    'thanks500k',
+    'idk'
+  }
 
 local plr = game:GetService('Players').LocalPlayer
 local VirtualUser = game:GetService('VirtualUser')
