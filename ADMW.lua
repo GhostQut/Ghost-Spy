@@ -3,9 +3,6 @@ local webhook =
 local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
-for i,v in pairs(plr.PlayerGui.PAGES.SummonPage.Holder.HolderBannerScene.ViewportFrame.WorldModel:GetChildren()) do
-    print(v)
-end
 
 while true do
     local currentTime = os.time(os.date("!*t"))
