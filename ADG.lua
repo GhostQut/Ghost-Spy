@@ -10,24 +10,23 @@ local tab5 = DrRayLibrary.newTab("Misc", "")
 
 local plr = game:GetService('Players').LocalPlayer
 local VirtualUser = game:GetService('VirtualUser')
+local vim = game:GetService('VirtualInputManager')
 local CurrentCamera = game:GetService('Workspace').CurrentCamera
 
 -- TOWER
 
-local maps = {
-    {"Map1";"Cherry Blossom"};
-    {"Map2";"Safari"};
-    {"Map3";"Misty Falls"};
-    {"Map4";"Fire and Ice"};
-}
-
-local function getMap()
-    for i,v in ipairs(maps) do
-
+function getMap()
+    local map
+    for i = 1, 5 do
+        if game:GetService('Workspace')['PhysicalMap']:FindFirstChild(tostring(i)) then
+            print(i)
+            map = "Map"..i
+        end
     end
+    return map
 end
 
-
+LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkToPoint = Vector3.new()
 
 
 local function getLoot()
@@ -41,5 +40,5 @@ local function getLoot()
 end
 
 tab3.newToggle("AutoStart ", "", false, function(on)
-    
+    vim:SendMouseButtonEvent(x: int, y: int, mouseButton: int, isDown: bool, layerCollector: Instance, repeatCount: int)
 end)
