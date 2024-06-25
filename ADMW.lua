@@ -1,6 +1,5 @@
 local webhook =
-   "https://discord.com/api/webhooks/1255191299859152988/4v4Iq3p8I10gbb7bhA1k-zm4BAa2ZMOkPYUiKoMkqug2ta1A5VGyvI3-Eo0n4ivo5FN4"
-local mesId = "1255191830132428871"
+   "https://discord.com/api/webhooks/1255191299859152988/4v4Iq3p8I10gbb7bhA1k-zm4BAa2ZMOkPYUiKoMkqug2ta1A5VGyvI3-Eo0n4ivo5FN4/messages/1255206898924257280"
 local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
@@ -14,7 +13,7 @@ while true do
         ["embeds"] = {
             {
                 ["title"] = "**JSQ | Public Banner Display**",
-                ["description"] = "Последнее обновление: ".."<t:"..currentTime.."R:>".."\n Banner "..bupd,
+                ["description"] = "Последнее обновление: ".."<t:"..currentTime..":R>".."\n Banner "..bupd,
                 ["type"] = "rich",
                 ["color"] = 6165903,
                 ["fields"] = {
@@ -65,7 +64,7 @@ while true do
         ["content-type"] = "application/json"
     }
     request = http_request or request or HttpPost or syn.request
-    local abcdef = {Url = webhook, Body = newdata, Method = "POST", Headers = headers}
+    local abcdef = {Url = webhook, Body = newdata, Method = "PATCH", Headers = headers}
     request(abcdef)
     wait(interval)
 end
