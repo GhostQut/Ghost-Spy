@@ -4,7 +4,7 @@ local mesId = "1255191830132428871"
 local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
-local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiriesFrame.ExpireLabel.Text
+local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiresFrame.ExpireLabel.Text
 local rareUts
 
 while true do
