@@ -20,7 +20,7 @@ while true do
                 ["fields"] = {
                     {
                         ["name"] = "Standard Banner",
-                        ["value"] = "🔵 Rare (27.5%): "..rareUts.."\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%):\n :004aastar: Secret (0.005%):",
+                        ["value"] = "🔵 Rare (27.5%): "..rareUts.."\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%):\n"..":004aastar:".."Secret (0.005%):",
                         ["inline"] = true
                     },
                     {
