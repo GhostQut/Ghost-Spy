@@ -9,6 +9,9 @@ local rareUts = ""
 while true do
     local currentTime = os.time(os.date("!*t"))
 
+    -- Variables
+    local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiresFrame.ExpireLabel.Text
+
     local data = {
         ["embeds"] = {
             {
