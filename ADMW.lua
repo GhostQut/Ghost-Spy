@@ -5,7 +5,7 @@ local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
 local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiresFrame.ExpireLabel.Text
-local rareUts
+local rareUts = ""
 
 while true do
     local currentTime = os.time(os.date("!*t"))
