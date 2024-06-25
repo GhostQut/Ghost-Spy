@@ -51,7 +51,7 @@ tab3.newToggle("AutoNext ", "", false, function(on)
         local pos = plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.OptionsHolder.StartButtonHolder.ConfirmButton.Position
         
         if plr.PlayerGui.HUD.MatchDisplayHolder.MatchDisplayFrame.Visible == true then
-            vim:SendMouseButtonEvent(pos.X - 5, pos.Y - 5, 0, true, plr.PlayerGui.HUD., 1)
+            vim:SendMouseButtonEvent(pos.X - 5, pos.Y - 5, 0, true, plr.PlayerGui.HUD, 1)
             task.wait(.1)
         end
     end
