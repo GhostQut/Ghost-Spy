@@ -1,25 +1,26 @@
 local webhook =
    "https://discord.com/api/webhooks/1255191299859152988/4v4Iq3p8I10gbb7bhA1k-zm4BAa2ZMOkPYUiKoMkqug2ta1A5VGyvI3-Eo0n4ivo5FN4"
+local mesId = "1255191830132428871"
 local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
+local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiriesFrame.ExpireLabel.Text
+local rareUts
 
 while true do
     local currentTime = os.time(os.date("!*t"))
-    
-    local currentTime = os.date("%c")
 
     local data = {
         ["embeds"] = {
             {
                 ["title"] = "**JSQ | Public Banner Display**",
-                ["description"] = "Последнее обновление: "..currentTime.." \n Banner",
+                ["description"] = "Последнее обновление: <r:"..currentTime.."R:> \n Banner "..bupd,
                 ["type"] = "rich",
                 ["color"] = 6165903,
                 ["fields"] = {
                     {
                         ["name"] = "Standard Banner",
-                        ["value"] = "🔵 Rare (27.5%):\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%): \n:004aastar: Secret (0.005%):",
+                        ["value"] = "🔵 Rare (27.5%): "..rareUts"\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%):"+"\n :004aastar: Secret (0.005%):",
                         ["inline"] = true
                     },
                     {
