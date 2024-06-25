@@ -1,5 +1,5 @@
 local webhook =
-   "https://discord.com/api/webhooks/1254784102092243026/wjm4xIGLksDH2o8LItYAROeXgWizbjRvWjC5J8OxPEUaZPPQOUprSdb34Qb4UOgynCHt"
+   "https://discord.com/api/webhooks/1255191299859152988/4v4Iq3p8I10gbb7bhA1k-zm4BAa2ZMOkPYUiKoMkqug2ta1A5VGyvI3-Eo0n4ivo5FN4"
 local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
