@@ -14,7 +14,7 @@ while true do
         ["embeds"] = {
             {
                 ["title"] = "**JSQ | Public Banner Display**",
-                ["description"] = "Последнее обновление: ".."<r:"..currentTime.."R:>".."\n Banner "..bupd,
+                ["description"] = "Последнее обновление: ".."<t:"..currentTime.."R:>".."\n Banner "..bupd,
                 ["type"] = "rich",
                 ["color"] = 6165903,
                 ["fields"] = {
