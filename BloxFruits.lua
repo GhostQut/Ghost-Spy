@@ -121,10 +121,10 @@ _G.Settings = {
 		["Camera Shaker"] = false,
 
 		--[Skill Configs]
-		["Skill Z"] = true,
-		["Skill X"] = true,
-		["Skill C"] = true,
-		["Skill V"] = true,
+		["Skill Z"] = false,
+		["Skill X"] = false,
+		["Skill C"] = false,
+		["Skill V"] = false,
 
 		--[Mob Configs]
 		["Show Hitbox"] = false,
