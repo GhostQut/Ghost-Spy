@@ -242,15 +242,16 @@ tab1.newDropdown("Mob", "Choose Your Mob To Farm", quests, function(chosenQuest)
 end)
 
 function enemy()
-    if game.Workspace.Enemies:FindFirstChild(_G.Settings.Configs["CurrentQuest"]) then
+	local mobb = string.gsub(_G.Settings.Configs["CurrentQuest"], "%[Lv%.%s%d+%]", "")
+    if game.Workspace.Enemies:FindFirstChild(mobb) then
         local mobs = game.Workspace.Enemies:GetChildren()
         for i = 1, #mobs do local v = mobs[i]
-            if v.Name == _G.Settings.Configs["CurrentQuest"] and v:IsA("Model") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+            if v.Name == mobb and v:IsA("Model") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
                 return v
             end
         end
     end
-    return game.ReplicatedStorage:FindFirstChild(_G.Settings.Configs["CurrentQuest"])
+    return game.ReplicatedStorage:FindFirstChild(mobb)
 end
 
 tab4.newToggle("Auto Skill: C", "Uses Skill C", _G.Settings.Configs["Skill C"], function(state)
