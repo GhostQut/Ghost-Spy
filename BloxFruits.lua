@@ -113,7 +113,7 @@ _G.Settings = {
 		["Fast Attack"] = true,
 		["Fast Attack Type"] = {"Fast"}, --{Normal,Fast,Slow}
 
-		["CurrentWeapon"] = "Combat",
+		["CurrentWeapon"] = "Melee",
 
 		--[Misc Configs]
 		["Auto Haki"] = true,
@@ -820,8 +820,9 @@ coroutine.wrap(function()
 	end
 end)()
 
+local SelectWeapon = false
 tab1.newDropdown("Select Weapon", "Choose your tool to use!", {"Melee","Sword","Fruit"}, function(weapon)
-	_G.Settings.Configs["CurrentWeapon"] = weapon
+	SelectWeapon = weapon
 end)
 
 tab1.newToggle("Auto Haki", "", _G.Settings.Configs["Auto Haki"], function(state)
@@ -909,6 +910,46 @@ game:GetService("RunService").Stepped:Connect(function()
 			keyrelease(0x5A)
 		end)
 	end
+end)
+
+task.spawn(function()
+	while wait() do
+		pcall(function()
+			if SelectWeapon == "Melee" then
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Melee" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							_G.Settings.Configs["CurrentWeapon"] = v.Name
+						end
+					end
+				end
+			elseif SelectWeapon == "Sword" then
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Sword" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							_G.Settings.Configs["CurrentWeapon"] = v.Name
+						end
+					end
+				end
+			elseif SelectWeapon == "Fruit" then
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Blox Fruit" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							_G.Settings.Configs["CurrentWeapon"] = v.Name
+						end
+					end
+				end
+			else
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Melee" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							_G.Settings.Configs["CurrentWeapon"] = v.Name
+						end
+					end
+				end
+			end
+		end)
+        end 
 end)
 
 task.spawn(function()
