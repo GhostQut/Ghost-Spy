@@ -3,7 +3,15 @@ local webhook =
 local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
-local rareUts = ""
+local rrUnits = {}
+
+for i,v in pairs(plr.PlayerGui.PAGES.SummonPage.ChancesFrame.UnitHolder.UnitGridPrefab) do
+    for i2,v2 in pairs(v.Button) do
+        if v2.SummonRarityLabel.Text == "Rare" then
+            rrUnits[v2.UnitNameLabel.Text]
+        end
+    end
+end
 
 while true do
     local currentTime = os.time(os.date("!*t"))
@@ -21,7 +29,7 @@ while true do
                 ["fields"] = {
                     {
                         ["name"] = "Standard Banner",
-                        ["value"] = "🔵 Rare (27.5%): "..rareUts.."\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%):\n"..":004aastar:".."Secret (0.005%):",
+                        ["value"] = "🔵 Rare (27.5%): "..rrUnits.."\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%):\n"..":004aastar:".."Secret (0.005%):",
                         ["inline"] = true
                     },
                     {
