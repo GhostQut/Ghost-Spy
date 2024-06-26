@@ -313,6 +313,18 @@ for i, v in pairs(game.ReplicatedStorage:GetChildren()) do
 	end
 end
 
+local FastAttack = false
+------------ // AutoUpdate \\ ------------
+task.spawn(function()
+	while task.wait(.1) do
+		if _G.Settings.Main["Auto Farm Level"] then
+			FastAttack = true
+		else
+			FastAttack = false
+		end
+	end
+end)
+
 local function QuestCheck()
 	local Lvl = game:GetService("Players").LocalPlayer.Data.Level.Value
 	if Lvl >= 1 and Lvl <= 9 then
@@ -784,6 +796,29 @@ end)
 tab1.newDropdown("Fast Attack Type", "", {"Fast","Normal","Slow"}, function(value)
 	_G.Settings.Configs["Fast Attack Type"] = value
 end)
+
+coroutine.wrap(function()
+	while task.wait(.1) do
+		local ac = CombatFrameworkR.activeController
+		if ac and ac.equipped then
+			if FastAttack and _G.Settings.Configs["Fast Attack"] then
+				AttackFunction()
+				if _G.Settings.Configs["Fast Attack Type"] == "Normal" then
+					if tick() - cooldownfastattack > .9 then wait(.1) cooldownfastattack = tick() end
+				elseif _G.Settings.Configs["Fast Attack Type"] == "Fast" then
+					if tick() - cooldownfastattack > 1.5 then wait(.01) cooldownfastattack = tick() end
+				elseif _G.Settings.Configs["Fast Attack Type"] == "Slow" then
+					if tick() - cooldownfastattack > .3 then wait(.7) cooldownfastattack = tick() end
+				end
+			elseif FastAttack and _G.Settings.Configs["Fast Attack"] == false then
+				if ac.hitboxMagnitude ~= 55 then
+					ac.hitboxMagnitude = 55
+				end
+				ac:attack()
+			end
+		end
+	end
+end)()
 
 tab1.newDropdown("Select Weapon", "Choose your tool to use!", {"Melee","Sword","Fruit"}, function(weapon)
 	_G.Settings.Configs["CurrentWeapon"] = weapon
