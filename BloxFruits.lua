@@ -880,33 +880,43 @@ spawn(function()
 	end
 end)
 
+tab5.newToggle("Inf Stamina", "", _G.Settings.Misc["Infinities Energy"], function(state)
+	_G.Settings.Misc["Infinities Energy"] = state
+end)
 
 game:GetService("RunService").Stepped:Connect(function()
+	if _G.Settings.Misc["Infinities Energy"] then
+		pcall(function()
+			plr.Character.Energy.MaxValue = math.huge
+			task.wait(.25)
+			plr.Character.Energy.Value = math.huge
+		end)
+	end
 	if _G.Settings.Configs["Skill X"] then
 		pcall(function()
 			keypress(0x58)
-			wait(1)
+			task.wait(1)
 			keyrelease(0x58)
 		end)
 	end
 	if _G.Settings.Configs["Skill C"] then
 		pcall(function()
 			keypress(0x43)
-			wait(1)
+			task.wait(1)
 			keyrelease(0x43)
 		end)
 	end
 	if _G.Settings.Configs["Skill V"] then
 		pcall(function()
 			keypress(0x58)
-			wait(1)
+			task.wait(1)
 			keyrelease(0x58)
 		end)
 	end
 	if _G.Settings.Configs["Skill Z"] then
 		pcall(function()
 			keypress(0x5A)
-			wait(1)
+			task.wait(1)
 			keyrelease(0x5A)
 		end)
 	end
