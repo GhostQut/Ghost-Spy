@@ -6,33 +6,36 @@ local plr = game:GetService('Players').LocalPlayer
 local standtartUnits = {}
 local limitUnits = {}
 
-for i,v in pairs(plr.PlayerGui.PAGES.SummonPage.ChancesFrame.UnitHolder:GetChildren()) do
-    if v.Name ~= 'UIGridLayout' then
-        for i2,v2 in pairs(v:GetChildren()) do
-            if v2.SummonRarityLabel.Text == "Rare" then
-                standtartUnits['Rare'] = v2.UnitNameLabel.Text
-            end
-            if v2.SummonRarityLabel.Text == "Epic" then
-                standtartUnits['Epic'] = v2.UnitNameLabel.Text
-            end
-            if v2.SummonRarityLabel.Text == "Legendary" then
-                standtartUnits['Legendary'] = v2.UnitNameLabel.Text
-            end
-            if v2.SummonRarityLabel.Text == "Mythic" then
-                standtartUnits['Mythic'] = v2.UnitNameLabel.Text
-            end
-            if v2.SummonRarityLabel.Text == "Secret" then
-                standtartUnits['Secret'] = v2.UnitNameLabel.Text
+function getSummon()
+    for i,v in pairs(plr.PlayerGui.PAGES.SummonPage.ChancesFrame.UnitHolder:GetChildren()) do
+        if v.Name ~= 'UIGridLayout' then
+            for i2,v2 in pairs(v:GetChildren()) do
+                if v2.SummonRarityLabel.Text == "Rare" then
+                    standtartUnits['Rare'] = v2.UnitNameLabel.Text
+                end
+                if v2.SummonRarityLabel.Text == "Epic" then
+                    standtartUnits['Epic'] = v2.UnitNameLabel.Text
+                end
+                if v2.SummonRarityLabel.Text == "Legendary" then
+                    standtartUnits['Legendary'] = v2.UnitNameLabel.Text
+                end
+                if v2.SummonRarityLabel.Text == "Mythic" then
+                    standtartUnits['Mythic'] = v2.UnitNameLabel.Text
+                end
+                if v2.SummonRarityLabel.Text == "Secret" then
+                    standtartUnits['Secret'] = v2.UnitNameLabel.Text
+                end
             end
         end
     end
 end
 
 while true do
-    local currentTime = os.time(os.date("!*t"))
 
     -- Variables
+    local currentTime = os.time(os.date("!*t"))
     local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiresFrame.ExpireLabel.Text
+    
 
     local data = {
         ["embeds"] = {
@@ -92,4 +95,5 @@ while true do
     local abcdef = {Url = webhook, Body = newdata, Method = "PATCH", Headers = headers}
     request(abcdef)
     wait(interval)
+    getSummon()
 end
