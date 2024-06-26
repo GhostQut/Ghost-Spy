@@ -4,9 +4,7 @@ end
 if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
 	game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
 end
-if game:GetService("CoreGui"):FindFirstChild("DrRay") then
-	game:GetService("CoreGui").DrRay:Destroy()
-end
+
 _G.Settings = {
 
 	Main = {
@@ -821,6 +819,10 @@ Tab1.newToggle("Auto Farm Level", "Select Farm Type First", _G.Settings.Main["Au
 end)
 Tab1.newToggle("Fast Attack", "", _G.Settings.Configs["Fast Attack"], function(value)
 	_G.Settings.Configs["Fast Attack"] = value
+	SaveSettings()
+end)
+Tab1.newToggle("Bypass TP", "", _G.Settings.Configs["Bypass TP"], function(value)
+	_G.Settings.Configs["Bypass TP"] = value
 	SaveSettings()
 end)
 Tab1.newDropdown("Fast Attack Type", "", {"Fast","Normal","Slow"}, function(value)
