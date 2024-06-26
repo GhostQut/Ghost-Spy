@@ -4,7 +4,14 @@ local interval = 5
 
 local plr = game:GetService('Players').LocalPlayer
 local standtartUnits = {}
-local limitUnits = {}
+local limitUnits = {
+    ['Rare'] = 'Fire Swordsman',
+    ['Epic'] = 'Blood Demon',
+    ['Legendary'] = 'Cursed Archer',
+    ['Mythic'] = 'Muscular Sorcer',
+    ['Secret'] = 'Rift Sorcer'
+}
+
 
 function getSummon()
     for i,v in pairs(plr.PlayerGui.PAGES.SummonPage.ChancesFrame.UnitHolder:GetChildren()) do
@@ -48,12 +55,12 @@ while true do
                 ["fields"] = {
                     {
                         ["name"] = "Standard Banner",
-                        ["value"] = "🔵 Rare (27.5%): "..standtartUnits['Rare'].."\n🟣 Epic (15.25%): "..standtartUnits['Epic'].."\n🟡 Legendary (2%): "..standtartUnits['Legendary'].."\n⭐ Mythic (0.25%): "..standtartUnits['Mythic'].."\n Secret (0.001%): "..standtartUnits['Secret'],
+                        ["value"] = "🔵 Rare (27.5%): "..standtartUnits['Rare'].."\n🟣 Epic (15.25%): "..standtartUnits['Epic'].."\n🟡 Legendary (2%): "..standtartUnits['Legendary'].."\n⭐ Mythic (0.25%): "..standtartUnits['Mythic'].."\n "..":004aastar:".."Secret (0.001%): "..standtartUnits['Secret'],
                         ["inline"] = true
                     },
                     {
                         ["name"] = "Limited Banner",
-                        ["value"] = "🔵 Rare (27.5%):\n🟣 Epic (15.25%): \n🟡 Legendary (2%):\n⭐ Mythic (0.25%): \n:004aastar: Secret (0.005%):",
+                        ["value"] = "🔵 Rare (82.495%): "..limitUnits['Rare'].."\n🟣 Epic (15.25%): "..limitUnits['Epic'].."\n🟡 Legendary (2%): "..limitUnits['Legendary'].."\n⭐ Mythic (0.25%): "..limitUnits['Mythic'].."\n "..":004aastar: ".."Secret (0.001%): "..limitUnits['Secret'],
                         ["inline"] = true
                     },
                     {
