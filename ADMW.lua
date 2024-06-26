@@ -35,7 +35,8 @@ while true do
     -- Variables
     local currentTime = os.time(os.date("!*t"))
     local bupd = plr.PlayerGui.PAGES.SummonPage.Holder.ExpiresFrame.ExpireLabel.Text
-    
+
+    getSummon()
 
     local data = {
         ["embeds"] = {
@@ -95,5 +96,4 @@ while true do
     local abcdef = {Url = webhook, Body = newdata, Method = "PATCH", Headers = headers}
     request(abcdef)
     wait(interval)
-    getSummon()
 end
