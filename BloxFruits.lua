@@ -552,7 +552,7 @@ local function toTarget(...)
 	end
 
 	if _G.Settings.Configs["Bypass TP"] then
-		if Distance > 3000 and not AutoFarmMaterial and not _G.Settings.FightingStyle["Auto God Human"] and not _G.Settings.Raids["Auto Raids"] and not (game.Players.LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game.Players.LocalPlayer.Character:FindFirstChild("Special Microchip") or game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game.Players.LocalPlayer.Character:FindFirstChild("Hallow Essence") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chalice") or game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chalice")) and not (Name == "Fishman Commando [Lv. 400]" or Name == "Fishman Warrior [Lv. 375]") then
+		if Distance > 3000 and not _G.Settings.FightingStyle["Auto God Human"] and not _G.Settings.Raids["Auto Raids"] and not (game.Players.LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game.Players.LocalPlayer.Character:FindFirstChild("Special Microchip") or game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game.Players.LocalPlayer.Character:FindFirstChild("Hallow Essence") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chalice") or game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chalice")) and not (Name == "Fishman Commando [Lv. 400]" or Name == "Fishman Warrior [Lv. 375]") then
 			pcall(function()
 				tween:Cancel()
 				fkwarp = false
@@ -701,8 +701,8 @@ function UnEquipWeapon(Weapon)
 	end
 end
 
-spawn(function()
-	while wait() do 
+task.spawn(function()
+	while task.wait() do 
 		local MyLevel = game.Players.LocalPlayer.Data.Level.Value
 		local QuestC = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest
 		if _G.Settings.Main["Auto Farm Level"] then
@@ -728,7 +728,7 @@ spawn(function()
 										v.HumanoidRootPart.Transparency = 1
 										toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 5))
 									end
-								until not _G.AutoFarmLevelReal or not v.Parent or v.Humanoid.Health <= 0 or QuestC.Visible == false or not v:FindFirstChild("HumanoidRootPart")
+								until not _G.Settings.Main["Auto Farm Level"] or not v.Parent or v.Humanoid.Health <= 0 or QuestC.Visible == false or not v:FindFirstChild("HumanoidRootPart")
 							end
 						end
 					end
@@ -865,8 +865,8 @@ tab4.newToggle("Auto Skill: X", "Uses Skill X", _G.Settings.Configs["Skill X"], 
 	_G.Settings.Configs["Skill X"] = state
 end)
 
-tab4.newToggle("Auto Skill: F", "Uses Skill F", _G.Settings.Configs["Skill F"], function(state)
-	_G.Settings.Configs["Skill F"] = state
+tab4.newToggle("Auto Skill: V", "Uses Skill V", _G.Settings.Configs["Skill V"], function(state)
+	_G.Settings.Configs["Skill V"] = state
 end)
 
 spawn(function()
@@ -895,11 +895,11 @@ game:GetService("RunService").Stepped:Connect(function()
 			keyrelease(0x43)
 		end)
 	end
-	if _G.Settings.Configs["Skill F"] then
+	if _G.Settings.Configs["Skill V"] then
 		pcall(function()
-			keypress(0x46)
+			keypress(0x58)
 			wait(1)
-			keyrelease(0x46)
+			keyrelease(0x58)
 		end)
 	end
 	if _G.Settings.Configs["Skill Z"] then
@@ -912,7 +912,7 @@ game:GetService("RunService").Stepped:Connect(function()
 end)
 
 task.spawn(function()
-	while wait() do 
+	while task.wait() do 
 		if _G.Settings.Main["Auto Farm Level"] then
 			if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 				if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
