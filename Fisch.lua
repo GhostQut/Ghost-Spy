@@ -597,14 +597,14 @@ do
 		print("Auto Shake Mode:", selectedOption)
 	end)
 
-    mainTab.newSlider("AutoShake Delay", "Change the delay between every shake", 1, false, function(value)
+    Tabs.Main.newSlider("AutoShake Delay", "Change the delay between every shake", 1, false, function(value)
 		autoShakeDelay = value
 		print("AutoShake Delay set to:", value)
 	end)
 
 	autoShakeDelay = 0.5
     
-    mainTab.newToggle("Auto Fish", "Enable or disable Auto Fish", false, function(state)
+    Tabs.Main.newToggle("Auto Fish", "Enable or disable Auto Fish", false, function(state)
 		autoReel = state
 		AutoCast = state
 		if AutoCast then
@@ -629,7 +629,7 @@ do
 		end
 	end)
     
-    mainTab.newToggle("Freeze Position", "Freezes player position and rotation", false, function(state)
+    Tabs.Main.newToggle("Freeze Position", "Freezes player position and rotation", false, function(state)
 		AutoFreeze = state
 		if AutoFreeze then
 			rememberPosition()
@@ -637,28 +637,28 @@ do
 	end)
 	
 
-    mainTab.newToggle("Anti-AFK", "Prevents the player from being marked as AFK", false, function(state)
+    Tabs.Main.newToggle("Anti-AFK", "Prevents the player from being marked as AFK", false, function(state)
 		AntiAfk = state
 		AntiAfk2()
 	end)
 
-    mainTab.newSection("Additional")
+    Tabs.Main.newSection("Additional")
 
-    mainTab.newToggle("Auto Sell Fish", "Automatically sell fish", false, function(state)
+    Tabs.Main.newToggle("Auto Sell Fish", "Automatically sell fish", false, function(state)
 		AutoSell = state
 		AutoSellz()
 	end)
 
-    mainTab.newSlider("Selling All fish every ? seconds", "", 600, false, function(value)
+    Tabs.Main.newSlider("Selling All fish every ? seconds", "", 600, false, function(value)
 		AutoSellDelay = value
 		print("Auto Sell Delay set to:", value)
 	end)
 
-    mainTab.newButton("Sell one fish", "Need to hold fish", function()
+    Tabs.Main.newButton("Sell one fish", "Need to hold fish", function()
 		SellFishAndReturnOne()
 	end)
-	
-    mainTab.newButton("Sell All fish", "Selling all fish anywhere!", function()
+
+    Tabs.Main.newButton("Sell All fish", "Selling all fish anywhere!", function()
 		window:Dialog({
 			Title = "You sure want to sell all fish?",
 			Content = "",
