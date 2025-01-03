@@ -43,9 +43,6 @@ local DrRayLibrary = loadstring(game:HttpGet('https://raw.githubusercontent.com/
 
 local window = DrRayLibrary:Load("Fisch", "Default")
 
-local tab1 = DrRayLibrary.newTab("Main", "")
-local tab2 = DrRayLibrary.newTab("Misc", "")
-
 local Tabs = {
     Main = DrRayLibrary.newTab("Main", ""),
     Teleports = DrRayLibrary.newTab("Teleports", ""),
@@ -54,8 +51,6 @@ local Tabs = {
     Webhook = DrRayLibrary.newTab("Webhook", ""),
     Settings = DrRayLibrary.newTab("Settings", ""),
 }
-
-local Options = Fluent.Options
 
 local teleportSpots = {
     altar = CFrame.new(1296.320068359375, -808.5519409179688, -298.93817138671875),
@@ -597,639 +592,94 @@ function SellFishAndReturnOne()
 end
 
 do
-    local _25ms=Tabs.Home:AddButton({
-        Title = "Copy Discord Invite",
-        Description = "discord.gg/bKfnyAXrHT, join for more leaks",
-        Callback = function()
-            setclipboard("https://discord.gg/bKfnyAXrHT")
-        end
-    })
-    local section = Tabs.Home:AddSection("Change Log:")
-    Tabs.Home:AddParagraph({
-        Title = "Information",
-        Content = "[🟩] - Added\n[🟧] - Changed\n[🟥] - Removed\n[⭐] - Premium Feature"
-    })
+    Tabs.Main.newDropdown("Select Auto Shake Mode:", "Mouse - Make sure to hide UI and toggle chat off in order for Auto Shake to work!", {"Mouse", "Phantom"}, function(selectedOption)
+		ShakeMode = selectedOption
+		print("Auto Shake Mode:", selectedOption)
+	end)
 
-    Tabs.Home:AddParagraph({
-        Title = "v1.6 - Fixes!",
-        Content = "[⭐] - Zone Casting Fix\n[⭐] - Auto Shake No Delay fix speed\n[🟩] - Teleport to Midas Rod\n[🟧] - Better sell buttons\n[🟧] - Auto Shake Dropdown\n[🟧] - Auto Cast & Reel & Shake in one toggle now"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v1.5 - Meow!",
-        Content = "[⭐] - Zone Casting\n[🟩] - Player Move Speed\n[🟩] - Player Jump Power\n[🟩] - Fly\n[🟩] - Roblox Radio\n[🟩] - Auto Appraiser\n[🟧] - Better Freeze\n[🟧] - Auto Shake (mouse)\n[🟧] - Auto Cast & Reel (one button)"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v1.4 - Buttons!",
-        Content = "[🟩] - 4 buttons in teleport\n[🟩] - Button to enable fps cap"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v1.3 - FpS",
-        Content = "[🟩] - Fps Cap"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v1.2 - Fishing",
-        Content = "[⭐] - No Shake Delay all\n[🟩] - AntiAFK added\n[🟩] - Auto Bait\n[🟩] - Remove all flags (fps)\n[🟩] - Fish Area teleport\n[🟩] - Auto Cast more safest\n[🟧] - Better Freeze\n[🟧] - Shake Delay minimum 0.2\n[🟧] - Auto Shake v1 and v2 better"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v1.1 - Fixes",
-        Content = "[🟧] Phantom Clicks - fixed\n[🟧] Better Freeze\n[⭐] - No Shake Delay (Mouse Clicks)"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v1 - Meow",
-        Content = "[🟧] Auto Shake Speed 0.3-1\n[🟧] Webhook Loger fixed\n[🟩] Black Screen\n[🟩] White Screen\n[🟩] FpS Booster\n[⭐] No Shake Delay (Premium)"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.9 - Fixes",
-        Content = "[🟩] ChangeLog information\n[🟧] Auto Freeze fix\n[🟥] Auto Cast Chance (because bugs ~solara)\n[🟩] Auto Cast - Random Chance from 90 to 99"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.8 - Webhook & Fishing",
-        Content = "[🟩] Webhook fixed bugs\n[🟧] Fixed Auto Freeze\n[🟩] Auto Cast chance\n[🟩] Auto sell fish"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.7 - Webhook",
-        Content = "[🟩] Webhook URL\n[🟩] Webhook Delay messages\n[🟩] Webhook On/Off"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.6 - Items",
-        Content = "[🟧] Teleport Items - +2 rods"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.5 - Fixes",
-        Content = "[🟧] Bigger UI\n[🟩] Auto Shake V2\n[🟧] Auto Shake more information\n[🟩] Teleports Place - New Location\n[🟩] Teleport NPCs - Updated\n[🟩] Ui Toggle (Mobile)"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.4 - Fixes",
-        Content = "[🟩] Freeze Character\n[🟩] Auto Cast Fix Bugs (v0.3)"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.3 - Teleports",
-        Content = "[🟧] Fixed NPCs teleport\n[🟧] Fixed Item Grabber (🎃)\n[🟩] Teleport Fish Radar\n[🟩] Teleport Basic Diving Gear"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.2 - Bug Fixes",
-        Content = "[🟧] Auto Shake\n[🟩] Auto Shake Delay\n[🟧] Auto Reel\n[🟧] Auto Cast\n[🟩] Teleport Place\n[🟩] Teleport NPCs\n[🟩] Teleport Items\n[🟩] Item Graber (🎃)\n[🟩] Noclip\n[🟩] Infinity Oxygen"
-    })
-    Tabs.Home:AddParagraph({
-        Title = "v0.1 - Release",
-        Content = "[🟩] Auto Fish\n[🟩] Auto Sell All"
-    })
+    mainTab.newSlider("AutoShake Delay", "Change the delay between every shake", 1, false, function(value)
+		autoShakeDelay = value
+		print("AutoShake Delay set to:", value)
+	end)
 
-    local section = Tabs.Premium:AddSection("Fishing⭐")
-    local AutoShakeT3 = Tabs.Premium:AddToggle("MyAutoShake3", {Title = "No Shake Delay | Best", Default = false })
-    AutoShakeT3:OnChanged(function(Value)
-        if ProtectPremium == true then
-            autoShake3 = AutoShakeT3.Value
-        else
-            warn("No Premium")
-        end
-    end)
-    local DropdownZoneCast = Tabs.Premium:AddDropdown("DropdownZoneCast", {
-        Title = "Select zone to cast anywhere",
-        Values = {"FischFright24", "Isonade", "Bluefin Tuna Abundance", "", "Deep Ocean", "Desolate Deep", "Harvesters Spike", "Moosewood Docks", "Moosewood Ocean", "Moosewood Ocean Mythical", "Moosewood Pond", "Mushgrove Water", "Ocean", "Roslit Bay", "Roslit Bay Ocean", "Roslit Pond", "Roslit Pond Seaweed", "Scallop Ocean", "Snowcap Ocean", "Snowcap Pond", "Sunstone", "Terrapin Ocean", "The Arch", "Vertigo"},
-        Multi = false,
-    })
-    DropdownZoneCast:OnChanged(function(Value)
-        print("Dropdown changed:", Value)
-        selectedZoneCast = Value
-    end)
-    Tabs.Premium:AddParagraph({
-        Title = "Zone Helper",
-        Content = "First 3 - Event zones\nFischFright24 - Fright Pool"
-    })
+	autoShakeDelay = 0.5
     
-    local ToggleZoneCast1214 = Tabs.Premium:AddToggle("ToggleZoneCast1214", {Title = "Enable cast selected zone", Default = false })
-    ToggleZoneCast1214:OnChanged(function(Value)
-        AutoZoneCast = Value
-        if ProtectPremium == true then
-            if AutoZoneCast then
-                ZoneCasting()
-            end
-        else
-            print("No Premium")
-        end
-    end)
-
-    local section = Tabs.Main:AddSection("Fishing")
-
-    local DropdownShake = Tabs.Main:AddDropdown("DropdownShake", {
-        Title = "Select Auto Shake Mode:",
-        Description = "Mouse - Make sure to hide UI and toggle chat off in order for Auto Shake to work!",
-        Values = {"Mouse", "Phantom"},
-        Multi = false,
-        Default = 1,
-    })
-    DropdownShake:OnChanged(function(Value)
-        ShakeMode = Value
-        print("Auto Shake Mode:", Value)
-    end)   
-
-    local Slider = Tabs.Main:AddSlider("Slider", {
-        Title = "AutoShake Delay",
-        Description = "Change the delay between every shake",
-        Default = 2,
-        Min = 0.2,
-        Max = 1,
-        Rounding = 1,
-        Callback = function(Value)
-            autoShakeDelay = Value
-        end
-    })
-    Slider:OnChanged(function(Value)
-        autoShakeDelay = Value
-    end)
-    Slider:SetValue(0.5)
+    mainTab.newToggle("Auto Fish", "Enable or disable Auto Fish", false, function(state)
+		autoReel = state
+		AutoCast = state
+		if AutoCast then
+			Pidoras()
+		end
+		if ShakeMode == "Mouse" then
+			autoShake = state
+		elseif ShakeMode == "Phantom" then
+			autoShake2 = state
+		end
+		AutoFish = state
+		AutoFish5()
+		if AutoCast and LocalCharacter:FindFirstChildOfClass("Tool") ~= nil then
+			local Tool = LocalCharacter:FindFirstChildOfClass("Tool")
+			if Tool:FindFirstChild("events"):WaitForChild("cast") ~= nil then
+				local Random = math.random() * (99 - 90) + 90
+				local FRandom = string.format("%.4f", Random)
+				print(FRandom)
+				local Random2 = math.random(90, 99)
+				Tool.events.cast:FireServer(Random2)
+			end
+		end
+	end)
     
-    local autoReelCastShakeT = Tabs.Main:AddToggle("autoReelCastShakeT", {Title = "Auto Fish", Default = false })
-    autoReelCastShakeT:OnChanged(function(Value)
-        autoReel = Value
-        AutoCast = Value
-        if AutoCast then
-            Pidoras()
-        end
-        if ShakeMode == "Mouse" then
-            autoShake = Value
-        elseif ShakeMode == "Phantom" then
-            autoShake2 = Value
-        end
-        AutoFish = Value
-        AutoFish5()
-        if AutoCast == true and LocalCharacter:FindFirstChildOfClass("Tool") ~= nil then
-            local Tool = LocalCharacter:FindFirstChildOfClass("Tool")
-            if Tool:FindFirstChild("events"):WaitForChild("cast") ~= nil then
-                local Random = math.random() * (99 - 90) + 90
-                local FRandom = string.format("%.4f", Random)
-                print(FRandom)
-                local Random2 = math.random(90, 99)
-                Tool.events.cast:FireServer(Random2)
-            end
-        end
-    end)
-    
-    local AutoFreezeT = Tabs.Main:AddToggle("MyFreeze", {
-        Title = "Freeze Position",
-        Description = "Freezes player position and rotation",
-        Default = false
-    })
-    AutoFreezeT:OnChanged(function()
-        AutoFreeze = AutoFreezeT.Value
-        if AutoFreeze then
-            rememberPosition()
-        end
-    end)
+    mainTab.newToggle("Freeze Position", "Freezes player position and rotation", false, function(state)
+		AutoFreeze = state
+		if AutoFreeze then
+			rememberPosition()
+		end
+	end)
+	
 
-    local AntiAfk3 = Tabs.Main:AddToggle("AntiAfk3", {Title = "Anti-AFK", Description = "Prevents the player from being marked as AFK", Default = false })
-    AntiAfk3:OnChanged(function(Value)
-        AntiAfk = AntiAfk3.Value
-        AntiAfk2()
-    end)
+    mainTab.newToggle("Anti-AFK", "Prevents the player from being marked as AFK", false, function(state)
+		AntiAfk = state
+		AntiAfk2()
+	end)
 
-    local section = Tabs.Main:AddSection("Additional")
+    mainTab.newSection("Additional")
 
-    local AutoSellF = Tabs.Main:AddToggle("AutoSellF", {Title = "Auto Sell Fish", Default = false })
-    AutoSellF:OnChanged(function()
-        AutoSell = AutoSellF.Value
-        AutoSellz()
-    end)
+    mainTab.newToggle("Auto Sell Fish", "Automatically sell fish", false, function(state)
+		AutoSell = state
+		AutoSellz()
+	end)
 
-    local SliderSell = Tabs.Main:AddSlider("SliderSell", {
-        Title = "Selling All fish every ? seconds",
-        Description = "",
-        Default = 60,
-        Min = 1,
-        Max = 600,
-        Rounding = 1,
-        Callback = function(Value)
-            AutoSellDelay = Value
-        end
-    })
+    mainTab.newSlider("Selling All fish every ? seconds", "", 600, false, function(value)
+		AutoSellDelay = value
+		print("Auto Sell Delay set to:", value)
+	end)
 
-    Tabs.Main:AddButton({
-        Title = "Sell one fish",
-        Description = "Need to hold fish",
-        Callback = function()
-            SellFishAndReturnOne()
-        end
-    })
-    Tabs.Main:AddButton({
-        Title = "Sell All fishs",
-        Description = "Selling all fish anywhere!",
-        Callback = function()
-            Window:Dialog({
-                Title = "You sure want sell all fish?",
-                Content = "",
-                Buttons = {
-                    {
-                        Title = "Confirm",
-                        Callback = function()
-                            SellFishAndReturnAll()
-                            print("Fish Sold.")
-                        end
-                    },
-                    {
-                        Title = "Cancel",
-                        Callback = function()
-                            print("Pidr.")
-                        end
-                    }
-                }
-            })
-        end
-    })
-
-    local DropdownPlace = Tabs.Teleports:AddDropdown("DropdownPlace", {
-        Title = "Place teleport",
-        Values = {"altar", "arch", "birch", "brine", "deep", "deepshop", "enchant", "keepers", "mod_house", "moosewood", "mushgrove", "roslit", "snow", "snowcap", "spike", "statue", "sunstone", "swamp", "terrapin", "trident", "vertigo", "volcano", "wilson", "wilsons_rod"},
-        Multi = false,
-    })
-    DropdownPlace:OnChanged(function(Value)
-        if teleportSpots ~= nil and HumanoidRootPart ~= nil then
-            local teleportCFrame = teleportSpots[Value]
-            if teleportCFrame then
-                HumanoidRootPart.CFrame = teleportCFrame
-            else
-                print("1")
-            end
-        end
-    end)
-
-    local DropdownArea = Tabs.Teleports:AddDropdown("DropdownArea", {
-        Title = "Fish Area teleport",
-        Values = {"Roslit_Bay", "Ocean", "Snowcap_Pond", "Moosewood_Docks", "Deep_Ocean", "Vertigo", "Snowcap_Ocean", "Harvesters_Spike", "SunStone", "Roslit_Bay_Ocean", "Moosewood_Pond", "Terrapin_Ocean", "Isonade", "Moosewood_Ocean", "Roslit_Pond", "Moosewood_Ocean_Mythical", "Terrapin_Olm", "The_Arch", "Scallop_Ocean", "SunStone_Hidden", "Mushgrove_Stone", "Keepers_Altar", "Lava", "Roslit_Pond_Seaweed"},
-        Multi = false,
-    })
-    DropdownArea:OnChanged(function(Value)
-        if FishAreas ~= nil and HumanoidRootPart ~= nil then
-            if FishAreas[Value] and typeof(FishAreas[Value]) == "CFrame" then
-                HumanoidRootPart.CFrame = FishAreas[Value]
-            else
-                print("1")
-            end
-        else
-            print("1")
-        end
-    end)    
-
-    local DropdownNPC = Tabs.Teleports:AddDropdown("DropdownNPC", {
-        Title = "Teleport to Npc",
-        Values = {"Witch", "Quiet_Synph", "Pierre", "Phineas", "Paul", "Shipwright", "Angler", "Marc", "Lucas", "Latern_Keeper", "Inn_Keeper", "Roslit_Keeper", "FishingNpc_1", "FishingNpc_2", "FishingNpc_3", "Henry", "Daisy", "Appraiser", "Merchant", "Mod_Keeper", "Ashe", "Alfredrickus"},
-        Multi = false,
-    })
-    DropdownNPC:OnChanged(function(Value)
-        if racistPeople ~= nil and HumanoidRootPart ~= nil then
-            local npcPosition = racistPeople[Value]
-            if npcPosition then
-                if typeof(npcPosition) == "Vector3" then
-                    HumanoidRootPart.CFrame = CFrame.new(npcPosition)
-                elseif typeof(npcPosition) == "CFrame" then
-                    HumanoidRootPart.CFrame = npcPosition
-                else
-                    print("1")
-                end
-            end
-        else
-            print("No valid teleport spot found.")
-        end
-    end)
-    
-
-    local DropdownItems = Tabs.Teleports:AddDropdown("Dropdown3", {
-        Title = "Teleport to Items",
-        Values = {"Training_Rod", "Plastic_Rod", "Lucky_Rod", "Nocturnal_Rod", "Kings_Rod", "Flimsy_Rod", "Fast_Rod", "Carbon_Rod", "Long_Rod", "Mythical_Rod", "Midas_Rod", "Trident_Rod", "Basic_Diving_Gear", "Fish_Radar", "Enchated_Altar", "Bait_Crate", "Quality_Bait_Crate", "Crab_Cage", "GPS"},
-        Multi = false,
-    })
-    DropdownItems:OnChanged(function(Value)
-        if itemSpots ~= nil and HumanoidRootPart ~= nil then
-            local spot = itemSpots[Value]
-            
-            print("Value:", Value, "Spot:", spot, "IsCFrame:", typeof(spot) == "CFrame")
-            
-            if typeof(spot) == "CFrame" then
-                HumanoidRootPart.CFrame = spot
-            else
-                print("1")
-            end
-        end
-    end)
-    local section = Tabs.Misc:AddSection("Appraiser")
-    local ToggleAutoApprari = Tabs.Misc:AddToggle("ToggleAutoApprari", {Title = "Auto Appraiser", Description = "Need to hold fish and be in / near moosewood", Default = false })
-    ToggleAutoApprari:OnChanged(function()
-        AutoAppraiser = ToggleAutoApprari.Value
-        Appraise()
-    end)
-
-    local section = Tabs.Misc:AddSection("Halloween🎃")
-
-    local DropdownH = Tabs.Misc:AddDropdown("Dropdown4", {
-        Title = "Item Grabber",
-        Values = {'Gaint Mushroom', 'Spiders Eye', 'Strange Root', 'Candy Corn', 'Dark Art Skull'},
-        Multi = false,
-    })
-    DropdownH:OnChanged(function(Value)
-        if Value == nil then
-            return
-        end
-        if HumanoidRootPart ~= nil and ActiveFolder ~= nil then
-            local oldpos = HumanoidRootPart.CFrame
-            local EventItem = ActiveFolder:FindFirstChild(Value)
-
-            if EventItem ~= nil and EventItem:FindFirstChild("PickupPrompt") ~= nil then
-                HumanoidRootPart.CFrame = EventItem:FindFirstChildOfClass("MeshPart").CFrame + Vector3.new(3, 2, 0)
-                Noclip = true
-                task.wait(0.05)
-                HumanoidRootPart.Anchored = true
-                task.wait(0.5)
-                fireproximityprompt(EventItem.PickupPrompt)
-                task.wait(1)
-                if Toggles.Noclip.Value == false then
-                    Noclip = false
-                else
-                    Noclip = true
-                end
-                HumanoidRootPart.Anchored = false
-                HumanoidRootPart.CFrame = oldpos
-            else
-                Fluent:Notify({
-                    Title = "WARNING",
-                    Content = string.format('There is no "%s" in workspace', Value),
-                    Duration = 8
-                })                
-            end
-        end
-    end)
-
-    local section = Tabs.Misc:AddSection("Player")
-
-    local ToggleNoclip = Tabs.Misc:AddToggle("ToggleNoclip", {Title = "Noclip", Default = false })
-    ToggleNoclip:OnChanged(function()
-        Noclip = ToggleNoclip.Value
-    end)
-
-    local ToggleAntiDrown = Tabs.Misc:AddToggle("ToggleAntiDrown", {Title = "Infinity Oxygen", Default = false })
-    ToggleAntiDrown:OnChanged(function()
-        AntiDrown = ToggleAntiDrown.Value
-        if AntiDrown == true then
-            if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true then	
-                LocalCharacter.client.oxygen.Enabled = false	
-            end	
-            CharAddedAntiDrownCon = LocalPlayer.CharacterAdded:Connect(function()	
-                if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == true and AntiDrown == true then	
-                    LocalCharacter.client.oxygen.Enabled = false	
-                end	
-            end)
-        else	
-            if LocalCharacter ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen") ~= nil and LocalCharacter:FindFirstChild("client"):WaitForChild("oxygen").Enabled == false then	
-                LocalCharacter.client.oxygen.Enabled = true	
-            end	
-        end
-    end)
-    local section = Tabs.Misc:AddSection("Fps Services")
-
-    local Slider512 = Tabs.Misc:AddSlider("Slider512", {
-        Title = "FPS Cap",
-        Default = 90,
-        Min = 1,
-        Max = 240,
-        Rounding = 1,
-        Callback = function(Value)
-            FpsCap = Value
-            print(Value)
-        end
-    })
-    Slider512:OnChanged(function(Value)
-        FpsCap = Value
-        print(Value)
-    end)
-    Slider512:SetValue(90)
-
-    Tabs.Misc:AddButton({
-        Title = "Button to enable fps cap value",
-        Description = "🐟",
-        Callback = function()
-            setfpscap(FpsCap)
-        end
-    })
-
-    local BlackGui = Instance.new("ScreenGui")
-    BlackGui.Name = "BlackGui"
-    BlackGui.ResetOnSpawn = false
-    local blackFrame = Instance.new("Frame")
-    blackFrame.Name = "BlackFrame"
-    blackFrame.Size = UDim2.new(1, 0, 1, 0)
-    blackFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-    blackFrame.BackgroundTransparency = 1
-    blackFrame.Parent = BlackGui
-    BlackGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-    local WhiteGui = Instance.new("ScreenGui")
-    WhiteGui.Name = "WhiteGui"  -- Изменено здесь
-    WhiteGui.ResetOnSpawn = false
-    local whiteFrame = Instance.new("Frame") -- Изменено здесь
-    whiteFrame.Name = "WhiteFrame" -- Изменено здесь
-    whiteFrame.Size = UDim2.new(1, 0, 1, 0)
-    whiteFrame.BackgroundColor3 = Color3.new(1, 1, 1)  -- Цвет белого фрейма
-    whiteFrame.BackgroundTransparency = 1
-    whiteFrame.Parent = WhiteGui
-    WhiteGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-    local BlackGui5 = Tabs.Misc:AddToggle("BlackGui5", {Title = "Black Screen", Default = false })
-    BlackGui5:OnChanged(function()
-        local Black123 = BlackGui5.Value
-        if Black123 then
-            blackFrame.BackgroundTransparency = 0
-        else
-            blackFrame.BackgroundTransparency = 1
-        end
-    end)
-
-    local WhiteGui5 = Tabs.Misc:AddToggle("WhiteGui5", {Title = "White Screen", Default = false })
-    WhiteGui5:OnChanged(function()
-        local White123 = WhiteGui5.Value
-        if White123 then
-            whiteFrame.BackgroundTransparency = 0  -- Изменено здесь
-        else
-            whiteFrame.BackgroundTransparency = 1  -- Изменено здесь
-        end
-    end)
-
-    Tabs.Misc:AddButton({
-        Title = "Delete flags",
-        Callback = function()
-            local flags = workspace.active.flags
-            if flags then
-                flags:Destroy()
-            end
-        end
-    })
-    Tabs.Misc:AddButton({
-        Title = "Remove Textures",
-        Description = "Very sus button",
-        Callback = function()
-            Window:Dialog({
-                Title = "activate fps booster?",
-                Content = "Pro",
-                Buttons = {
-                    {
-                        Title = "Confirm",
-                        Callback = function()
-                            loadstring(game:HttpGet('https://raw.githubusercontent.com/ago106/ScriptsRoblox/refs/heads/main/FpS'))()
-                        end
-                    },
-                    {
-                        Title = "Cancel",
-                        Callback = function()
-                            print("Cancelled the dialog.")
-                        end
-                    }
-                }
-            })
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Radio UI",
-        Description = "Chill😎",
-        Callback = function()
-            loadstring(game:HttpGet('https://pastebin.com/raw/zv94NGMc'))()
-        end
-    })
-
-    local section = Tabs.Fun:AddSection("Player")
-
-    local ToggleWalkspeed = Tabs.Fun:AddToggle("Walk Speed", {Title = "Walk Speed", Default = false })
-    local defaultWalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-    
-    local Input = Tabs.Fun:AddInput("Speed", {
-        Title = "Speed",
-        Default = "16",
-        Placeholder = "Enter walk speed",
-        Numeric = true,
-        Finished = false,
-        Callback = function(Value)
-        end
-    })
-    
-    Input.OnChanged = function()
-        if ToggleWalkspeed:Get() then
-            local speedValue = Input.Value
-            if tonumber(speedValue) then
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(speedValue)
-            end
-        end
-    end
-    
-    ToggleWalkspeed:OnChanged(function(State)
-        if State then
-            local speedValue = Input.Value
-            if speedValue and tonumber(speedValue) then
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(speedValue)
-            else
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-            end
-        else
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = defaultWalkSpeed
-        end
-    end)
-    
-    local ToggleJumpPower = Tabs.Fun:AddToggle("Jump Power", {Title = "Jump Power", Default = false })
-    local defaultJumpPower = game.Players.LocalPlayer.Character.Humanoid.JumpPower
-    
-    local InputJump = Tabs.Fun:AddInput("Power", {
-        Title = "Power",
-        Default = "50",
-        Placeholder = "Enter jump power",
-        Numeric = true,
-        Finished = false,
-        Callback = function(Value)
-        end
-    })
-    
-    InputJump.OnChanged = function()
-        if ToggleJumpPower:Get() then
-            local jumpValue = InputJump.Value
-            if tonumber(jumpValue) then
-                game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(jumpValue)
-            end
-        end
-    end
-    
-    ToggleJumpPower:OnChanged(function(State)
-        if State then
-            local jumpValue = InputJump.Value
-            if jumpValue and tonumber(jumpValue) then
-                game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(jumpValue)
-            else
-                game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-            end
-        else
-            game.Players.LocalPlayer.Character.Humanoid.JumpPower = defaultJumpPower
-        end
-    end)
-
-    local section = Tabs.Webhook:AddSection("Webhook Stats Messages")
-    local InputWebhook = Tabs.Webhook:AddInput("InputWebhook", {
-        Title = "Webhook Url",
-        Default = "",
-        Placeholder = "URL",
-        Numeric = false,
-        Finished = false,
-        Callback = function(Value)
-            WebhookUrl = Value
-        end
-    })
-    InputWebhook:OnChanged(function()
-        print("Url Changed:", InputWebhook.Value)
-    end)
-    local SliderWebhook = Tabs.Webhook:AddSlider("SliderWebhook", {
-        Title = "Send Messages every ? seconds",
-        Description = "Prefer 60 seconds",
-        Default = 60,
-        Min = 1,
-        Max = 600,
-        Rounding = 1,
-        Callback = function(Value)
-            WebhookDelay = Value
-        end
-    })
-    SliderWebhook:OnChanged(function(Value)
-        print("Delay changed:", Value)
-    end)
-
-    local ToggleWebhook = Tabs.Webhook:AddToggle("ToggleWebhook", {Title = "Webhook On/Off", Default = false })
-    ToggleWebhook:OnChanged(function()
-        WebhookLog = ToggleWebhook.Value
-        WebhookManager()
-    end)
+    mainTab.newButton("Sell one fish", "Need to hold fish", function()
+		SellFishAndReturnOne()
+	end)
+	
+    mainTab.newButton("Sell All fish", "Selling all fish anywhere!", function()
+		window:Dialog({
+			Title = "You sure want to sell all fish?",
+			Content = "",
+			Buttons = {
+				{
+					Title = "Confirm",
+					Callback = function()
+						SellFishAndReturnAll()
+						print("Fish Sold.")
+					end
+				},
+				{
+					Title = "Cancel",
+					Callback = function()
+						print("Cancelled.")
+					end
+				}
+			}
+		})
+	end)
 end
-
--- Addons:
-SaveManager:SetLibrary(Fluent)
-InterfaceManager:SetLibrary(Fluent)
-
--- SaveManager:IgnoreThemeSettings()
-SaveManager:SetIgnoreIndexes({})
-
-InterfaceManager:SetFolder("SpaceHub")
-SaveManager:SetFolder("SpaceHub/Fisch")
-
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
-SaveManager:BuildConfigSection(Tabs.Settings)
-
-
-Window:SelectTab(1)
-
-Fluent:Notify({
-    Title = "Space Hub",
-    Content = "The script has been loaded.",
-    Duration = 8
-})
-Fluent:Notify({
-    Title = "Anti Afk - ON",
-    Content = "meow",
-    Duration = 30
-})
-
-SaveManager:LoadAutoloadConfig()
 
 local deviceType = game:GetService("UserInputService").TouchEnabled and "Mobile" or "PC"
 
@@ -1261,7 +711,7 @@ if deviceType == "Mobile" then
     end
 
     B.MouseButton1Click:Connect(function()
-        local spaceGui = game.CoreGui:FindFirstChild("ScreenGui") -- Replace with the actual name
+        local spaceGui = game.CoreGui:FindFirstChild("DrRay") -- Replace with the actual name
         if spaceGui then
             toggleVisibility(spaceGui)
         else
