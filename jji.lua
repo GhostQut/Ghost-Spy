@@ -123,13 +123,6 @@ if not getgenv().StingrayLoaded then
         "Demonic Robe",
         "Rotten Chains"
     }
-    local Bosses = {
-        "Finger Bearer",
-        "Ocean Curse",
-        "Soul Curse",
-        "Volcano Curse",
-        "Heian Imaginary Demon"
-    }
     local BossEnchance = {
         "Easy",
         "Medium",
@@ -138,20 +131,20 @@ if not getgenv().StingrayLoaded then
     }
     local Runners = {"Soul Curse"} -- Damn monkeys go AEEHOIIII, add to this table if you feel like a boss is running too much
 
-    local QueueSuccess = "False" 
+    local QueueSuccess = "False"
     if Toggle == "ON" then
-        local Queued, QueueFail = pcall(function() 
-            queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/Scripts/main/jji.lua"))()')() 
-        end) 
+        local Queued, QueueFail = pcall(function()
+            queue_on_teleport('loadstring(game:HttpGet("http://www.stingray-digital.online/script/jji"))()')()
+        end)
 
-        if not Queued then 
-            print("Put this script inside your auto-execution folder:", QueueFail) 
-            QueueSuccess = QueueFail 
-        else 
-            print("Queue success") 
-            QueueSuccess = "True" 
-        end 
-    end 
+        if not Queued then
+            print("Put this script inside your auto-execution folder:", QueueFail)
+            QueueSuccess = QueueFail
+        else
+            print("Queue success")
+            QueueSuccess = "True"
+        end
+    end
 
     -- Black screen check & Fail safe --
     task.spawn(function()
