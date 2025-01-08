@@ -129,7 +129,7 @@ if not getgenv().StingrayLoaded then
         "Hard",
         "Nightmare"
     }
-    local Runners = {"Soul Curse"} -- Damn monkeys go AEEHOIIII, add to this table if you feel like a boss is running too much
+    local Runners = {"Volcano Curse"} -- Damn monkeys go AEEHOIIII, add to this table if you feel like a boss is running too much
 
     local QueueSuccess = "False"
     if Toggle == "ON" then
