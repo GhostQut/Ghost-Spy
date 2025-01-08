@@ -134,7 +134,7 @@ if not getgenv().StingrayLoaded then
     local QueueSuccess = "False"
     if Toggle == "ON" then
         local Queued, QueueFail = pcall(function()
-            queue_on_teleport('loadstring(game:HttpGet("http://www.stingray-digital.online/script/jji"))()')()
+            queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostQut/Scripts/refs/heads/main/jji.lua"))()')()
         end)
 
         if not Queued then
