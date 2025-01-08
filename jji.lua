@@ -163,7 +163,7 @@ if not getgenv().StingrayLoaded then
             end
         end)
     elseif game.PlaceId == 119359147980471 then -- JJI Boss-Queue
-        local SelectedBoss = "Soul Curse"
+        local SelectedBoss = "Volcano Curse"
         pcall(function()
             if readfile("JJI_LastBoss.txt") then
                 SelectedBoss = readfile("JJI_LastBoss.txt")
